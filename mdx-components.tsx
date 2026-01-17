@@ -87,7 +87,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     a: ({ className, ...props }: React.ComponentProps<"a">) => (
       <a
         className={cn(
-          "font-medium underline underline-offset-4  dark:text-gray-300",
+          "font-medium underline underline-offset-4  dark:text-gray-300 font-light",
           className,
         )}
         {...props}
@@ -112,7 +112,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
       <ol className={cn("my-6 ml-6 list-decimal", className)} {...props} />
     ),
     li: ({ className, ...props }: React.ComponentProps<"li">) => (
-      <li className={cn("mt-2  dark:text-gray-300", className)} {...props} />
+      <li className={cn("mt-2  dark:text-gray-300 font-light", className)} {...props} />
     ),
     blockquote: ({
       className,

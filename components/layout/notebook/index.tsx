@@ -49,11 +49,7 @@ import { LogoSVG } from "logo";
 import { SidebarFooter } from "../sidebar-footer";
 import { CustomSidebarItem } from "../sidebar/custom-item";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
 
 export interface DocsLayoutProps extends BaseLayoutProps {
   tree: PageTree.Root;
@@ -348,33 +344,33 @@ function DocsNavbar({
         </div>
         <Tooltip>
           <TooltipTrigger asChild>
-        {searchToggle.enabled !== false &&
-          (searchToggle.components?.lg ? (
-            <div
-              className={cn(
-                "w-full my-auto max-md:hidden",
-                navMode === "top" ? "rounded-xl max-w-sm" : "max-w-[240px]",
-              )}
-            >
-              {searchToggle.components.lg}
-            </div>
-          ) : (
-            <LargeSearchToggle
-              hideIfDisabled
-              className={cn(
-                "w-full my-auto max-md:hidden",
-                navMode === "top"
-                  ? "rounded-xl max-w-sm ps-2.5"
-                  : "max-w-[180px]",
-              )}
-            />
-          ))}
+            {searchToggle.enabled !== false &&
+              (searchToggle.components?.lg ? (
+                <div
+                  className={cn(
+                    "w-full my-auto max-md:hidden",
+                    navMode === "top" ? "rounded-xl max-w-sm" : "max-w-[240px]",
+                  )}
+                >
+                  {searchToggle.components.lg}
+                </div>
+              ) : (
+                <LargeSearchToggle
+                  hideIfDisabled
+                  className={cn(
+                    "w-full my-auto max-md:hidden",
+                    navMode === "top"
+                      ? "rounded-xl max-w-sm ps-2.5"
+                      : "max-w-[180px]",
+                  )}
+                />
+              ))}
           </TooltipTrigger>
           <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
             <p>Search docs</p>
           </TooltipContent>
         </Tooltip>
-            <div className="flex flex-1 items-center justify-end md:gap-2">
+        <div className="flex flex-1 items-center justify-end md:gap-2">
           <div className="flex items-center gap-6 empty:hidden max-lg:hidden">
             {links
               .filter((item) => item.type !== "icon")
@@ -401,19 +397,19 @@ function DocsNavbar({
           <div className="flex items-center md:hidden">
             {searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? (
-                <SearchToggle hideIfDisabled className="p-2 cursor-pointer" />
+                <SearchToggle hideIfDisabled className="p-2 cursor-pointer dark:text-white text-black bg-transparent" />
               ))}
             {themeSwitch.enabled !== false &&
               (themeSwitch.component ?? (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span className="inline-flex">
-                <ThemeToggle
-                  mode={themeSwitch.mode ?? "light-dark"}
-                  className="border-0 p-2 text-dark dark:fill-white"
-                    />
-                  </span>
-                </TooltipTrigger>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex">
+                      <ThemeToggle
+                        mode={themeSwitch.mode ?? "light-dark"}
+                        className="border-0 p-2 text-dark dark:fill-white"
+                      />
+                    </span>
+                  </TooltipTrigger>
                   <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
                     <p>Toggle theme</p>
                   </TooltipContent>
@@ -424,7 +420,7 @@ function DocsNavbar({
                 buttonVariants({
                   color: "ghost",
                   size: "icon-sm",
-                  className: "p-2 -me-1.5",
+                  className: "p-2 -me-1.5  dark:text-white text-black bg-transparent",
                 }),
               )}
             >
@@ -435,11 +431,11 @@ function DocsNavbar({
             <Tooltip>
               <TooltipTrigger asChild>
                 <span className="inline-flex">
-                {themeSwitch.enabled !== false &&
-                  (themeSwitch.component ?? (
-                    <ThemeToggle mode={themeSwitch.mode ?? "light-dark"} />
-                  ))}
-                  </span>
+                  {themeSwitch.enabled !== false &&
+                    (themeSwitch.component ?? (
+                      <ThemeToggle mode={themeSwitch.mode ?? "light-dark"} />
+                    ))}
+                </span>
               </TooltipTrigger>
               <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
                 <p>Toggle theme</p>
