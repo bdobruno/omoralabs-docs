@@ -39,7 +39,7 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
         <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl dark:text-gray-300">
           {page.data.title}
         </h1>
-        <p className="text-muted-foreground text-[1.05rem] sm:text-base">
+        <p className="text-muted-foreground text-[1.05rem] sm:text-base font-light">
           {page.data.description}
         </p>
         <div className="py-8">
