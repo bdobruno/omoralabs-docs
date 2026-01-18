@@ -14,7 +14,7 @@ import { cn } from "../../../lib/cn";
 import { buttonVariants } from "../../ui/button";
 import { LanguageToggle } from "../language-toggle";
 import { LinkItem, type LinkItemType } from "../link-item";
-import { LargeSearchToggle, SearchToggle } from "../search-toggle";
+import { SearchToggle } from "../search-toggle";
 import {
   type BaseLayoutProps,
   renderTitleNav,
@@ -192,7 +192,6 @@ export function DocsLayout(props: DocsLayoutProps) {
             )}
           </Header>
           {viewport}
-          
         </SidebarContent>
         <SidebarDrawer {...rest}>
           <Header>
@@ -321,34 +320,6 @@ function DocsNavbar({
           })}
           {nav.children}
         </div>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            {searchToggle.enabled !== false &&
-              (searchToggle.components?.lg ? (
-                <div
-                  className={cn(
-                    "w-full my-auto max-md:hidden",
-                    navMode === "top" ? "rounded-xl max-w-sm" : "max-w-[240px]",
-                  )}
-                >
-                  {searchToggle.components.lg}
-                </div>
-              ) : (
-                <LargeSearchToggle
-                  hideIfDisabled
-                  className={cn(
-                    "w-full my-auto max-md:hidden",
-                    navMode === "top"
-                      ? "rounded-xl max-w-sm ps-2.5"
-                      : "max-w-[180px]",
-                  )}
-                />
-              ))}
-          </TooltipTrigger>
-          <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
-            <p>Search docs</p>
-          </TooltipContent>
-        </Tooltip>
         <div className="flex flex-1 items-center justify-end md:gap-2">
           <div className="flex items-center gap-6 empty:hidden max-lg:hidden">
             {links
@@ -430,24 +401,59 @@ function DocsNavbar({
           </div>
           <div className="flex items-center gap-2 max-md:hidden">
             <NavbarPageActions />
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span className="inline-flex">
-                  {themeSwitch.enabled !== false &&
-                    (themeSwitch.component ?? (
-                      <ThemeToggle mode={themeSwitch.mode ?? "light-dark"} />
-                    ))}
-                </span>
-              </TooltipTrigger>
-              <TooltipContent className="bg-transparent dark:text-gray-200 border text-black select-none">
-                <p>Toggle theme</p>
-              </TooltipContent>
-            </Tooltip>
+            {searchToggle.enabled !== false &&
+              (searchToggle.components?.sm ?? (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex">
+                      <SearchToggle
+                        hideIfDisabled
+                        className="p-2 cursor-pointer dark:text-white text-black bg-transparent"
+                      />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
+                    <p>Search docs</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            {themeSwitch.enabled !== false &&
+              (themeSwitch.component ?? (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex">
+                      <ThemeToggle
+                        mode={themeSwitch.mode ?? "light-dark"}
+                        className="border-0 p-2 text-dark dark:fill-white"
+                      />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-transparent dark:text-gray-200 border text-black select-none">
+                    <p>Toggle theme</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
             {i18n && (
               <LanguageToggle>
                 <Languages className="size-4.5 text-fd-muted-foreground" />
               </LanguageToggle>
             )}
+            {themeSwitch.enabled !== false &&
+              (themeSwitch.component ?? (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex">
+                      <ThemeToggle
+                        mode={themeSwitch.mode ?? "light-dark"}
+                        className="border-0 p-2 text-dark dark:fill-white"
+                      />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
+                    <p>Toggle theme</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
