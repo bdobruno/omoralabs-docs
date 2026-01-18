@@ -98,13 +98,13 @@ export function CombinedPageActions({
   }, [markdownUrl]);
 
   return (
-    <div className="inline-flex items-center rounded-lg border divide-x">
+    <div className="hidden [@media(min-width:850px)]:inline-flex items-center rounded-lg border divide-x">
       <Tooltip>
         <TooltipTrigger asChild>
           <button
             disabled={isLoading}
             className={cn(
-              "inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium hover:bg-fd-accent rounded-l-lg cursor-pointer transition-colors",
+              "inline-flex items-center gap-2 px-3 py-1.5 text-sm hover:bg-fd-accent rounded-l-lg cursor-pointer transition-colors",
             )}
             onClick={onClick}
           >
@@ -131,9 +131,7 @@ export function CombinedPageActions({
                 </motion.div>
               )}
             </AnimatePresence>
-            <span className="text-xs dark:text-gray-200 text-black">
-              Copy page
-            </span>
+            <span className=" dark:text-gray-200 text-black">Copy page</span>
           </button>
         </TooltipTrigger>
         <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">

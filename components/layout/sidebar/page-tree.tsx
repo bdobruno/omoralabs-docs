@@ -55,8 +55,9 @@ export function createPageTreeRenderer({
   /**
    * Render sidebar items from page tree
    */
-  return function SidebarPageTree(components: Partial<SidebarPageTreeComponents>) {
+  return function SidebarPageTree(props: Partial<SidebarPageTreeComponents> & { className?: string }) {
     const { root } = useTreeContext();
+    const { className, ...components } = props;
     const { Separator, Item, Folder = PageTreeFolder } = components;
 
     return useMemo(() => {
@@ -82,7 +83,7 @@ export function createPageTreeRenderer({
 
           if (Item) return <Item key={item.url} item={item} />;
           return (
-            <SidebarItem key={item.url} href={item.url} external={item.external} icon={item.icon} className="text-[13px]">
+            <SidebarItem key={item.url} href={item.url} external={item.external} icon={item.icon} className={className}>
               {item.name}
             </SidebarItem>
           );

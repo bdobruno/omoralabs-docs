@@ -46,6 +46,8 @@ import {
   SidebarViewport,
 } from "./sidebar";
 
+import { HiMenuAlt4 } from "react-icons/hi";
+
 import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
 
 export interface DocsLayoutProps extends BaseLayoutProps {
@@ -132,7 +134,7 @@ export function DocsLayout(props: DocsLayoutProps) {
         : ({ className, ...props }: ComponentProps<"div">) => (
             <div
               className={cn(
-                "flex flex-col gap-3 p-4 pb-2 empty:hidden border-b",
+                "flex flex-col gap-3 p-4 pb-2 empty:hidden",
                 className,
               )}
               {...props}
@@ -147,7 +149,7 @@ export function DocsLayout(props: DocsLayoutProps) {
         : ({ className, ...props }: ComponentProps<"div">) => (
             <div
               className={cn(
-                "flex flex-col text-fd-muted-foreground items-center border-t p-4",
+                "flex flex-col text-fd-muted-foreground items-center p-4",
                 iconLinks.length > 0 && "max-lg:flex",
                 className,
               )}
@@ -170,6 +172,22 @@ export function DocsLayout(props: DocsLayoutProps) {
           ))}
 
         <SidebarPageTree {...components} />
+      </SidebarViewport>
+    );
+
+    const MobileViewport = (
+      <SidebarViewport contentClassName="p-8" showGradients={false}>
+        {links
+          .filter((item) => item.type !== "icon")
+          .map((item, i, arr) => (
+            <SidebarLinkItem
+              key={i}
+              item={item}
+              className={cn("lg:hidden", i === arr.length - 1 && "mb-4")}
+            />
+          ))}
+
+        <SidebarPageTree {...components} className="text-xl" />
       </SidebarViewport>
     );
 
@@ -200,7 +218,8 @@ export function DocsLayout(props: DocsLayoutProps) {
                 buttonVariants({
                   size: "icon-sm",
                   color: "ghost",
-                  className: "ms-auto text-fd-muted-foreground",
+                  className:
+                    "ms-auto dark:text-gray-200 text-dark bg-transparent border dark:border-gray-700",
                 }),
               )}
             >
@@ -208,7 +227,7 @@ export function DocsLayout(props: DocsLayoutProps) {
             </SidebarTrigger>
             {tabs.length > 0 && <SidebarTabsDropdown options={tabs} />}
           </Header>
-          {viewport}
+          {MobileViewport}
           <Footer
             className={cn(
               "hidden flex-row items-center justify-end",
@@ -289,7 +308,7 @@ function DocsNavbar({
     >
       <div
         data-header-body=""
-        className="flex border-b px-4 gap-2 h-14 md:px-6 bg-background"
+        className="flex px-4 gap-2 h-14 md:px-6 bg-background"
       >
         <div
           className={cn(
@@ -345,59 +364,38 @@ function DocsNavbar({
             ))}
 
           <div className="flex items-center md:hidden">
+            <span className="hidden md:hidden sm:flex">
+              <SidebarTrigger>
+                <div className="p-2 cursor-pointer dark:text-white text-black bg-transparent">
+                  <HiMenuAlt4 />
+                </div>
+              </SidebarTrigger>
+            </span>
             {searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex">
-                      <SearchToggle
-                        hideIfDisabled
-                        className="p-2 cursor-pointer dark:text-white text-black bg-transparent"
-                      />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
-                    <p>Search docs</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            {themeSwitch.enabled !== false &&
-              (themeSwitch.component ?? (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex">
-                      <ThemeToggle
-                        mode={themeSwitch.mode ?? "light-dark"}
-                        className="border-0 p-2 text-dark dark:fill-white"
-                      />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
-                    <p>Toggle theme</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            <Tooltip>
-              <TooltipTrigger asChild>
                 <span className="inline-flex">
-                  <SidebarTrigger
-                    className={cn(
-                      buttonVariants({
-                        color: "ghost",
-                        size: "icon-sm",
-                        className:
-                          "p-2 -me-1.5  dark:text-white text-black bg-transparent",
-                      }),
-                    )}
-                  >
-                    <SidebarIcon />
-                  </SidebarTrigger>
+                  <SearchToggle
+                    hideIfDisabled
+                    className="p-2 cursor-pointer dark:text-white text-black bg-transparent"
+                  />
                 </span>
-              </TooltipTrigger>
-              <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
-                <p>Open menu</p>
-              </TooltipContent>
-            </Tooltip>
+              ))}
+            {themeSwitch.enabled !== false && (
+              <span className="inline-flex">
+                <ThemeToggle
+                  mode={themeSwitch.mode ?? "light-dark"}
+                  className="border-0 p-2 text-dark dark:fill-white"
+                />
+              </span>
+            )}
+            <Link
+              href={"https://github.com/omoralabs/omoralabs-docs"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="size-8 rounded-md p-2 dark:text-white hover:bg-fd-accent transition-opacity inline-flex items-center justify-center"
+            >
+              <GitHubLogo />
+            </Link>
           </div>
           <div className="flex items-center gap-2 max-md:hidden">
             <NavbarPageActions />
@@ -417,62 +415,36 @@ function DocsNavbar({
                   </TooltipContent>
                 </Tooltip>
               ))}
-            {themeSwitch.enabled !== false &&
-              (themeSwitch.component ?? (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex">
-                      <ThemeToggle
-                        mode={themeSwitch.mode ?? "light-dark"}
-                        className="border-0 p-2 text-dark dark:fill-white"
-                      />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent className="bg-transparent dark:text-gray-200 border text-black select-none">
-                    <p>Toggle theme</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
+
+            {themeSwitch.enabled !== false && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="inline-flex">
+                    <ThemeToggle
+                      mode={themeSwitch.mode ?? "light-dark"}
+                      className="border-0 p-2 text-dark dark:fill-white"
+                    />
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent className="bg-transparent dark:text-gray-200 border text-black select-none">
+                  <p>Toggle theme</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
             {i18n && (
               <LanguageToggle>
                 <Languages className="size-4.5 text-fd-muted-foreground" />
               </LanguageToggle>
             )}
-            {themeSwitch.enabled !== false &&
-              (themeSwitch.component ?? (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex">
-                      <ThemeToggle
-                        mode={themeSwitch.mode ?? "light-dark"}
-                        className="border-0 p-2 text-dark dark:fill-white"
-                      />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
-                    <p>Toggle theme</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href={"https://github.com/omoralabs/omora-labs-docs"}
+                  href={"https://github.com/omoralabs/omoralabs-docs"}
                   target="_blank"
-                  rel="noopener noreferrer"               
-                  className=" hover:bg-fd-accent transition-opacity"
+                  rel="noopener noreferrer"
+                  className="size-8 rounded-md p-2 dark:text-white hover:bg-fd-accent transition-opacity inline-flex items-center justify-center"
                 >
-                  <span>
-                    <button
-                      className={cn(
-                        "size-8 rounded-md p-2 dark:text-white hover:bg-fd-accent cursor-pointer",
-                      )}
-                      aria-label="Toggle Theme"
-                      data-theme-toggle=""
-                    >
-                      <GitHubLogo />
-                    </button>
-                  </span>
+                  <GitHubLogo />
                 </Link>
               </TooltipTrigger>
               <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">

@@ -1,6 +1,5 @@
 import { DocsPage } from "components/layout/notebook/page";
 import { PageDataSetter } from "components/layout/page-data-setter";
-
 import { NavigationBottom } from "components/nav-bottom";
 import { findNeighbour } from "fumadocs-core/page-tree";
 import { DocsBody } from "fumadocs-ui/layouts/docs/page";
@@ -8,6 +7,7 @@ import { createRelativeLink } from "fumadocs-ui/mdx";
 import { getPageImage, source } from "lib/source";
 import { getMDXComponents } from "mdx-components";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function Page(props: PageProps<"/[[...slug]]">) {
@@ -19,7 +19,7 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
   const MDX = page.data.body;
   const gitConfig = {
     user: "omoralabs",
-    repo: "omora-labs-docs",
+    repo: "omoralabs-docs",
     branch: "main",
   };
 
@@ -36,10 +36,10 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
         tableOfContent={{ style: "clerk" }}
         tableOfContentPopover={{ enabled: false }}
       >
-        <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl dark:text-gray-300">
+        <h1 className="scroll-m-20 text-3xl font-semibold tracking-tight sm:text-4xl dark:text-gray-300">
           {page.data.title}
         </h1>
-        <p className="text-muted-foreground text-[1.05rem] sm:text-base font-light">
+        <p className="text-muted-foreground text-base sm:text-[1.05rem] font-light">
           {page.data.description}
         </p>
         <div className="py-8">
@@ -52,6 +52,32 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
           </DocsBody>
         </div>
         <NavigationBottom neighbours={neighbours} />
+        <footer className="text-center text-muted-foreground text-xs font-light sm:text-sm">
+          <p>
+            Built by{" "}
+            <Link
+              href="https://www.linkedin.com/in/bdobruno/"
+              className="underline underline-offset-4 hover:text-foreground"
+            >
+              bdobruno
+            </Link>{" "}
+            at{" "}
+            <Link
+              href="https://www.omoralabs.com"
+              className="underline underline-offset-4 hover:text-foreground"
+            >
+              Omora Labs
+            </Link>
+            . The source code is available on{" "}
+            <Link
+              href="https://github.com/omoralabs/omoralabs-docs"
+              className="underline underline-offset-4 hover:text-foreground"
+            >
+              GitHub
+            </Link>
+            .
+          </p>
+        </footer>
       </DocsPage>
     </>
   );
