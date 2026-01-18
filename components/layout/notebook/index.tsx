@@ -459,7 +459,7 @@ function DocsNavbar({
                 <Link
                   href={"https://github.com/omoralabs/omora-labs-docs"}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer"               
                   className=" hover:bg-fd-accent transition-opacity"
                 >
                   <span>

@@ -216,13 +216,13 @@ export function SidebarDrawerContent({ className, children, ...props }: Componen
 
 export function SidebarViewport(props: ScrollAreaProps) {  
   return (
-    <ScrollArea {...props} className={cn('min-h-0 flex-1 relative', props.className)}>
+    <ScrollArea showScrollbar={false} {...props} className={cn('min-h-0 flex-1 relative', props.className)}>
       <ScrollViewport
-        className="p-4 pb-12 pt-10 overscroll-contain">
+        className="p-12 pb-12 pt-10 overscroll-contain">
         {props.children}
       </ScrollViewport>
       <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-fd-background to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-fd-background to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-fd-background to-transparent pointer-events-none" />
     </ScrollArea>
   );
 }
