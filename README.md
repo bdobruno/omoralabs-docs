@@ -4,4 +4,4 @@
 
 # omoralabs/bi
 
-Official Omora Labs BI Documentation. Building blocks for modern finance and business intelligence.
+A set of reusable components and blocks for composable finance.

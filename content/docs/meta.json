@@ -1,22 +1,27 @@
 {
   "root": true,
   "pages": [
-    "---Getting Started---",
-    "getting-started/start-guide",
-    "getting-started/methodology",
-    "getting-started/who-is-it",
+    "---Sections---",
+    "index",
+    "components/index",
+    "blocks/index",
+    "---Components---",
+    "components/metrics/",
+    "components/time-windows/",
+    "components/dimensions/",
+    "---Blocks---",
+    "blocks/assets",
+    "blocks/reporting/",
+    "---Templates---",
+    "templates/budget-vs-actuals",
+    "templates/exrates-fetching",
+    "templates/weekly-cash-balances",
     "---Stack---",
     "stack/compute-and-analytics",
     "stack/data-warehouses",
     "stack/orchestration",
     "stack/sql-models",
     "stack/reporting-and-bi",
-    "stack/ai-layer",
-    "---Principles---",
-    "principles/finance-as-software",
-    "principles/composability",
-    "principles/single-source-of-truth",
-    "principles/no-vendor-lock-in",
-    "principles/ownership-and-control"
+    "stack/ai-layer"
   ]
 }
