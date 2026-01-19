@@ -1,0 +1,15 @@
+---
+title: GL Accounts
+description: A chart of accounts dimension, defining financial account hierarchy used by reporting and metrics.
+---
+
+export const glData = [
+    { id: 1, name: "Revenue", parent_gl: null },
+    { id: 2, name: "Subscriptions", parent_gl: 1 },
+    { id: 3, name: "Services", parent_gl: 1 },
+    { id: 4, name: "Cost of Goods", parent_gl: null }
+  ]
+  
+<RenderTable data={glData} caption="Gl Accounts" />
+
+

@@ -1,4 +1,4 @@
 {
   "title": "Dimensions",
-  "pages": ["account", "entity", "cost-center", "business-unit"]
+  "pages": ["gl-accounts", "entity", "cost-center", "business-unit"]
 }

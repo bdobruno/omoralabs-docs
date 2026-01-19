@@ -448,7 +448,7 @@ function DocsNavbar({
                 </Link>
               </TooltipTrigger>
               <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
-                <p>GitHub Repo</p>
+                <p>GitHub repo</p>
               </TooltipContent>
             </Tooltip>
 

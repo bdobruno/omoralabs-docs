@@ -1,9 +1,11 @@
+import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 import * as TabsComponents from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { cn } from "lib/utils";
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 
+import RenderTable from "components/render-table";
 import { Banner } from "fumadocs-ui/components/banner";
 import {
   ArrowLeftRight,
@@ -112,7 +114,10 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
       <ol className={cn("my-6 ml-6 list-decimal", className)} {...props} />
     ),
     li: ({ className, ...props }: React.ComponentProps<"li">) => (
-      <li className={cn("mt-2  dark:text-gray-300 font-light", className)} {...props} />
+      <li
+        className={cn("mt-2  dark:text-gray-300 font-light", className)}
+        {...props}
+      />
     ),
     blockquote: ({
       className,
@@ -129,51 +134,14 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     hr: ({ ...props }: React.ComponentProps<"hr">) => (
       <hr className="my-4 md:my-8" {...props} />
     ),
-    table: ({ className, ...props }: React.ComponentProps<"table">) => (
-      <div className="no-scrollbar my-6 w-full overflow-y-auto rounded-lg border">
-        <table
-          className={cn(
-            "relative w-full overflow-hidden border-none text-sm [&_tbody_tr:last-child]:border-b-0",
-            className,
-          )}
-          {...props}
-        />
-      </div>
-    ),
-    tr: ({ className, ...props }: React.ComponentProps<"tr">) => (
-      <tr className={cn("m-0 border-b", className)} {...props} />
-    ),
-    th: ({ className, ...props }: React.ComponentProps<"th">) => (
-      <th
-        className={cn(
-          "px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
-          className,
-        )}
+    pre: ({ ref: _ref, ...props }) => (
+      <CodeBlock
         {...props}
-      />
+        className=" bg-zinc-700/30 relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] break-words outline-none"
+      >
+        <Pre>{props.children}</Pre>
+      </CodeBlock>
     ),
-    td: ({ className, ...props }: React.ComponentProps<"td">) => (
-      <td
-        className={cn(
-          "px-4 py-2 text-left whitespace-nowrap [&[align=center]]:text-center [&[align=right]]:text-right",
-          className,
-        )}
-        {...props}
-      />
-    ),
-    pre: ({ className, children, ...props }: React.ComponentProps<"pre">) => {
-      return (
-        <pre
-          className={cn(
-            "no-scrollbar min-w-0 overflow-x-auto px-4 py-3.5 outline-none has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0",
-            className,
-          )}
-          {...props}
-        >
-          {children}
-        </pre>
-      );
-    },
     figure: ({ className, ...props }: React.ComponentProps<"figure">) => {
       return <figure className={cn(className)} {...props} />;
     },
@@ -205,6 +173,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     GraduationCap,
     Layers,
     Box,
+    RenderTable,
+    CodeBlock,
     Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
       <Link
         className={cn(
