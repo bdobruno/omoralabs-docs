@@ -2,9 +2,7 @@
 
 import { LogoSVG } from "logo";
 import Link from "next/link";
-import { HiMenuAlt4 } from "react-icons/hi";
-
-import { SidebarTrigger } from "components/layout/notebook/sidebar";
+import { DrawerMenu } from "components/drawer-menu"
 
 const navItems = [
   { name: "Docs", href: "/" },
@@ -17,7 +15,7 @@ const navItems = [
 export function NavTitle() {
   return (
     <>
-    <div className="hidden sm:flex items-center md:px-10 px-4 ">
+    <div className="hidden [@media(min-width:850px)]:flex items-center md:px-10 px-4 ">
       <a
         href="https://omoralabs.com"
         className="cursor-pointer mr-2"
@@ -36,17 +34,10 @@ export function NavTitle() {
           </Link>
         ))}
     </div>
-      <div className="flex sm:hidden ml-4">
-        <span className="inline-flex">
-          <SidebarTrigger
-          >
-            <div className="flex items-center justify-center gap-2 text-large">
-            <HiMenuAlt4 />
-              Menu
-            </div>
-          </SidebarTrigger>
-        </span>
-      </div>
+      <DrawerMenu
+        showText
+        className="[@media(min-width:850px)]:hidden"
+      />
     </>
   );
 }

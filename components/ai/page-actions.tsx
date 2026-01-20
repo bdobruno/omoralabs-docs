@@ -69,7 +69,7 @@ export function CombinedPageActions({
   }, [markdownUrl]);
 
   return (
-    <div className="hidden [@media(min-width:850px)]:inline-flex items-center rounded-lg border divide-x">
+    <div className="hidden [@media(min-width:600px)]:inline-flex items-center rounded-lg border divide-x">
       <CopyButton
         spanText="Copy page"
         copyElement={markdownContent}

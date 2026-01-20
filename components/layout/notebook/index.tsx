@@ -46,8 +46,7 @@ import {
   SidebarViewport,
 } from "./sidebar";
 
-import { HiMenuAlt4 } from "react-icons/hi";
-
+import { DrawerMenu } from "components/drawer-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
 
 export interface DocsLayoutProps extends BaseLayoutProps {
@@ -362,15 +361,7 @@ function DocsNavbar({
                 {item.icon}
               </LinkItem>
             ))}
-
           <div className="flex items-center md:hidden">
-            <span className="hidden md:hidden sm:flex">
-              <SidebarTrigger>
-                <div className="p-2 cursor-pointer dark:text-white text-black bg-transparent">
-                  <HiMenuAlt4 />
-                </div>
-              </SidebarTrigger>
-            </span>
             {searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? (
                 <span className="inline-flex">
