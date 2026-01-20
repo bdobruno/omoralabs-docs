@@ -30,20 +30,19 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
   return (
     <>
       <PageDataSetter markdownUrl={markdownUrl} githubUrl={githubUrl} />
-
       <DocsPage
         toc={page.data.toc}
         full={page.data.full}
-        tableOfContent={{ style: "clerk" }}
+        tableOfContent={{ style: "clerk", enabled: true }}
         tableOfContentPopover={{ enabled: false }}
       >
-        <h1 className="scroll-m-20 text-3xl font-semibold tracking-tight sm:text-4xl dark:text-gray-300">
+        <h1 className="scroll-m-20 text-3xl font-semibold tracking-tight sm:text-4xl dark:text-gray-300 w-full">
           {page.data.title}
         </h1>
         <p className="text-muted-foreground text-base sm:text-[1.05rem] font-light">
           {page.data.description}
         </p>
-        <div className="py-8">
+        <div className="py-8 w-full">
           <DocsBody>
             <MDX
               components={getMDXComponents({

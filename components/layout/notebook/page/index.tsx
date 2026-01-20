@@ -137,8 +137,8 @@ export function DocsPage({
         id="nd-page"
         data-full={full}
         className={cn(
-          'flex flex-col [grid-area:main] pt-14 pb-6 gap-4 px-8 mx-auto *:max-w-[calc(100vw-4rem)] sm:*:max-w-xl md:*:max-w-2xl xl:*:max-w-4xl 2xl:*:max-w-5xl',
-          full && '*:max-w-[1285px]',
+          'flex flex-col [grid-area:main] pt-14 pb-6 gap-4 w-full',
+          '*:max-w-full *:px-8 *:mx-auto sm:*:max-w-xl md:*:max-w-2xl lg:*:max-w-3xl xl:*:max-w-4xl',
           className,
         )}
       >
@@ -150,7 +150,7 @@ export function DocsPage({
         (tocReplace ?? (
           <div
             id="nd-toc"
-            className="sticky items-center top-(--fd-docs-row-3) [grid-area:toc] h-[calc(var(--fd-docs-height)-var(--fd-docs-row-3))] flex flex-col w-(--fd-toc-width) pt-12 pe-4 pb-2 xl:layout:[--fd-toc-width:160px] [@media(max-width:1280px)]:hidden lg:-ms-8 xl:-ms-20 2xl:-ms-40"
+            className="sticky items-start top-(--fd-docs-row-3) [grid-area:toc] h-[calc(var(--fd-docs-height)-var(--fd-docs-row-3))] flex flex-col w-(--fd-toc-width) pt-12 ps-8 pe-4 pb-2 xl:layout:[--fd-toc-width:260px] [@media(max-width:1280px)]:hidden"
           >
             {tocOptions.header}
             <h3

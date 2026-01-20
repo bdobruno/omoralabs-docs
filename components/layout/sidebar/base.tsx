@@ -256,7 +256,7 @@ export function SidebarViewport(
       {showGradients && (
         <>
           <div className="absolute top-0 left-0 right-0 h-12 bg-linear-to-b from-fd-background to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 h-65 bg-linear-to-t from-fd-background to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-45 bg-linear-to-t from-fd-background to-transparent pointer-events-none" />
         </>
       )}
     </ScrollArea>

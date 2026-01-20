@@ -99,7 +99,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     p: ({ className, ...props }: React.ComponentProps<"p">) => (
       <p
         className={cn(
-          "leading-relaxed [&:not(:first-child)]:mt-6 dark:text-gray-300 font-light",
+          "leading-relaxed [&:not(:first-child)]:mt-6 dark:text-gray-300 font-light break-words",
           className,
         )}
         {...props}
