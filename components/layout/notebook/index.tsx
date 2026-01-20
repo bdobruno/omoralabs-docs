@@ -46,7 +46,7 @@ import {
   SidebarViewport,
 } from "./sidebar";
 
-import { DrawerMenu } from "components/drawer-menu";
+
 import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
 
 export interface DocsLayoutProps extends BaseLayoutProps {
@@ -314,7 +314,7 @@ function DocsNavbar({
             "items-center",
             navMode === "top" && "flex flex-1",
             navMode === "auto" &&
-              "hidden has-data-[collapsed=true]:md:flex max-md:flex",
+              "hidden has-data-[collapsed=true]:md:flex max-lg:flex",
           )}
         >
           {sidebarCollapsible && navMode === "auto" && (

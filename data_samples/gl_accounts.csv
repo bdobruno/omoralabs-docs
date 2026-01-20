@@ -1,7 +1,0 @@
-ID,Name,Parent GL
-1000,revenue,
-1010,subscriptions,1000
-2000,cogs,
-2010,payment_fees,2000
-4000,commercial_costs,
-4010,sales,4000

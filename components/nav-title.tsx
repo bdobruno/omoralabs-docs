@@ -15,7 +15,8 @@ const navItems = [
 export function NavTitle() {
   return (
     <>
-    <div className="hidden [@media(min-width:850px)]:flex items-center md:px-10 px-4 ">
+      <div>
+    <div className="hidden lg:flex items-center md:px-10 px-4 ">
       <a
         href="https://omoralabs.com"
         className="cursor-pointer mr-2"
@@ -33,10 +34,11 @@ export function NavTitle() {
             {item.name}
           </Link>
         ))}
-    </div>
+        </div>
+      </div>
       <DrawerMenu
         showText
-        className="[@media(min-width:850px)]:hidden"
+        className="flex lg:!hidden"
       />
     </>
   );

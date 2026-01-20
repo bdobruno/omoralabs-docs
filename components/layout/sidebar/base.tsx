@@ -85,7 +85,7 @@ export function SidebarProvider({
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
-  const mode: Mode = useMediaQuery("(width < 768px)") ? "drawer" : "full";
+  const mode: Mode = useMediaQuery("(width < 1024px)") ? "drawer" : "full";
 
   useOnChange(pathname, () => {
     if (closeOnRedirect.current) {
