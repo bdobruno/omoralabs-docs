@@ -65,7 +65,7 @@ export function PageTOCPopover({ className, children, ...rest }: ComponentProps<
         onOpenChange={setOpen}
         data-toc-popover=""
         className={cn(
-          'sticky top-(--fd-docs-row-2) z-10 [grid-area:toc-popover] h-(--fd-toc-popover-height) xl:hidden max-xl:layout:[--fd-toc-popover-height:--spacing(10)]',
+          'sticky top-(--fd-docs-row-2) z-10 [grid-area:toc-popover] h-(--fd-toc-popover-height) max-xl:layout:[--fd-toc-popover-height:--spacing(10)]',
           className,
         )}
         {...rest}

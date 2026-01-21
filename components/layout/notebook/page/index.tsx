@@ -150,7 +150,7 @@ export function DocsPage({
         (tocReplace ?? (
           <div
             id="nd-toc"
-            className="sticky items-start top-(--fd-docs-row-3) [grid-area:toc] h-[calc(var(--fd-docs-height)-var(--fd-docs-row-3))] flex flex-col w-(--fd-toc-width) pt-12 ps-8 pe-4 pb-2 xl:layout:[--fd-toc-width:260px] [@media(max-width:1280px)]:hidden"
+            className="sticky items-start top-(--fd-docs-row-3) [grid-area:toc] h-[calc(var(--fd-docs-height)-var(--fd-docs-row-3))] flex flex-col w-(--fd-toc-width) pt-12 ps-8 pe-4 pb-2 xl:layout:[--fd-toc-width:260px] "
           >
             {tocOptions.header}
             <h3

@@ -19,6 +19,8 @@ import {
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 
+import { File, Files, Folder } from "fumadocs-ui/components/files";
+
 import ReadComponents from "components/read-components";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
@@ -181,6 +183,9 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     CodeBlock,
     ReadComponents,
     GLAccountsSelector,
+    File,
+    Folder,
+    Files,
     Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
       <Link
         className={cn(

@@ -1,5 +1,5 @@
 import { DocsPage } from "components/layout/notebook/page";
-import { OmoraLabsFullLogo } from "logo";
+import { OmoraLabsFullLogo } from "components/logo";
 import Link from "next/link";
 
 export default function NotFound() {

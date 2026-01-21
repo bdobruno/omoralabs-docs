@@ -9,12 +9,12 @@ export const caption_segmented = "A list of GL Accounts segmented with business 
 <GLAccountsSelector
   segmented={
   <RenderTable csvPath="registry/samples/gl_accounts/segmented.csv" caption={caption_segmented}>
-  <ReadComponents filePath="registry/components/gl_accounts/schema.py" />
+  <ReadComponents filePath="registry/components/dimensions/gl_accounts.py" />
   </RenderTable>
   }
   simple={
   <RenderTable csvPath="registry/samples/gl_accounts/simple.csv" caption={caption}>
-  <ReadComponents filePath="registry/components/gl_accounts/schema.py" />
+  <ReadComponents filePath="registry/components/dimensions/gl_accounts.py" />
   </RenderTable>
   }
 />
@@ -22,9 +22,28 @@ export const caption_segmented = "A list of GL Accounts segmented with business 
 ## Usage
 
 <ReadComponents
-    filePath="registry/components/gl_accounts/schema.py"
+    filePath="registry/components/dimensions/gl_accounts.py"
   />
 
 ## Dependencies
 
-If segmented, GL Accounts component is dependent on [Business Units](/dimensions/business-units).
+<Files>
+<Folder name="src" defaultOpen>
+    <Folder name="project" defaultOpen>
+        <Folder name="components" defaultOpen>
+        <Folder name="dimensions" defaultOpen>
+            <File name="gl_accounts.py"/>
+            <File name="business_units.py"/>
+    </Folder>
+    </Folder>
+    </Folder>
+</Folder>
+</Files>
+
+### Internal
+
+- **[Business Units](/dimensions/business-units)**: required when `is_segmented=true`.
+
+### External
+
+None.

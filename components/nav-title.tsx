@@ -1,6 +1,6 @@
 "use client";
 
-import { LogoSVG } from "logo";
+import { LogoSVG } from "components/logo";
 import Link from "next/link";
 import { DrawerMenu } from "components/drawer-menu"
 

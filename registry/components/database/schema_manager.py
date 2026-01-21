@@ -1,5 +1,5 @@
-from registry.components.business_unit.schema import create_business_units
-from registry.components.gl_accounts.schema import create_gl_accounts
+from registry.components.dimensions.business_unit import create_business_units
+from registry.components.dimensions.gl_accounts import create_gl_accounts
 
 
 def get_schemas(gl_accounts_segmented: bool) -> list:
