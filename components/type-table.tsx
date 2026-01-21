@@ -59,10 +59,10 @@ const fieldVariants = cva("text-fd-muted-foreground not-prose pe-2");
 
 export function TypeTable({ type }: { type: Record<string, TypeNode> }) {
   return (
-    <div className="@container flex flex-col p-1 bg-fd-card text-fd-card-foreground rounded-2xl border my-6 text-sm overflow-hidden">
+    <div className="@container flex flex-col p-1 bg-fd-card text-fd-card-foreground rounded-2xl border my-6 text-sm overflow-x-auto">
       <div className="flex font-medium items-center px-3 py-1 not-prose text-fd-muted-foreground">
         <p className="w-[25%]">Field</p>
-        <p className="@max-xl:hidden">Type</p>
+        <p>Type</p>
       </div>
       {Object.entries(type).map(([key, value]) => (
         <Item key={key} name={key} item={value} />
@@ -120,11 +120,11 @@ function Item({
           {!required}
         </code>
         {typeDescriptionLink ? (
-          <Link href={typeDescriptionLink} className="underline @max-xl:hidden">
+          <Link href={typeDescriptionLink} className="underline">
             {type}
           </Link>
         ) : (
-          <span className="@max-xl:hidden">{type}</span>
+          <span>{type}</span>
         )}
         {hasExpandableContent && (
           <ChevronDown className="absolute end-2 size-4 text-fd-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
