@@ -32,6 +32,11 @@ def json_to_sql(json_path: str) -> str:
     # Combine all constraints
     all_constraints = fields + fks
 
+    # Add composite primary key if defined
+    if "primary_key" in json_data:
+        pk_fields = ", ".join(json_data["primary_key"])
+        all_constraints.append(f"PRIMARY KEY ({pk_fields})")
+
     # Format with indentation
     formatted_constraints = ",\n    ".join(all_constraints)
 

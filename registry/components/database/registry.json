@@ -11,8 +11,20 @@
     "schema": "registry/components/dimensions/gl_accounts_segmented.json",
     "dependencies": ["business_units"]
   },
+  "periods": {
+    "schema": "registry/components/dimensions/periods.json",
+    "dependencies": []
+  },
   "value_types": {
     "schema": "registry/components/dimensions/value_types.json",
     "dependencies": []
+  },
+  "revenue_types": {
+    "schema": "registry/components/dimensions/revenue_types.json",
+    "dependencies": []
+  },
+  "revenue_changes": {
+    "schema": "registry/components/dimensions/revenue_changes.json",
+    "dependencies": ["periods", "value_types", "revenue_types"]
   }
 }

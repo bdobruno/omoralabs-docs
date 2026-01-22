@@ -1,0 +1,2 @@
+id, period_id, revenue_type_id, value_type_id, nr_of_customers, value_per_customer
+1,1,1,2,100,2300

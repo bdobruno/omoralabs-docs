@@ -1,0 +1,43 @@
+{
+  "table_name": "revenue_changes",
+  "primary_key": ["period_id", "revenue_type_id", "value_type_id"],
+  "fields": {
+    "period_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to periods(id)"
+    },
+    "revenue_type_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to revenue_types(id)"
+    },
+    "value_type_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to value_type_id(id)"
+    },
+    "nr_of_customers": {
+      "type": "INTEGER NOT NULL",
+      "description": "Number of customers related to the revenue change"
+    },
+    "value_per_customer": {
+      "type": "DOUBLE NOT NULL",
+      "description": "Value per customer related to the revenue change"
+    }
+  },
+  "foreign_keys": [
+    {
+      "field": "period_id",
+      "references": "periods(id)",
+      "on_delete": "CASCADE"
+    },
+    {
+      "field": "revenue_type_id",
+      "references": "revenue_types(id)",
+      "on_delete": "CASCADE"
+    },
+    {
+      "field": "value_type_id",
+      "references": "value_types(id)",
+      "on_delete": "CASCADE"
+    }
+  ]
+}

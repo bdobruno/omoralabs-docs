@@ -1,0 +1,15 @@
+{
+  "table_name": "periods",
+  "fields": {
+    "id": {
+      "type": "INTEGER PRIMARY KEY"
+    },
+    "period": {
+      "type": "INTEGER NOT NULL"
+    },
+    "date": {
+      "type": "DATE NOT NULL"
+    }
+  },
+  "foreign_keys": []
+}

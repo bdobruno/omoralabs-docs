@@ -1,0 +1,45 @@
+---
+title: Revenue Changes
+description: Revenue facts on changes, defining price and volume per period, value type, and revenue type.
+---
+
+export const caption = "A list of Revenue Changes"
+export const table_name="revenue_changes"
+
+## Component
+<br/>
+
+  <RenderTable csvPath={`registry/samples/${table_name}/sample.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/components/dimensions/presentation/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/components/dimensions/${table_name}.json`} />
+
+<Callout>
+  The primary key is formed by constrainst on periods, revenue types, and value types: <br/>
+  `PRIMARY KEY (period_id, revenue_type_id, value_type_id)`
+</Callout>
+
+## Dependencies
+
+### Internal
+
+- **[Periods](./periods)**
+- **[Revenue Types](./revenue-types)**
+- **[Value Types](./value-types)**
+
+### External
+
+- None.
+
+## Integration
+
+This dimension defines and returns the SQL required to create the <code>{table_name}</code> table. Table creation and lifecycle management are handled by the database [Methods](/components/database/methods) and [Schema Manager](/components/database/schema-manager).
+
+The schema extends to reference the [Periods](./periods), [Revenue Types](./revenue-types), [Value Types](./value-types) dimensions.
+
+## Example
+
+<ReadComponents filePath={`registry/components/implementations/${table_name}.py`}/>

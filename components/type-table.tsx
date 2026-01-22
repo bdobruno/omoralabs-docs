@@ -107,7 +107,10 @@ function Item({
           : "border-transparent",
       )}
     >
-      <CollapsibleTrigger className="relative flex flex-row items-center w-full group text-start px-3 py-2 not-prose hover:bg-fd-accent">
+      <CollapsibleTrigger
+        disabled={!hasExpandableContent}
+        className="relative flex flex-row items-center w-full group text-start px-3 py-2 not-prose hover:bg-fd-accent"
+      >
         <code
           className={cn(
             keyVariants({

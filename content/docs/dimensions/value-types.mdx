@@ -1,0 +1,38 @@
+---
+title: Value Types
+description: Value types dimension, definition of actual values and different budget dimensions.
+---
+
+export const caption = "A list of Value Types"
+export const table_name = "value_types"
+
+## Component
+<br/>
+
+  <RenderTable csvPath={`registry/samples/${table_name}/sample.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/components/dimensions/presentation/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/components/dimensions/${table_name}.json`} />
+
+## Dependencies
+
+### Internal
+
+- None.
+
+### External
+
+- None.
+
+## Integration
+
+This dimension defines and returns the SQL required to create the <code>{table_name}</code> table. Table creation and lifecycle management are handled by the database [Methods](/components/database/methods) and [Schema Manager](/components/database/schema-manager).
+
+This dimension is fully self-contained.
+
+## Example
+
+<ReadComponents filePath={`registry/components/implementations/${table_name}.py`}/>

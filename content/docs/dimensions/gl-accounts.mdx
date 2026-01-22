@@ -5,29 +5,21 @@ description: A chart of accounts dimension, defining financial account hierarchy
 
 export const caption = "A list of GL Accounts"
 export const caption_segmented = "A list of GL Accounts segmented with business units"
-export const example = "registry/components/implementations/gl_accounts.py"
+export const table_name="gl_accounts"
+
+## Component
+<br/>
 
 <GLAccountsSelector
   segmented={
   <RenderTable csvPath="registry/samples/gl_accounts/segmented.csv" caption={caption_segmented}>
-  <ReadComponents filePath={example}/>
+  <ReadComponents filePath={`registry/components/dimensions/presentation/${table_name}_segmented.sql`}/>
   </RenderTable>
   }
   simple={
   <RenderTable csvPath="registry/samples/gl_accounts/simple.csv" caption={caption}>
-  <ReadComponents filePath={example}/>
+  <ReadComponents filePath={`registry/components/dimensions/presentation/${table_name}_simple.sql`}/>
   </RenderTable>
-  }
-/>
-
-## Usage
-
-<GLAccountsSelector
-  segmented={
-    <ReadComponents filePath="registry/components/dimensions/presentation/gl_accounts_segmented.sql" />
-  }
-  simple={
-    <ReadComponents filePath="registry/components/dimensions/presentation/gl_accounts_simple.sql" />
   }
 />
 
@@ -35,10 +27,10 @@ export const example = "registry/components/implementations/gl_accounts.py"
 
 <GLAccountsSelector
   segmented={
-    <TypeTableFromFile filePath="registry/components/dimensions/gl_accounts_segmented.json" />
+    <TypeTableFromFile filePath={`registry/components/dimensions/${table_name}_segmented.json`} />
   }
   simple={
-    <TypeTableFromFile filePath="registry/components/dimensions/gl_accounts_simple.json" />
+    <TypeTableFromFile filePath={`registry/components/dimensions/${table_name}_simple.json`} />
   }
 />
 
@@ -54,7 +46,11 @@ export const example = "registry/components/implementations/gl_accounts.py"
 
 ## Integration
 
-This dimension defines and returns the SQL required to create the `gl_accounts` table. Table creation and lifecycle management are handled by the database [Methods](/components/database/methods) and [Schema Manager](/components/database/schema-manager).
+This dimension defines and returns the SQL required to create the <code>{table_name}</code> table. Table creation and lifecycle management are handled by the database [Methods](/components/database/methods) and [Schema Manager](/components/database/schema-manager).
 
 When `is_segmented=true`, the schema extends to reference the [Business Units](./business-units) dimension.
 When `false`, the dimension remains fully self-contained.
+
+## Example
+
+<ReadComponents filePath={`registry/components/implementations/${table_name}.py`}/>

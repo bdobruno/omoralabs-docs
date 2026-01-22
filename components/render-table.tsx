@@ -29,13 +29,16 @@ export default function RenderTable({
 
   return (
     <div className="flex flex-col gap-0 select-none">
-      <div className="flex bg-transparent justify-center w-full p-8 border rounded-t-lg">
-        <Table className="rounded-none border-none">
+      <div className="flex bg-transparent justify-center w-full p-8 border rounded-t-lg max-h-[400px]">
+        <Table className="rounded-none border-none overflow-auto">
           <TableCaption className="pt-10">{caption}</TableCaption>
           <TableHeader>
             <TableRow>
               {columns.map((c) => (
-                <TableHead className="w-[100px] bg-transparent" key={c}>
+                <TableHead
+                  className="w-[100px]  bg-zinc-100 dark:bg-zinc-900 sticky top-0"
+                  key={c}
+                >
                   {c}
                 </TableHead>
               ))}

@@ -1,0 +1,38 @@
+---
+title: Business Units
+description: A business unit dimension, operational grouping for reporting and metrics.
+---
+
+export const caption = "A list of Business Units"
+export const table_name = "business_units"
+
+## Component
+<br/>
+
+  <RenderTable csvPath={`registry/samples/${table_name}/sample.csv`} caption={caption}>
+  <ReadComponents filePath={`registry/components/dimensions/presentation/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/components/dimensions/${table_name}.json`} />
+
+## Dependencies
+
+### Internal
+
+- None.
+
+### External
+
+- None.
+
+## Integration
+
+This dimension defines and returns the SQL required to create the <code>{table_name}</code> table. Table creation and lifecycle management are handled by the database [Methods](/components/database/methods) and [Schema Manager](/components/database/schema-manager).
+
+This dimension is fully self-contained.
+
+## Example
+
+<ReadComponents filePath={`registry/components/implementations/${table_name}.py`}/>
