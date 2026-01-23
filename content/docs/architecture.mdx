@@ -1,6 +1,6 @@
 ---
 title: Architecture
-description: "Omora Labs is built on a three-layer architecture that separates semantic-aware transformation, business logic, and reporting, ensuring financial definitions are encoded once and reused everywhere."
+description: "Built on a five-layer architecture that separates semantic-aware transformation, business logic, and reporting, ensuring financial definitions are encoded once and reused everywhere."
 ---
 
 ## Overview
@@ -18,7 +18,18 @@ These definitions are authoritative. They act as a contract: all incoming data, 
 
 **Stack**: [DuckDB](https://duckdb.org/)
 
-### 2. Workers
+### 2. Facts
+**Business meaning → Contract definitions**
+
+Facts store what actually happened, expressed using the semantic contracts. They record measurable values (amounts, quantities, prices, volumes) classified by the semantic layers.
+
+Facts do not define meaning or logic. They are structured observations that conform to predefined semantic layers and are typically produced by workers or transformations.
+
+**Example**: Revenue changes per period, split into price and volume, classified by revenue type and value type.
+
+**Stack**: [DuckDB](https://duckdb.org/)
+
+### 3. Workers
 **Manual work → Version-controlled automation**
 
 Workers are background processes that automate data ingestion, enrichment, and maintenance tasks. They run on schedules or events and always write data through the semantic layer contract, ensuring all generated or fetched data conforms to existing dimensions.
@@ -27,7 +38,7 @@ Workers are background processes that automate data ingestion, enrichment, and m
 
 **Stack**: [Polars](https://pola.rs/) | [Dagster](https://dagster.io/)
 
-### 3. Transformations
+### 4. Transformations
 **Dimensions → Analytical models**
 
 This layer builds analytical models and derived datasets by consuming dimension-aligned data from ingestion. All business meaning is already defined and enforced; [transformations](/transformations) here focus on derivation, not interpretation.
@@ -38,7 +49,7 @@ Typical outputs include fact tables, aggregates, and reusable analytical models 
 
 **Stack**: [dbt](https://www.getdbt.com/)
 
-### 4. Reporting & BI
+### 5. Reporting & BI
 **Analytical models → Dashboards and outputs**
 
 This layer is responsible for consumption and presentation only. All business logic has already been applied upstream, so reports and dashboards simply query precomputed analytical views and render results for automated and repeatable decision-making. No business logic or classification exists at this stage.
@@ -70,6 +81,10 @@ Explore Semantic Layers to see contract components, check automation with worker
   <LinkedCard href="semantic-layers">
       <Table2 className="h-8 w-8"/>
     <p className="mt-2 dark:text-gray-300 dark:font-light">Semantic Layers</p>
+  </LinkedCard>
+  <LinkedCard href="facts">
+      <Table2 className="h-8 w-8"/>
+    <p className="mt-2 dark:text-gray-300 dark:font-light">Facts</p>
   </LinkedCard>
   <LinkedCard href="workers">
       <Cpu className="h-8 w-8"/>

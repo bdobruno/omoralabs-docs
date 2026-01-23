@@ -1,0 +1,21 @@
+---
+title: Facts
+description: Observed financial values recorded at a defined grain, linking semantic dimensions to measurable events.
+---
+
+## What are Facts?
+
+Facts store what actually happened. They record observed financial values, such as amounts, counts, or quantities, at a clearly defined level of detail, always by referencing [semantic layers](/semantic-layers) like Periods, GL Accounts, Value Types, or Revenue Types.
+
+Every fact table links one or more semantic dimensions and attaches measurable values, ensuring observations are consistently classified, comparable, and reusable across transformations and reporting.
+
+Facts are the inputs to the [transformation](/transformations) layer. They provide stable, auditable observations that transformations consume to produce analytical models, which are then exposed to reporting and BI without redefining classifications or business logic.
+
+## Explore
+
+<div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
+  <LinkedCard href="facts/periods">
+      <Table2 className="h-8 w-8"/>
+      <p className="mt-2 dark:text-gray-300 dark:font-light">Periods</p>
+  </LinkedCard>
+</div>

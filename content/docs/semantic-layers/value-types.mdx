@@ -9,6 +9,11 @@ export const table_name = "value_types"
 ## Semantic Contract
 ### Definitions
 
+| Column | Description |
+|--------|-------------|
+| id | Unique identifier for the period. |
+| name | Value type name. Allowed values are Actuals, Budget, LE 3+9, LE 6+6, and LE 9+3. |
+
 | Value Type | Description |
 |------------|-------------|
 | Actuals | Recorded data of what has actually occurred. |
@@ -19,13 +24,13 @@ export const table_name = "value_types"
 
 ### Schema & Sample
 
-  <RenderTable csvPath={`registry/samples/${table_name}/sample.csv`} caption={caption}>
-      <ReadComponents filePath={`registry/components/semantic_layers/sqls/${table_name}.sql`}/>
+  <RenderTable csvPath={`registry/semantic_layers/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/semantic_layers/sqls/${table_name}.sql`}/>
   </RenderTable>
 
 ## Data Format
 
-<TypeTableFromFile filePath={`registry/components/semantic_layers/${table_name}.json`} />
+<TypeTableFromFile filePath={`registry/semantic_layers/${table_name}.json`} />
 
 ## Dependencies
 

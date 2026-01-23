@@ -1,0 +1,38 @@
+---
+title: Profit & Loss
+description: Profit & Loss facts on GL Accounts, defining values per period, value type, and GL account.
+---
+
+export const caption = "A list of PnL' GL Accounts"
+export const table_name="pnl"
+
+## Facts
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| period_id | Factual reference to the period (links to [periods](semantic-layer/periods)). |
+| gl_account_id | Which GL Account (links to [gl_accounts](semantic-layer/gl_accounts)). |
+| value_type_id | Type of value measured (links to [value_types](semantic-layer/value_types), e.g., actuals, budget). |
+| amount | Fact registered in a currency unit. |
+
+### Schema & Sample
+
+  <RenderTable csvPath={`registry/facts/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/facts/sqls/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
+
+<Callout>
+  The primary key is formed by constrainst on periods, GL accounts, and value types: <br/>
+  `PRIMARY KEY (period_id, gl_account_id, value_type_id)`
+</Callout>
+
+## Dependencies
+
+- **[Periods](./periods)**
+- **[GL Accounts](./gl-accounts)**
+- **[Value Types](./value-types)**

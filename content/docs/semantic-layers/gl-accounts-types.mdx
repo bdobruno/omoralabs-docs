@@ -1,0 +1,28 @@
+---
+title: GL Accounts Types
+description:  Standard financial classification defining whether a GL account belongs to the Profit & Loss or the Balance Sheet, used as a foundational semantic contract across all financial models.
+---
+
+export const caption = "A list of GL Accounts Types"
+export const table_name = "gl_accounts_types"
+
+## Semantic Contract
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| id | Unique identifier for the GL Accounts Type. |
+| name | Financial classification of the account type. Allowed values are PnL (Profit & Loss) and Balance Sheet. |
+
+### Schema & Sample
+  <RenderTable csvPath={`registry/semantic_layers/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/semantic_layers/sqls/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/semantic_layers/${table_name}.json`} />
+
+## Dependencies
+
+- None.

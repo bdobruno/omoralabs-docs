@@ -14,19 +14,20 @@ export const table_name="gl_accounts"
 | id | Unique identifier for the GL account. |
 | name | Name of the GL account (e.g., Revenue, Cost of Goods Sold, Marketing Expense). |
 | parent_gl | Self-reference to the GL account for hierarchy (nullable if top-level). |
+| gl_account_type_id | Reference to the [GL Account Type](./gl-accounts-types). |
 | business_unit_id | Reference to the business unit (only if segmented; links to [Business Units](./business-units)). |
 
 ### Schema & Sample
 
 <GLAccountsSelector
   segmented={
-  <RenderTable csvPath="registry/samples/gl_accounts/segmented.csv" caption={caption_segmented}>
-  <ReadComponents filePath={`registry/components/semantic_layers/sqls/${table_name}_segmented.sql`}/>
+  <RenderTable csvPath={`registry/semantic_layers/${table_name}_segmented.csv`} caption={caption_segmented}>
+  <ReadComponents filePath={`registry/semantic_layers/sqls/${table_name}_segmented.sql`}/>
   </RenderTable>
   }
   simple={
-  <RenderTable csvPath="registry/samples/gl_accounts/simple.csv" caption={caption}>
-  <ReadComponents filePath={`registry/components/semantic_layers/sqls/${table_name}_simple.sql`}/>
+  <RenderTable csvPath={`registry/semantic_layers/${table_name}_simple.csv`} caption={caption}>
+  <ReadComponents filePath={`registry/semantic_layers/sqls/${table_name}_simple.sql`}/>
   </RenderTable>
   }
 />
@@ -35,13 +36,14 @@ export const table_name="gl_accounts"
 
 <GLAccountsSelector
   segmented={
-    <TypeTableFromFile filePath={`registry/components/semantic_layers/${table_name}_segmented.json`} />
+    <TypeTableFromFile filePath={`registry/semantic_layers/${table_name}_segmented.json`} />
   }
   simple={
-    <TypeTableFromFile filePath={`registry/components/semantic_layers/${table_name}_simple.json`} />
+    <TypeTableFromFile filePath={`registry/semantic_layers/${table_name}_simple.json`} />
   }
 />
 
 ## Dependencies
 
+- **[GL Accounts Types](./gl-accounts-types)**
 - **[Business Units](./business-units)**: required when segmented.

@@ -1,1 +1,2 @@
-schema_sqls.py
+registry/tests/
+registry/sql_generator
