@@ -1,6 +1,6 @@
 ---
 title: GL Accounts
-description: A chart of accounts dimension, defining financial account hierarchy used for reporting and metrics.
+description: A chart of accounts semantic contract, defining financial account hierarchy used for reporting and metrics.
 ---
 
 export const caption = "A list of GL Accounts"
@@ -18,6 +18,14 @@ export const table_name="gl_accounts"
 | business_unit_id | Reference to the business unit (only if segmented; links to [Business Units](./business-units)). |
 
 ### Schema & Sample
+
+<Callout>
+    The GL Accounts IDs `3000`, `5000`, `7000`, `8000` are reserved for `gross_margin`, `contribution_margin`, `total_cost`, and `ebitda`. If you need to repurpose these IDs, make sure to adjust the rlated transformations accordingly: [PnL Metrics](transformations/pnl-metrics)
+</Callout>
+
+<Callout>
+    We favor an opinionated numbering scheme that follows a parent > children structure. For example, revenue is defined as `1000`, and their children `1010`, `1020`, and `1030`. This allows for better organisation and displaying later in reports.
+</Callout>
 
 <GLAccountsSelector
   segmented={

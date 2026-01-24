@@ -5,6 +5,10 @@ description: Data transformations that clean, enrich, and model raw data into an
 
 ## What are Transformations?
 
+<Callout>
+    All transformations are implemented in <a href="https://www.getdbt.com/" target="_blank">dbt</a> and produce reporting-ready models.
+</Callout>
+
 Transformations are processes that prepare raw data for reporting, so you can simply query it and get clean, structured, and ready-to-use results. They enforce business logic, clean inconsistencies, and organize data into tables or views that analysts and finance teams can rely on without extra manipulation.
 
 Think of them as the preparation step that makes reporting effortless and reliable.
@@ -12,20 +16,16 @@ Think of them as the preparation step that makes reporting effortless and reliab
 ## Explore
 
 <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
-  <LinkedCard href="transformations/staging">
+  <LinkedCard href="transformations/pnl_rollup">
       <Shuffle className="h-8 w-8"/>
-      <p className="mt-2 dark:text-gray-300 dark:font-light">Staging</p>
+      <p className="mt-2 dark:text-gray-300 dark:font-light">PnL Rollup</p>
   </LinkedCard>
-  <LinkedCard href="transformations/marts">
+  <LinkedCard href="transformations/pnl_metrics">
       <Shuffle className="h-8 w-8"/>
-      <p className="mt-2 dark:text-gray-300 dark:font-light">Data Marts</p>
+      <p className="mt-2 dark:text-gray-300 dark:font-light">PnL Metrics</p>
   </LinkedCard>
-  <LinkedCard href="transformations/models">
+  <LinkedCard href="transformations/pnl_pivot">
       <Shuffle className="h-8 w-8"/>
-      <p className="mt-2 dark:text-gray-300 dark:font-light">Models</p>
-  </LinkedCard>
-  <LinkedCard href="transformations/macros">
-      <Shuffle className="h-8 w-8"/>
-      <p className="mt-2 dark:text-gray-300 dark:font-light">Macros</p>
+      <p className="mt-2 dark:text-gray-300 dark:font-light">PnL Pivot</p>
   </LinkedCard>
 </div>

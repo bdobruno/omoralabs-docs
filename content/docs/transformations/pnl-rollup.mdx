@@ -1,0 +1,46 @@
+---
+title: PnL Rollup
+description: Recursively aggregates PnL values across the GL account hierarchy for reporting.
+---
+
+export const table_name = "pnl_rollup"
+export const caption = "PnL Raw Data with aggregated values for each parent GL"
+
+## Purpose
+
+Produce a reporting-ready PnL dataset where amounts are available at all GL hierarchy levels, not just leaf accounts.
+This model centralizes hierarchical aggregation logic so downstream consumers do not need to reimplement it.
+
+## Business Logic
+
+- Start from atomic PnL entries at the lowest GL account level
+- Use the GL account hierarchy to identify parent–child relationships
+- Recursively propagate amounts from child accounts to all parent accounts
+- Aggregate amounts per:
+  - Period
+  - GL account (leaf and parent)
+  - Value Type
+
+## Output Contract
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| period | Monthly reporting period. Links to [periods](semantic-layers/periods) semantic contract |
+| date | Monthly reporting period represented as `YYYY-MM-DD` with convention to first day of the month. Links to [periods](semantic-layers/periods) semantic contract |
+| gl_id | GL Account identifier. Links to [GL Accounts](semantic-layers/gl-accounts) semantic contract |
+| gl_account | GL Account **name** at any hierarchy level. Links to [GL Accounts](semantic-layers/gl-accounts) semantic contract |
+| value_type_id | Value Type identifier. Links to [Value Type](semantic-layers/value-types) semantic contract |
+| type | Value Type name. Links to [Value Type](semantic-layers/value-types) semantic contract |
+| amount | Aggregated amount including all child accounts |
+
+### Schema & Sample
+
+  <RenderTable csvPath={`registry/transformations/models/intermediate/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/intermediate/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Facts: [PnL](facts/pnl)
+- Semantic Layers: [GL Accounts](semantic-layers/gl-accounts)

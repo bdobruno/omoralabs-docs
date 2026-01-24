@@ -1,0 +1,66 @@
+---
+title: PnL Metrics
+description: Computes standardized PnL metrics (margins, totals, and percentages) on top of the hierarchical PnL Rollup.
+---
+
+export const table_name = "pnl_metrics"
+export const caption = "PnL metrics derived from rolled-up GL accounts."
+
+## Purpose
+
+Produce a canonical set of PnL metrics (gross margin, contribution margin, total cost, EBITDA, and related percentages) derived from the rolled-up PnL data.
+
+This model encodes financial definitions once so that margins and ratios are consistent across all reports, dashboards, and analyses.
+
+## Business Logic
+
+- Start from the fully aggregated GL hierarchy provided by pnl_rollup
+- Compute absolute PnL metrics using reserved GL account IDs:
+  - Gross Margin `3000` = Revenue `1000` − COGS `2000`
+  - Contribution Margin `5000` = Gross Margin `3000` − Commercial Costs `4000`
+  - Total Cost `7000` = COGS `2000` + Commercial Costs `4000` + Fixed Costs `6000`
+  - EBITDA `8000` = Contribution Margin `5000` − Fixed Costs `6000`
+- Append derived metric rows to the base PnL data
+- Compute percentage KPIs relative to Revenue `1000`:
+  - COGS %
+  - Gross margin %
+  - Commercial costs %
+  - Contribution margin %
+  - Fixed costs %
+  - Total cost %
+  - EBITDA %
+- Percentage calculations:
+  - Use revenue as denominator
+  - Protect against division by zero
+- Output includes both:
+  - Absolute values (amounts)
+  - Relative values (percentages)
+
+Final dataset is ordered by value type, period, and GL account.
+
+## Output Contract
+### Definitions
+<Callout>
+    The output contract has the same setup as [PnL Rollup](transformations/pnl-rollup) but only includes the absolute and relative margins.
+</Callout>
+
+| Column | Description |
+|--------|-------------|
+| period | Monthly reporting period. Links to [periods](semantic-layers/periods) semantic contract |
+| date | Monthly reporting period represented as `YYYY-MM-DD` with convention to first day of the month. Links to [periods](semantic-layers/periods) semantic contract |
+| gl_id | GL Account identifier. Links to [GL Accounts](semantic-layers/gl-accounts) semantic contract |
+| gl_account | GL Account **name** at any hierarchy level. Links to [GL Accounts](semantic-layers/gl-accounts) semantic contract |
+| value_type_id | Value Type identifier. Links to [Value Type](semantic-layers/value-types) semantic contract |
+| type | Value Type name. Links to [Value Type](semantic-layers/value-types) semantic contract |
+| amount | Aggregated amount including all child accounts |
+
+
+### Schema & Sample
+
+  <RenderTable csvPath={`registry/transformations/models/intermediate/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/intermediate/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Transformations: [PnL Rollup](transformations/pnl-rollup)

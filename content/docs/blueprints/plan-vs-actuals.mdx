@@ -1,0 +1,67 @@
+---
+title: Plan vs Actuals
+description: A production-ready financial blueprint demonstrating Plan vs Actuals variance analysis using Omora Labs components.
+---
+
+export const blueprint_name="plan_vs_actuals"
+
+## Overview
+
+This blueprint demonstrates a production-grade Plan vs Actuals variance analysis built using Omora Labs components. It shows how semantic layers, facts, and dbt transformations compose into a reusable financial reporting pipeline with hierarchical P&L rollups and variance metrics.
+
+## Assets
+
+- <a href="https://github.com/omoralabs/plan-vs-actuals" target="_blank">GitHub</a>: Source code and setup instructions
+- <a href="https://app.hex.tech/019b6514-4a4f-7002-9c8d-dff74ca45f74/app/Budget-vs-Actuals-by-Omora-Labs-0328SrWYqP3tnj8DcCZpwm/latest?&tab=reports" target="_blank">Hex</a>: Live interactive report showcasing the final outputs
+
+## Live Report
+
+<link rel="stylesheet" href="https://static.hex.site/embed/embedStyles.css" />
+<div className="responsive-embed">
+  <iframe
+    className="w-full aspect-video"
+    style={{ border: 'none' }}
+    src="https://app.hex.tech/019b6514-4a4f-7002-9c8d-dff74ca45f74/app/0328SrWYqP3tnj8DcCZpwm/latest?embedded=true&tab=reports"
+  />
+</div>
+
+## Dependencies
+
+- Semantic Layers: [GL Accounts](/semantic-layers/gl-accounts), [GL Accounts Types](/semantic-layers/gl-accounts-types), [Periods](/semantic-layers/periods), [Value Types](/semantic-layers/value-types)
+- Facts: [PnL](/facts/pnl)
+- Transformations: [PnL Rollup](/transformations/pnl-rollup), [PnL Metrics](/transformations/pnl-metrics), [PnL Pivot](/transformations/pnl-pivot)
+
+## How to Use
+
+- Clone or fork the <a href="https://github.com/omoralabs/plan-vs-actuals" target="_blank">GitHub</a> repository
+- Replace the CSVs with your own data following the provided [semantic contracts](/semantic-layers)
+- Create a local or remote database and load sample data:
+  ```bash lineNumbers
+  # Create a local database and load sample data
+   uv run plan-db-local
+ 
+   # Create a remote database and load sample data
+   uv run plan-db-remote
+  ```
+- Run dbt to materialize the analytics models:
+  ```bash lineNumbers
+  cd src/plan_vs_actuals/plan_vs_actuals_dbt
+  uv run dbt run
+  ```
+- Connect to your favorite BI tool directly to the analytics layer
+
+**Example Consumption on BI Tool**
+
+```sql lineNumbers
+SELECT * from "plan_vs_actuals"."analytics"."pnl_pivot"
+ORDER BY period
+```
+```python lineNumbers
+# Title adjustments
+df = sql_plan_and_actuals
+df['display_name'] = df['gl_account'].str.replace('_', ' ').str.replace('pct', '%').str.title()
+df['display_name'] = df['display_name'].str.replace('Csm', 'CSM')
+df['display_name'] = df['display_name'].str.replace('Csm ', 'CSM ')
+df['display_name'] = df['display_name'].str.replace('Cogs', 'COGS ')
+df['display_name'] = df['display_name'].str.replace('Ebitda', 'EBITDA')
+```

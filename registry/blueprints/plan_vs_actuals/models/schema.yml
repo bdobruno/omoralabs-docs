@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: plan_vs_actuals
+    database: plan_vs_actuals
+    schema: main
+    tables:
+      - name: gl_accounts_types
+      - name: gl_accounts
+      - name: periods
+      - name: value_types
+      - name: pnl

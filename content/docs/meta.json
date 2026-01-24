@@ -22,8 +22,11 @@
     "---Workers---",
     "workers/ex-rates",
     "---Transformations---",
+    "transformations/pnl-metrics",
+    "transformations/pnl-pivot",
+    "transformations/pnl-rollup",
     "---Blueprints---",
-    "blueprints/budget-vs-actuals",
+    "blueprints/plan-vs-actuals",
     "blueprints/weekly-cash-balances"
   ]
 }

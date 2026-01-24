@@ -1,0 +1,61 @@
+---
+title: PnL Pivot
+description: "Pivots PnL values by value type and computes variances for reporting."
+---
+
+export const table_name = "pnl_pivot"
+export const caption = "PnL pivoted by value type with absolute and percentage variances"
+
+## Purpose
+
+Provide a **reporting-friendly PnL view** where values are pivoted by value type (Actuals vs Budget) and enriched with variance metrics.
+
+This model simplifies consumption in reports and dashboards by removing the need for pivoting and variance calculations downstream.
+
+## Business Logic
+
+- Start from the fully enriched PnL dataset
+- Pivot PnL amounts by value type:
+  - Actuals (value_type_id = 1)
+  - Budget (value_type_id = 2). If you have data in references for other plan types you might alter it to compare to other plan.
+- Produce one row per:
+  - Period
+  - GL account
+- Compute variance metrics:
+  - Variance = Actuals − Budget
+  - Variance % = Variance ÷ Budget
+- Protect against division by zero in percentage calculations
+- Output is ordered by period and GL account for predictable reporting
+
+## Output Contract
+### Definitions
+
+| Column       | Description                                  |
+| ------------ | -------------------------------------------- |
+| period       | Monthly reporting period                     |
+| date         | Reporting period date (first day of month)   |
+| gl_id        | GL Account identifier                        |
+| gl_account   | GL Account name                              |
+| actuals      | Actual reported amount                       |
+| plan         | Planned amount                              |
+| variance     | Difference between actuals and budget        |
+| variance_pct | Variance expressed as a percentage of budget |
+
+
+### Schema & Sample
+
+  <RenderTable csvPath={`registry/transformations/models/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+This transformation depends on an intermediate reference that combines base rollups and derived metrics.
+
+```sql lineNumbers
+{{config(materialized='ephemeral')}}
+
+select * from {{ ref('pnl_rollup') }}
+UNION ALL
+select * from {{ ref('pnl_metrics') }}
+```
