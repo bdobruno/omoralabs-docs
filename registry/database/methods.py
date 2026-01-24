@@ -36,25 +36,9 @@ class DBConnect:
             """
         )
 
-    def insert_csvs(self, file: str, table: str, self_ref_field: str | None = None) -> None:
-        if self_ref_field:
-            # Two-pass insert for self-referencing FKs
-            # First: insert parents (NULL values)
-            self.conn.execute(
-                f"""
-                INSERT INTO {table} SELECT * FROM '{file}' WHERE {self_ref_field} IS NULL
-                """
-            )
-            # Then: insert children (non-NULL values)
-            self.conn.execute(
-                f"""
-                INSERT INTO {table} SELECT * FROM '{file}' WHERE {self_ref_field} IS NOT NULL
-                """
-            )
-        else:
-            # Normal single insert
-            self.conn.execute(
-                f"""
-                INSERT INTO {table} SELECT * FROM '{file}'
-                """
-            )
+    def insert_csvs(self, file: str, table: str) -> None:
+        self.conn.execute(
+            f"""
+            INSERT INTO {table} SELECT * FROM '{file}'
+            """
+        )

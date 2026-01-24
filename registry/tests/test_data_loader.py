@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 
@@ -13,6 +14,52 @@ from database.utils import get_json
 def test_db_path(tmp_path):
     """Fixture to provide a temporary database path"""
     return str(tmp_path / "test.db")
+
+
+@pytest.fixture
+def registry_simple(tmp_path):
+    """Create registry with only gl_accounts_simple"""
+    MODULE_DIR = Path(__file__).parent.parent
+    registry = get_json(str(MODULE_DIR / "database" / "registry.json"))
+
+    if "gl_accounts_segmented" in registry["semantic_layers"]:
+        del registry["semantic_layers"]["gl_accounts_segmented"]
+
+    # Convert relative paths to absolute
+    for section in ["semantic_layers", "facts"]:
+        for key, config in registry[section].items():
+            config["schema"] = str(MODULE_DIR / config["schema"])
+
+    temp_dir = tmp_path / "simple"
+    temp_dir.mkdir()
+
+    with open(temp_dir / "registry.json", "w") as f:
+        json.dump(registry, f)
+
+    return temp_dir
+
+
+@pytest.fixture
+def registry_segmented(tmp_path):
+    """Create registry with only gl_accounts_segmented"""
+    MODULE_DIR = Path(__file__).parent.parent
+    registry = get_json(str(MODULE_DIR / "database" / "registry.json"))
+
+    if "gl_accounts_simple" in registry["semantic_layers"]:
+        del registry["semantic_layers"]["gl_accounts_simple"]
+
+    # Convert relative paths to absolute
+    for section in ["semantic_layers", "facts"]:
+        for key, config in registry[section].items():
+            config["schema"] = str(MODULE_DIR / config["schema"])
+
+    temp_dir = tmp_path / "segmented"
+    temp_dir.mkdir()
+
+    with open(temp_dir / "registry.json", "w") as f:
+        json.dump(registry, f)
+
+    return temp_dir
 
 
 def test_all_csv_files_exist():
@@ -63,74 +110,42 @@ def test_csv_path_resolution_explicit():
             assert csv_file != f"{schema['table_name']}.csv"
 
 
-def test_load_sample_data_simple_variant(test_db_path):
+def test_load_sample_data_simple_variant(test_db_path, registry_simple):
     """Test loading data with gl_accounts_simple variant"""
-    from database.utils import get_registry_with_resolved_paths, resolve_dependency_order, json_to_sql
-    from database.data_loader import _load_schema_data
-
     db = DBConnect(test_db_path)
 
-    # Load registry and remove segmented variant
-    MODULE_DIR = Path(__file__).parent.parent / "database"
-    registry = get_registry_with_resolved_paths(MODULE_DIR)
-    if "gl_accounts_segmented" in registry["semantic_layers"]:
-        del registry["semantic_layers"]["gl_accounts_segmented"]
-
     # Create tables
-    sqls = []
-    for schema_path in resolve_dependency_order(registry["semantic_layers"]):
-        sqls.append(json_to_sql(schema_path))
-    for schema_path in resolve_dependency_order(registry["facts"]):
-        sqls.append(json_to_sql(schema_path))
+    sqls = get_schemas(registry_simple)
     db.implement_tables(sqls)
 
     # Load data
-    for section in ["semantic_layers", "facts"]:
-        for schema_path in resolve_dependency_order(registry[section]):
-            _load_schema_data(schema_path, db)
+    load_sample_data(db, registry_simple)
 
     # Verify gl_accounts has data
-    count = db.conn.execute("SELECT COUNT(*) FROM gl_accounts").fetchone()[0]
+    count = db.conn.execute("SELECT COUNT(*) FROM gl_accounts").fetchall()[0][0]
     assert count > 0
 
     db.conn.close()
     os.remove(test_db_path)
 
 
-def test_load_sample_data_segmented_variant(test_db_path):
+def test_load_sample_data_segmented_variant(test_db_path, registry_segmented):
     """Test loading data with gl_accounts_segmented variant"""
-    from database.utils import get_registry_with_resolved_paths, resolve_dependency_order, json_to_sql
-    from database.data_loader import _load_schema_data
-
     db = DBConnect(test_db_path)
 
-    # Load registry and remove simple variant
-    MODULE_DIR = Path(__file__).parent.parent / "database"
-    registry = get_registry_with_resolved_paths(MODULE_DIR)
-    if "gl_accounts_simple" in registry["semantic_layers"]:
-        del registry["semantic_layers"]["gl_accounts_simple"]
-
     # Create tables
-    sqls = []
-    for schema_path in resolve_dependency_order(registry["semantic_layers"]):
-        sqls.append(json_to_sql(schema_path))
-    for schema_path in resolve_dependency_order(registry["facts"]):
-        sqls.append(json_to_sql(schema_path))
+    sqls = get_schemas(registry_segmented)
     db.implement_tables(sqls)
 
     # Load data
-    for section in ["semantic_layers", "facts"]:
-        for schema_path in resolve_dependency_order(registry[section]):
-            _load_schema_data(schema_path, db)
+    load_sample_data(db, registry_segmented)
 
     # Verify gl_accounts has data
-    count = db.conn.execute("SELECT COUNT(*) FROM gl_accounts").fetchone()[0]
+    count = db.conn.execute("SELECT COUNT(*) FROM gl_accounts").fetchall()[0][0]
     assert count > 0
 
     db.conn.close()
     os.remove(test_db_path)
-
-
 
 
 def test_registry_sections_order():

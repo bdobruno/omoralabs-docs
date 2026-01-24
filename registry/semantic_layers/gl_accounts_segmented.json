@@ -11,7 +11,7 @@
     },
     "parent_gl": {
       "type": "INTEGER",
-      "description": "Self-referencing foreign key to gl_accounts(id)"
+      "description": "Self-referencing foreign key to gl_accounts(id). Not enforced via DB given DuckDB current limitations."
     },
     "gl_account_type_id": {
       "type": "INTEGER",
@@ -23,10 +23,6 @@
     }
   },
   "foreign_keys": [
-    {
-      "field": "parent_gl",
-      "references": "gl_accounts(id)"
-    },
     {
       "field": "gl_account_type_id",
       "references": "gl_accounts_types(id)"

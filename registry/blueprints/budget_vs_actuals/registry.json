@@ -1,0 +1,26 @@
+{
+  "semantic_layers": {
+    "gl_accounts_simple": {
+      "schema": "semantic_layers/gl_accounts_simple.json",
+      "dependencies": ["gl_accounts_types"]
+    },
+    "gl_accounts_types": {
+      "schema": "semantic_layers/gl_accounts_types.json",
+      "dependencies": []
+    },
+    "periods": {
+      "schema": "semantic_layers/periods.json",
+      "dependencies": []
+    },
+    "value_types": {
+      "schema": "semantic_layers/value_types.json",
+      "dependencies": []
+    }
+  },
+  "facts": {
+    "pnl": {
+      "schema": "facts/pnl.json",
+      "dependencies": ["periods", "value_types", "gl_accounts"]
+    }
+  }
+}

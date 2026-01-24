@@ -37,6 +37,7 @@ def resolve_dependency_order(registry_section):
     Returns:
         List of schema paths in dependency order
     """
+
     def resolve(dim, visited=None):
         if visited is None:
             visited = set()
@@ -72,28 +73,8 @@ def append_fields(json) -> list:
 def append_fks(json) -> list:
     fks = []
     for fk in json.get("foreign_keys", []):
-        fks.append(
-            f"FOREIGN KEY ({fk['field']}) REFERENCES {fk['references']}"
-        )
+        fks.append(f"FOREIGN KEY ({fk['field']}) REFERENCES {fk['references']}")
     return fks
-
-
-def get_self_referencing_field(schema: dict) -> str | None:
-    """
-    Detect if schema has a self-referencing foreign key.
-
-    Args:
-        schema: Schema dictionary with table_name and foreign_keys
-
-    Returns:
-        Field name that self-references, or None if no self-reference
-    """
-    table_name = schema["table_name"]
-    for fk in schema.get("foreign_keys", []):
-        # Check if FK references the same table
-        if fk["references"].startswith(f"{table_name}("):
-            return fk["field"]
-    return None
 
 
 def json_to_sql(json_path: str) -> str:

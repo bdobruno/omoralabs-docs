@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import duckdb
 import pytest
@@ -38,7 +39,8 @@ def test_db_connect_initialization(test_db_path):
 
 def test_implement_tables_creates_all_tables(db_connection):
     """Test that implement_tables creates all tables from schemas"""
-    sqls = get_schemas()
+    MODULE_DIR = Path(__file__).parent.parent / "database"
+    sqls = get_schemas(MODULE_DIR)
 
     # Execute all CREATE TABLE statements
     db_connection.implement_tables(sqls)
@@ -63,7 +65,8 @@ def test_implement_tables_creates_all_tables(db_connection):
 
 def test_implement_tables_with_foreign_keys(db_connection):
     """Test that tables with foreign key dependencies are created correctly"""
-    sqls = get_schemas()
+    MODULE_DIR = Path(__file__).parent.parent / "database"
+    sqls = get_schemas(MODULE_DIR)
 
     # This should not raise an error even with FK dependencies
     db_connection.implement_tables(sqls)
@@ -80,7 +83,8 @@ def test_implement_tables_with_foreign_keys(db_connection):
 
 def test_implement_tables_idempotent(db_connection):
     """Test that implement_tables can be run multiple times (IF NOT EXISTS)"""
-    sqls = get_schemas()
+    MODULE_DIR = Path(__file__).parent.parent / "database"
+    sqls = get_schemas(MODULE_DIR)
 
     # Run twice - should not error
     db_connection.implement_tables(sqls)
@@ -103,7 +107,8 @@ def test_full_workflow(test_db_path):
     assert db.conn is not None
 
     # Step 2: Generate SQLs
-    sqls = get_schemas()
+    MODULE_DIR = Path(__file__).parent.parent / "database"
+    sqls = get_schemas(MODULE_DIR)
     assert len(sqls) > 0
 
     # Step 3: Implement tables
