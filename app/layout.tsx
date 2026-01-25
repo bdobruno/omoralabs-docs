@@ -2,6 +2,10 @@ import { RootProvider } from "fumadocs-ui/provider/next";
 import { Toaster } from "sonner";
 import "./global.css";
 
+export const metadata = {
+  metadataBase: new URL("https://omoralabs.com"),
+};
+
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning>
