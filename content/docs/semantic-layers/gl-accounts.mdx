@@ -17,10 +17,10 @@ export const table_name="gl_accounts"
 | gl_account_type_id | Reference to the [GL Account Type](./gl-accounts-types). |
 | business_unit_id | Reference to the business unit (only if segmented; links to [Business Units](./business-units)). |
 
-### Schema & Sample
+### Sample & Implementation
 
 <Callout>
-    The GL Accounts IDs `3000`, `5000`, `7000`, `8000` are reserved for `gross_margin`, `contribution_margin`, `total_cost`, and `ebitda`. If you need to repurpose these IDs, make sure to adjust the rlated transformations accordingly: [PnL Metrics](transformations/pnl-metrics)
+    The GL Accounts IDs `3000`, `5000`, `7000`, `8000` are reserved for `gross_margin`, `contribution_margin`, `total_cost`, and `ebitda`. If you need to repurpose these IDs, make sure to adjust the related transformations accordingly: [PnL Metrics](transformations/pnl-metrics).
 </Callout>
 
 <Callout>

@@ -11,6 +11,7 @@ import { cn } from "lib/utils";
 import {
   ArrowLeftRight,
   Box,
+  ClipboardList,
   Compass,
   Cpu,
   Diff,
@@ -157,7 +158,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
       return (
         <CodeBlock
           {...props}
-          data-line-numbers={props.className?.includes('lineNumbers')}
+          data-line-numbers={props.className?.includes("lineNumbers")}
           className="dark:bg-zinc-700/30 bg-zinc-200/30 leading-[1.9]! relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] break-words outline-none max-h-85 overflow-auto scrollbar-hide"
         >
           <Pre>{props.children}</Pre>
@@ -210,6 +211,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Table2,
     Shuffle,
     Cpu,
+    ClipboardList,
     LinkedCard: ({
       className,
       ...props

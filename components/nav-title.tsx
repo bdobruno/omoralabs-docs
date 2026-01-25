@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const navItems = [
   { name: "Docs", href: "/" },
+  { name: "Architecture", href: "/architecture" },
   { name: "Semantic Layers", href: "/semantic-layers" },
-  { name: "Workers", href: "/workers" },
   { name: "Transformations", href: "/transformations" },
   { name: "Blueprints", href: "/blueprints" },
 ];

@@ -35,7 +35,7 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
         full={page.data.full}
         tableOfContent={{ style: "clerk", enabled: true }}
         tableOfContentPopover={{ enabled: false }}
-        breadcrumb={{enabled: false}}
+        breadcrumb={{ enabled: false }}
       >
         <h1 className="scroll-m-20 text-3xl font-semibold tracking-tight sm:text-4xl dark:text-gray-300 w-full">
           {page.data.title}
@@ -59,6 +59,8 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
             <Link
               href="https://www.linkedin.com/in/bdobruno/"
               className="underline underline-offset-4 hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               bdobruno
             </Link>{" "}
@@ -66,6 +68,8 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
             <Link
               href="https://www.omoralabs.com"
               className="underline underline-offset-4 hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Omora Labs
             </Link>
@@ -73,6 +77,8 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
             <Link
               href="https://github.com/omoralabs/omoralabs-docs"
               className="underline underline-offset-4 hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               GitHub
             </Link>

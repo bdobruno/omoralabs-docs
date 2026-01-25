@@ -30,7 +30,7 @@ export default function RenderTable({
   return (
     <div className="flex flex-col gap-0 select-none">
       <div className="flex bg-transparent justify-center w-full p-8 border rounded-t-lg max-h-[400px]">
-        <Table className="rounded-none border-none overflow-auto">
+        <Table className="rounded-none border-none overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <TableCaption className="pt-10">{caption}</TableCaption>
           <TableHeader>
             <TableRow>

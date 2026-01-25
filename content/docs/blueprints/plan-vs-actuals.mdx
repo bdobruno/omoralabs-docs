@@ -11,8 +11,8 @@ This blueprint demonstrates a production-grade Plan vs Actuals variance analysis
 
 ## Assets
 
-- <a href="https://github.com/omoralabs/plan-vs-actuals" target="_blank">GitHub</a>: Source code and setup instructions
-- <a href="https://app.hex.tech/019b6514-4a4f-7002-9c8d-dff74ca45f74/app/Budget-vs-Actuals-by-Omora-Labs-0328SrWYqP3tnj8DcCZpwm/latest?&tab=reports" target="_blank">Hex</a>: Live interactive report showcasing the final outputs
+- Source code: <a href="https://github.com/omoralabs/plan-vs-actuals" target="_blank">GitHub</a>
+- Live report: <a href="https://app.hex.tech/019b6514-4a4f-7002-9c8d-dff74ca45f74/app/Budget-vs-Actuals-by-Omora-Labs-0328SrWYqP3tnj8DcCZpwm/latest?&tab=reports" target="_blank">Hex</a>
 
 ## Live Report
 
@@ -33,24 +33,27 @@ This blueprint demonstrates a production-grade Plan vs Actuals variance analysis
 
 ## How to Use
 
-- Clone or fork the <a href="https://github.com/omoralabs/plan-vs-actuals" target="_blank">GitHub</a> repository
-- Replace the CSVs with your own data following the provided [semantic contracts](/semantic-layers)
-- Create a local or remote database and load sample data:
-  ```bash lineNumbers
-  # Create a local database and load sample data
-   uv run plan-db-local
- 
-   # Create a remote database and load sample data
-   uv run plan-db-remote
-  ```
-- Run dbt to materialize the analytics models:
-  ```bash lineNumbers
-  cd src/plan_vs_actuals/plan_vs_actuals_dbt
-  uv run dbt run
-  ```
-- Connect to your favorite BI tool directly to the analytics layer
+1. Clone or fork the <a href="https://github.com/omoralabs/plan-vs-actuals" target="_blank">GitHub</a> repository
+2. Replace the CSVs with your own data following the provided [semantic contracts](/semantic-layers)
+3. Create a local or remote database and load sample data:
 
-**Example Consumption on BI Tool**
+<Callout>
+The remote database service is provided by [Motherduck](https://motherduck.com/), a remote service for [DuckDB](https://duckdb.org/) databases. You must have an account to complete the remote setup. Motherduck provides a generours free tier.
+</Callout>
+
+```bash lineNumbers
+# Create a local database and load sample data
+  uv run plan-db-local
+
+  # Create a remote database and load sample data
+  uv run plan-db-remote
+```
+4. Run dbt to materialize the analytics models:
+```bash lineNumbers
+cd src/plan_vs_actuals/plan_vs_actuals_dbt
+uv run dbt run
+```
+5. Connect to your favorite BI tool directly to the analytics layer. Example consumption on BI Tool:
 
 ```sql lineNumbers
 SELECT * from "plan_vs_actuals"."analytics"."pnl_pivot"
