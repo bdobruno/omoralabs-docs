@@ -4,10 +4,11 @@ import { useSearchContext } from "fumadocs-ui/contexts/search";
 import { Search } from "lucide-react";
 import type { ComponentProps } from "react";
 import { cn } from "../../lib/cn";
-import { type ButtonProps, buttonVariants } from "../ui/button";
+import { buttonVariants } from "../ui/button";
+import { type VariantProps } from "class-variance-authority";
 
 interface SearchToggleProps
-  extends Omit<ComponentProps<"button">, "color">, ButtonProps {
+  extends Omit<ComponentProps<"button">, "color">, VariantProps<typeof buttonVariants> {
   hideIfDisabled?: boolean;
 }
 
