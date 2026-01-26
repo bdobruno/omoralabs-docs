@@ -21,7 +21,6 @@ export function NavTitle() {
             href="https://omoralabs.com"
             className="cursor-pointer mr-2"
             target="_blank"
-            rel="noopener noreferrer"
           >
             <LogoSVG />
           </a>

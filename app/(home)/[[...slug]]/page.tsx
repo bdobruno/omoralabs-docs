@@ -4,8 +4,8 @@ import { NavigationBottom } from "components/nav-bottom";
 import { findNeighbour } from "fumadocs-core/page-tree";
 import { DocsBody } from "fumadocs-ui/layouts/docs/page";
 import { createRelativeLink } from "fumadocs-ui/mdx";
-import { source } from "lib/source";
 import { getSEOTags } from "lib/seo";
+import { source } from "lib/source";
 import { getMDXComponents } from "mdx-components";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -70,7 +70,6 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
               href="https://www.omoralabs.com"
               className="underline underline-offset-4 hover:text-foreground"
               target="_blank"
-              rel="noopener noreferrer"
             >
               Omora Labs
             </Link>
