@@ -1,6 +1,5 @@
 {
   "table_name": "gl_accounts",
-  "staging": true,
   "data": "gl_accounts_simple.csv",
   "fields": {
     "id": {
