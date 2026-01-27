@@ -1,0 +1,31 @@
+{
+  "semantic_layers": {
+    "periods": {
+      "schema": "semantic_layers/periods.json",
+      "dependencies": []
+    },
+    "asset_types": {
+      "schema": "semantic_layers/asset_types.json",
+      "dependencies": []
+    },
+    "assets_providers": {
+      "schema": "semantic_layers/assets_providers.json",
+      "dependencies": ["asset_types", "currencies"]
+    },
+    "currencies": {
+      "schema": "semantic_layers/currencies.json",
+      "dependencies": []
+    },
+    "currency_pairs": {
+      "schema": "semantic_layers/currency_pairs.json",
+      "dependencies": ["currencies"]
+    }
+  },
+  "facts": {
+    "assets": {
+      "schema": "facts/assets.json",
+      "dependencies": ["periods", "assets_providers"]
+    }
+  },
+  "transformations": {}
+}

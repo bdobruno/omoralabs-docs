@@ -1,0 +1,36 @@
+---
+title: Assets
+description: Asset balance facts by period and asset provider, recorded as monetary amounts.
+---
+
+export const caption = "A list of Asset balances"
+export const table_name="assets"
+
+## Facts
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| period_id | Factual reference to the period (links to [Periods](semantic-layer/periods)). |
+| asset_id | Asset measured (links to [Assets Providers](semantic-layer/asset-providers), e.g. Stripe, Mercury, HSBC). |
+| amount | Fact registered in a currency unit. |
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/facts/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/facts/sqls/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
+
+<Callout>
+  The primary key is formed by constrainst on Periods and Asset Providers: <br/>
+  `PRIMARY KEY (period_id, asset_id)`
+</Callout>
+
+## Dependencies
+
+- **[Periods](./periods)**
+- **[Assets Providers](./assets-providers)**

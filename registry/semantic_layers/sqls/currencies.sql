@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS currencies (
+    id INTEGER PRIMARY KEY,
+    currency_code VARCHAR NOT NULL
+)

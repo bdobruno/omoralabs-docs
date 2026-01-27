@@ -1,0 +1,24 @@
+{
+  "table_name": "currency_pairs",
+  "primary_key": ["base_currency_id", "quote_currency_id"],
+  "fields": {
+    "base_currency_id": {
+      "type": "INTEGER",
+      "description": "Foreign key to currencies(id)"
+    },
+    "quote_currency_id": {
+      "type": "INTEGER",
+      "description": "Foreign key to currencies(id)"
+    }
+  },
+  "foreign_keys": [
+    {
+      "field": "base_currency_id",
+      "references": "currencies(id)"
+    },
+    {
+      "field": "quote_currency_id",
+      "references": "currencies(id)"
+    }
+  ]
+}

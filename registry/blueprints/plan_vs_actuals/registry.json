@@ -27,6 +27,6 @@
     "pnl_rollup": "registry/transformations/models/intermediate/pnl_rollup.sql",
     "pnl_metrics": "registry/transformations/models/intermediate/pnl_metrics.sql",
     "pnl_full": "registry/transformations/models/intermediate/pnl_full.sql",
-    "pnl_pivot": "registry/transformations/models/intermediate/pnl_pivot.sql"
+    "pnl_pivot": "registry/transformations/models/pnl_pivot.sql"
   }
 }

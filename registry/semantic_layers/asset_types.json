@@ -1,0 +1,12 @@
+{
+  "table_name": "asset_types",
+  "fields": {
+    "id": {
+      "type": "INTEGER PRIMARY KEY"
+    },
+    "name": {
+      "type": "VARCHAR NOT NULL"
+    }
+  },
+  "foreign_keys": []
+}

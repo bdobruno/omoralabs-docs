@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS periods (
-    id INTEGER PRIMARY KEY,
-    period INTEGER NOT NULL,
-    date DATE
+    date DATE PRIMARY KEY,
+    year_month INTEGER NOT NULL,
+    year_week INTEGER NOT NULL
 )

@@ -1,0 +1,31 @@
+---
+title: Assets Providers
+description: Typified asset providers with associated currencies for reporting and metrics.
+---
+
+export const caption = "A list of Asset Providers"
+export const table_name = "assets_providers"
+
+## Semantic Contract
+### Definitions
+| Column | Description |
+|--------|-------------|
+| id | Unique identifier of the Asset Provider. |
+| name | Name of the Asset Provider. |
+| asset_type_id | Reference to the [Asset Types](./asset-types). |
+| currency_id | Reference to [Currencies](./currencies). |
+
+### Sample & Implementation
+
+<RenderTable csvPath={`registry/semantic_layers/${table_name}.csv`} caption={caption}>
+  <ReadComponents filePath={`registry/semantic_layers/sqls/${table_name}.sql`}/>
+</RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/semantic_layers/${table_name}.json`} />
+
+## Dependencies
+
+- **[Asset Types](./asset-types)**
+- **[Currencies](./currencies)**

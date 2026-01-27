@@ -1,0 +1,28 @@
+---
+title: Currencies
+description: Standardized currency definitions based on ISO 4217 for reporting and metrics.
+---
+
+export const caption = "A list of Currencies"
+export const table_name = "currencies"
+
+## Semantic Contract
+### Definitions
+| Column | Description |
+|--------|-------------|
+| id | Unique identifier of the currency. |
+| currency_code | [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) currency codes. |
+
+### Sample & Implementation
+
+<RenderTable csvPath={`registry/semantic_layers/${table_name}.csv`} caption={caption}>
+  <ReadComponents filePath={`registry/semantic_layers/sqls/${table_name}.sql`}/>
+</RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/semantic_layers/${table_name}.json`} />
+
+## Dependencies
+
+- None.

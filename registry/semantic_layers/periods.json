@@ -1,14 +1,14 @@
 {
   "table_name": "periods",
   "fields": {
-    "id": {
-      "type": "INTEGER PRIMARY KEY"
+    "date": {
+      "type": "DATE PRIMARY KEY"
     },
-    "period": {
+    "year_month": {
       "type": "INTEGER NOT NULL"
     },
-    "date": {
-      "type": "DATE"
+    "year_week": {
+      "type": "INTEGER NOT NULL"
     }
   },
   "foreign_keys": []

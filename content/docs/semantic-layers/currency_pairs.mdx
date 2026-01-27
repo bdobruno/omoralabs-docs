@@ -1,0 +1,28 @@
+---
+title: Currency Pairs
+description: Standardized currency pairs build for storing exchange rates following ISO 4217.
+---
+
+export const caption = "A list of Currency Pairs"
+export const table_name = "currency_Pairs"
+
+## Semantic Contract
+### Definitions
+| Column | Description |
+|--------|-------------|
+| base_currency_id | Reference to [Currencies](./currencies). |
+| quote_currency_id | Reference to [Currencies](./currencies). |
+
+### Sample & Implementation
+
+<RenderTable csvPath={`registry/semantic_layers/${table_name}.csv`} caption={caption}>
+  <ReadComponents filePath={`registry/semantic_layers/sqls/${table_name}.sql`}/>
+</RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/semantic_layers/${table_name}.json`} />
+
+## Dependencies
+
+- **[Currencies](./currencies)**

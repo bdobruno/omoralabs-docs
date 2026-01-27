@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS asset_types (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR NOT NULL
+)

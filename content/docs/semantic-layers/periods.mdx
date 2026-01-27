@@ -1,9 +1,9 @@
 ---
 title: Periods
-description: Periods semantic contract, with monthly periods as atomic units for reporting and analytics.
+description: Periods semantic contract, with daily grain for monthly and weekly financial reporting periods..
 ---
 
-export const caption = "A list of Monthly Periods"
+export const caption = "A list of Periods"
 export const table_name = "periods"
 
 ## Semantic Contract
@@ -11,9 +11,9 @@ export const table_name = "periods"
 
 | Column | Description |
 |--------|-------------|
-| id | Unique identifier for the period. |
-| period | Numeric representation of the period (e.g., YYYYMM, such as `202601` for January 2026). |
-| date | Representative date for the period defined as the first day of the month. |
+| date | Actual calendar date. |
+| year_month | Monthly period in YYYYMM format (e.g., 202601 for January 2026). |
+| year_week | Weekly period in YYYYWW format using ISO week numbering (e.g., 202552 for week 52 of 2025). |
 
 ### Sample & Implementation
   <RenderTable csvPath={`registry/semantic_layers/${table_name}.csv`} caption={caption}>

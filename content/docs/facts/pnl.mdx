@@ -11,9 +11,9 @@ export const table_name="pnl"
 
 | Column | Description |
 |--------|-------------|
-| period_id | Factual reference to the period (links to [periods](semantic-layer/periods)). |
-| gl_account_id | Which GL Account (links to [gl_accounts](semantic-layer/gl_accounts)). |
-| value_type_id | Type of value measured (links to [value_types](semantic-layer/value_types), e.g., actuals, budget). |
+| year_month | Monthly period in YYYYMM format, reference to [Periods](semantic-layer/periods). |
+| gl_account_id | Which GL Account (links to [GL Accounts](semantic-layer/gl-accounts)). |
+| value_type_id | Type of value measured (links to [Value Types](semantic-layer/value-types), e.g., actuals, budget). |
 | amount | Fact registered in a currency unit. |
 
 ### Sample & Implementation
@@ -28,7 +28,7 @@ export const table_name="pnl"
 
 <Callout>
   The primary key is formed by constrainst on periods, GL accounts, and value types: <br/>
-  `PRIMARY KEY (period_id, gl_account_id, value_type_id)`
+  `PRIMARY KEY (year_month, gl_account_id, value_type_id)`
 </Callout>
 
 ## Dependencies

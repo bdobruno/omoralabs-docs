@@ -1,0 +1,29 @@
+{
+  "table_name": "assets",
+  "fields": {
+    "id": {
+      "type": "INTEGER PRIMARY KEY"
+    },
+    "name": {
+      "type": "VARCHAR NOT NULL"
+    },
+    "asset_type_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to asset_types(id)"
+    },
+    "currency_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to currencies(id)"
+    }
+  },
+  "foreign_keys": [
+    {
+      "field": "asset_type_id",
+      "references": "asset_types(id)"
+    },
+    {
+      "field": "currency_id",
+      "references": "currencies(id)"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+---
+title: Asset Types
+description: Standardized asset classifications for reporting and metrics.
+---
+
+export const caption = "A list of Asset Types"
+export const table_name = "asset_types"
+
+## Semantic Contract
+### Definitions
+| Column | Description |
+|--------|-------------|
+| id | Unique identifier of the Asset Type. |
+| name | Name of the Asset Type. |
+
+### Sample & Implementation
+
+<RenderTable csvPath={`registry/semantic_layers/${table_name}.csv`} caption={caption}>
+  <ReadComponents filePath={`registry/semantic_layers/sqls/${table_name}.sql`}/>
+</RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/semantic_layers/${table_name}.json`} />
+
+## Dependencies
+
+- None.

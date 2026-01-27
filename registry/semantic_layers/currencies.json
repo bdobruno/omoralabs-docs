@@ -1,0 +1,12 @@
+{
+  "table_name": "currencies",
+  "fields": {
+    "id": {
+      "type": "INTEGER PRIMARY KEY"
+    },
+    "currency_code": {
+      "type": "VARCHAR NOT NULL"
+    }
+  },
+  "foreign_keys": []
+}

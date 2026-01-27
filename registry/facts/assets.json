@@ -1,0 +1,28 @@
+{
+  "table_name": "assets",
+  "primary_key": ["period_id", "asset_id"],
+  "fields": {
+    "period_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to periods(id)"
+    },
+    "asset_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to assets_providers(id)"
+    },
+    "amount": {
+      "type": "INTEGER NOT NULL",
+      "description": "Fact registered in a currency unit"
+    }
+  },
+  "foreign_keys": [
+    {
+      "field": "asset_id",
+      "references": "assets(id)"
+    },
+    {
+      "field": "period_id",
+      "references": "periods(id)"
+    }
+  ]
+}
