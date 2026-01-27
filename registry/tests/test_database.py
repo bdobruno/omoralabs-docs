@@ -53,7 +53,7 @@ def test_implement_tables_creates_all_tables(db_connection):
     table_names = [row[0] for row in result]
 
     # Check expected semantic layer tables exist
-    expected_tables = ["periods", "value_types", "gl_accounts_types"]
+    expected_tables = ["dates", "value_types", "gl_accounts_types"]
     for table in expected_tables:
         assert table in table_names, f"Table {table} should be created"
 
@@ -71,7 +71,7 @@ def test_implement_tables_with_foreign_keys(db_connection):
     # This should not raise an error even with FK dependencies
     db_connection.implement_tables(sqls)
 
-    # Verify a table with FK exists (pnl depends on periods, value_types, gl_accounts)
+    # Verify a table with FK exists (pnl depends on dates, value_types, gl_accounts)
     tables_query = (
         "SELECT table_name FROM information_schema.tables WHERE table_schema = 'main'"
     )

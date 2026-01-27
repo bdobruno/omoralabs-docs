@@ -1,10 +1,10 @@
 {
   "table_name": "assets",
-  "primary_key": ["period_id", "asset_id"],
+  "primary_key": ["date", "asset_id"],
   "fields": {
-    "period_id": {
+    "date": {
       "type": "INTEGER NOT NULL",
-      "description": "Foreign key to periods(id)"
+      "description": "Foreign key to dates(date)"
     },
     "asset_id": {
       "type": "INTEGER NOT NULL",
@@ -21,8 +21,8 @@
       "references": "assets(id)"
     },
     {
-      "field": "period_id",
-      "references": "periods(id)"
+      "field": "date",
+      "references": "dates(date)"
     }
   ]
 }

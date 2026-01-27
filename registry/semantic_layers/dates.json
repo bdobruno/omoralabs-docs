@@ -1,0 +1,9 @@
+{
+  "table_name": "dates",
+  "fields": {
+    "date": {
+      "type": "DATE PRIMARY KEY"
+    }
+  },
+  "foreign_keys": []
+}

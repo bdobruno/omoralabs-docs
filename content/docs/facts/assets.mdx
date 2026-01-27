@@ -1,6 +1,6 @@
 ---
 title: Assets
-description: Asset balance facts by period and asset provider, recorded as monetary amounts.
+description: Asset balance facts by date and asset provider, recorded as monetary amounts.
 ---
 
 export const caption = "A list of Asset balances"
@@ -11,7 +11,7 @@ export const table_name="assets"
 
 | Column | Description |
 |--------|-------------|
-| period_id | Factual reference to the period (links to [Periods](semantic-layer/periods)). |
+| date | Factual reference to the date (links to [Dates](semantic-layer/dates)). |
 | asset_id | Asset measured (links to [Assets Providers](semantic-layer/asset-providers), e.g. Stripe, Mercury, HSBC). |
 | amount | Fact registered in a currency unit. |
 
@@ -26,11 +26,11 @@ export const table_name="assets"
 <TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
 
 <Callout>
-  The primary key is formed by constrainst on Periods and Asset Providers: <br/>
-  `PRIMARY KEY (period_id, asset_id)`
+  The primary key is formed by constrainst on Dates and Asset Providers: <br/>
+  `PRIMARY KEY (date, asset_id)`
 </Callout>
 
 ## Dependencies
 
-- **[Periods](./periods)**
-- **[Assets Providers](./assets-providers)**
+- **[Dates](/semantic-layers/dates)**
+- **[Assets Providers](/semantic-layers/assets-providers)**

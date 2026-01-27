@@ -7,6 +7,6 @@ sources:
     tables:
       - name: gl_accounts_types
       - name: gl_accounts
-      - name: periods
+      - name: dates
       - name: value_types
       - name: pnl

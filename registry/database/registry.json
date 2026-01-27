@@ -16,8 +16,8 @@
       "schema": "semantic_layers/gl_accounts_types.json",
       "dependencies": []
     },
-    "periods": {
-      "schema": "semantic_layers/periods.json",
+    "dates": {
+      "schema": "semantic_layers/dates.json",
       "dependencies": []
     },
     "revenue_types": {
@@ -48,15 +48,15 @@
   "facts": {
     "pnl": {
       "schema": "facts/pnl.json",
-      "dependencies": ["periods", "value_types", "gl_accounts"]
+      "dependencies": ["dates", "value_types", "gl_accounts"]
     },
     "revenue_changes": {
       "schema": "facts/revenue_changes.json",
-      "dependencies": ["periods", "value_types", "revenue_types"]
+      "dependencies": ["dates", "value_types", "revenue_types"]
     },
     "assets": {
       "schema": "facts/assets.json",
-      "dependencies": ["periods", "assets_providers"]
+      "dependencies": ["dates", "assets_providers"]
     }
   }
 }

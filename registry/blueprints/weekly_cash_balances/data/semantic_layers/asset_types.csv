@@ -1,0 +1,7 @@
+id,type,
+1,payment_processor
+2,receivables
+3,merchant_cash_advance
+4,bank_account
+5,marketable_securities
+6,investment

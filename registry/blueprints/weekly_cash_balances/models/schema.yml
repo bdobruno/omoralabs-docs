@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: weekly_cash_balances
+    schema: main
+    tables:
+      - name: assets
+      - name: asset_types
+      - name: assets_providers
+      - name: currencies
+      - name: currency_pairs
+      - name: dates

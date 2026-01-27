@@ -9,7 +9,7 @@ description: Observed financial values recorded at a defined grain, linking sema
     Facts are implemented purely in SQL, with <a href="https://duckdb.org/" target="_blank">DuckDB</a> as the reference engine, making them portable across different database providers.
 </Callout>
 
-Facts store what actually happened. They record observed financial values, such as amounts, counts, or quantities, at a clearly defined level of detail, always by referencing [semantic layers](/semantic-layers) like Periods, GL Accounts, Value Types, or Revenue Types.
+Facts store what actually happened. They record observed financial values, such as amounts, counts, or quantities, at a clearly defined level of detail, always by referencing [semantic layers](/semantic-layers) like Dates, GL Accounts, Value Types, or Revenue Types.
 
 Every fact table links one or more semantic dimensions and attaches measurable values, ensuring observations are consistently classified, comparable, and reusable across transformations and reporting.
 

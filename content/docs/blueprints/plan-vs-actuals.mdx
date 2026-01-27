@@ -27,7 +27,7 @@ This blueprint demonstrates a production-grade Plan vs Actuals variance analysis
 
 ## Dependencies
 
-- Semantic Layers: [GL Accounts](/semantic-layers/gl-accounts), [GL Accounts Types](/semantic-layers/gl-accounts-types), [Periods](/semantic-layers/periods), [Value Types](/semantic-layers/value-types)
+- Semantic Layers: [GL Accounts](/semantic-layers/gl-accounts), [GL Accounts Types](/semantic-layers/gl-accounts-types), [Dates](/semantic-layers/dates), [Value Types](/semantic-layers/value-types)
 - Facts: [PnL](/facts/pnl)
 - Transformations: [PnL Rollup](/transformations/pnl-rollup), [PnL Metrics](/transformations/pnl-metrics), [PnL Pivot](/transformations/pnl-pivot)
 
@@ -57,7 +57,7 @@ uv run dbt run
 
 ```sql lineNumbers
 SELECT * from "plan_vs_actuals"."analytics"."pnl_pivot"
-ORDER BY period
+ORDER BY date
 ```
 ```python lineNumbers
 # Title adjustments

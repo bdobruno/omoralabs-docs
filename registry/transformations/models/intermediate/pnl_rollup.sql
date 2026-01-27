@@ -10,7 +10,7 @@ gl_accounts as (
 
 pnl_rollup as (
     select
-        period_id,
+        date,
         gl_account_id,
         value_type_id,
         amount,
@@ -20,7 +20,7 @@ pnl_rollup as (
     union all
 
     select
-        pr.period_id,
+        pr.date,
         ga.parent_gl as gl_account_id,
         pr.value_type_id,
         pr.amount,
@@ -32,7 +32,6 @@ pnl_rollup as (
 )
 
 select
-    p.period,
     p.date,
     ga.id as gl_id,
     ga.name as gl_account,
@@ -40,8 +39,8 @@ select
     vt.name as type,
     SUM(pnlr.amount) as amount
 from pnl_rollup pnlr
-join periods p ON p.id = pnlr.period_id
+join dates p ON p.date = pnlr.date
 join gl_accounts ga ON ga.id = pnlr.gl_account_id
 join value_types vt ON vt.id = pnlr.value_type_id
-group by p.period, p.date, ga.id, ga.name, pnlr.value_type_id, vt.name
-order by value_type_id, period, gl_id
+group by p.date, ga.id, ga.name, pnlr.value_type_id, vt.name
+order by value_type_id, p.date, gl_id

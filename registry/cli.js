@@ -140,6 +140,57 @@ program
         }
       }
 
+      // Copy config files to project root
+      const configDir = path.join(blueprintPath, 'config');
+      if (fs.existsSync(configDir)) {
+        const configFiles = await fs.readdir(configDir);
+        for (const file of configFiles) {
+          await fs.copy(
+            path.join(configDir, file),
+            path.join(projectDir, file)
+          );
+          console.log(chalk.green(`✓ Added ${file}`));
+        }
+      }
+
+      // Copy data files (CSVs) to appropriate folders
+      const dataDir = path.join(blueprintPath, 'data');
+      if (fs.existsSync(dataDir)) {
+        // Copy semantic_layers CSVs
+        const dataSemanticLayersDir = path.join(dataDir, 'semantic_layers');
+        if (fs.existsSync(dataSemanticLayersDir)) {
+          const csvFiles = await fs.readdir(dataSemanticLayersDir);
+          const targetSemanticDir = path.join(srcDir, 'semantic_layers');
+
+          for (const file of csvFiles) {
+            if (file.endsWith('.csv')) {
+              await fs.copy(
+                path.join(dataSemanticLayersDir, file),
+                path.join(targetSemanticDir, file)
+              );
+              console.log(chalk.green(`✓ Added semantic_layers/${file}`));
+            }
+          }
+        }
+
+        // Copy facts CSVs
+        const dataFactsDir = path.join(dataDir, 'facts');
+        if (fs.existsSync(dataFactsDir)) {
+          const csvFiles = await fs.readdir(dataFactsDir);
+          const targetFactsDir = path.join(srcDir, 'facts');
+
+          for (const file of csvFiles) {
+            if (file.endsWith('.csv')) {
+              await fs.copy(
+                path.join(dataFactsDir, file),
+                path.join(targetFactsDir, file)
+              );
+              console.log(chalk.green(`✓ Added facts/${file}`));
+            }
+          }
+        }
+      }
+
       console.log(chalk.bold.green(`\n✨ Successfully added ${blueprint} to ./${blueprintName}/`));
 
     } catch (error) {

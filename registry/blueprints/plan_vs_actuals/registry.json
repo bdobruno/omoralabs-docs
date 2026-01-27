@@ -1,4 +1,5 @@
 {
+  "db_name": "plan_vs_actuals",
   "semantic_layers": {
     "gl_accounts_simple": {
       "schema": "semantic_layers/gl_accounts_simple.json",
@@ -8,8 +9,8 @@
       "schema": "semantic_layers/gl_accounts_types.json",
       "dependencies": []
     },
-    "periods": {
-      "schema": "semantic_layers/periods.json",
+    "dates": {
+      "schema": "semantic_layers/dates.json",
       "dependencies": []
     },
     "value_types": {
@@ -20,7 +21,7 @@
   "facts": {
     "pnl": {
       "schema": "facts/pnl.json",
-      "dependencies": ["periods", "value_types", "gl_accounts"]
+      "dependencies": ["dates", "value_types", "gl_accounts"]
     }
   },
   "transformations": {

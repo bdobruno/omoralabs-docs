@@ -1,6 +1,6 @@
 ---
 title: Profit & Loss
-description: Profit & Loss facts on GL Accounts, defining values per period, value type, and GL account.
+description: Profit & Loss facts on GL Accounts, defining values per date, value type, and GL account.
 ---
 
 export const caption = "A list of PnL' GL Accounts"
@@ -11,7 +11,7 @@ export const table_name="pnl"
 
 | Column | Description |
 |--------|-------------|
-| year_month | Monthly period in YYYYMM format, reference to [Periods](semantic-layer/periods). |
+| date | Date in YYYY-MM-DD format, reference to [Dates](semantic-layer/dates). |
 | gl_account_id | Which GL Account (links to [GL Accounts](semantic-layer/gl-accounts)). |
 | value_type_id | Type of value measured (links to [Value Types](semantic-layer/value-types), e.g., actuals, budget). |
 | amount | Fact registered in a currency unit. |
@@ -27,12 +27,12 @@ export const table_name="pnl"
 <TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
 
 <Callout>
-  The primary key is formed by constrainst on periods, GL accounts, and value types: <br/>
-  `PRIMARY KEY (year_month, gl_account_id, value_type_id)`
+  The primary key is formed by constrainst on dates, GL accounts, and value types: <br/>
+  `PRIMARY KEY (date, gl_account_id, value_type_id)`
 </Callout>
 
 ## Dependencies
 
-- **[Periods](./periods)**
-- **[GL Accounts](./gl-accounts)**
-- **[Value Types](./value-types)**
+- **[Dates](/semantic-layers//dates)**
+- **[GL Accounts](/semantic-layers//gl-accounts)**
+- **[Value Types](/semantic-layers//value-types)**

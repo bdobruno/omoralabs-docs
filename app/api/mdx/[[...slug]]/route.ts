@@ -15,8 +15,18 @@ export async function GET(
   }
 
   try {
-    const relativePath = `${resolvedParams.slug?.join("/") || "index"}.mdx`;
-    const filePath = path.join(process.cwd(), "content/docs", relativePath);
+    let relativePath = `${resolvedParams.slug?.join("/") || "index"}.mdx`;
+    let filePath = path.join(process.cwd(), "content/docs", relativePath);
+
+    // If file doesn't exist, try /index.mdx pattern (for folder structures)
+    if (!fs.existsSync(filePath)) {
+      const indexPath = `${resolvedParams.slug?.join("/") || "index"}/index.mdx`;
+      const indexFilePath = path.join(process.cwd(), "content/docs", indexPath);
+      if (fs.existsSync(indexFilePath)) {
+        filePath = indexFilePath;
+      }
+    }
+
     const content = fs.readFileSync(filePath, "utf-8");
 
     return new NextResponse(content, {

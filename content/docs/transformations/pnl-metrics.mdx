@@ -36,7 +36,7 @@ This model encodes financial definitions once so that margins and ratios are con
   - Absolute values (amounts)
   - Relative values (percentages)
 
-Final dataset is ordered by value type, period, and GL account.
+Final dataset is ordered by value type, date, and GL account.
 
 ## Output Contract
 ### Definitions
@@ -46,8 +46,7 @@ Final dataset is ordered by value type, period, and GL account.
 
 | Column | Description |
 |--------|-------------|
-| period | Monthly reporting period. Links to [periods](semantic-layers/periods) semantic contract |
-| date | Monthly reporting period represented as `YYYY-MM-DD` with convention to first day of the month. Links to [periods](semantic-layers/periods) semantic contract |
+| date | Date represented as `YYYY-MM-DD`. Links to [Dates](semantic-layers/dates) semantic contract |
 | gl_id | GL Account identifier. Links to [GL Accounts](semantic-layers/gl-accounts) semantic contract |
 | gl_account | GL Account **name** at any hierarchy level. Links to [GL Accounts](semantic-layers/gl-accounts) semantic contract |
 | value_type_id | Value Type identifier. Links to [Value Type](semantic-layers/value-types) semantic contract |

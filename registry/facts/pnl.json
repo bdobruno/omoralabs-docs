@@ -1,10 +1,10 @@
 {
   "table_name": "pnl",
-  "primary_key": ["year_month", "gl_account_id", "value_type_id"],
+  "primary_key": ["date", "gl_account_id", "value_type_id"],
   "fields": {
-    "year_month": {
-      "type": "INTEGER NOT NULL",
-      "description": "Foreign key to periods(year_month)"
+    "date": {
+      "type": "DATE NOT NULL",
+      "description": "Foreign key to dates(date)"
     },
     "gl_account_id": {
       "type": "INTEGER NOT NULL",
@@ -21,8 +21,8 @@
   },
   "foreign_keys": [
     {
-      "field": "year_month",
-      "references": "periods(year_month)"
+      "field": "date",
+      "references": "dates(date)"
     },
     {
       "field": "gl_account_id",

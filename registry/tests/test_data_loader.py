@@ -84,12 +84,12 @@ def test_all_csv_files_exist():
 def test_csv_path_resolution_convention():
     """Test that CSV path resolution uses convention (table_name.csv) by default"""
     MODULE_DIR = Path(__file__).parent.parent
-    schema_path = MODULE_DIR / "semantic_layers/periods.json"
+    schema_path = MODULE_DIR / "semantic_layers/dates.json"
     schema = get_json(str(schema_path))
 
     # If no "data" field, should default to table_name.csv
     csv_file = schema.get("data", f"{schema['table_name']}.csv")
-    expected = "periods.csv"
+    expected = "dates.csv"
 
     assert csv_file == expected
 

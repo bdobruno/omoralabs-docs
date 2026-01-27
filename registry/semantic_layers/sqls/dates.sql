@@ -1,0 +1,3 @@
+CREATE TABLE IF NOT EXISTS dates (
+    date DATE PRIMARY KEY
+)

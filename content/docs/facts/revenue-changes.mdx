@@ -1,6 +1,6 @@
 ---
 title: Revenue Changes
-description: Revenue facts on changes, defining price and volume per period, value type, and revenue type.
+description: Revenue facts on changes, defining price and volume per date, value type, and revenue type.
 ---
 
 export const caption = "A list of Revenue Changes"
@@ -11,7 +11,7 @@ export const table_name="revenue_changes"
 
 | Column | Description |
 |--------|-------------|
-| period_id | Factual reference to the period (links to [Periods](semantic-layer/periods)). |
+| date | Date in YYYY-MM-DD format, reference to [Dates](semantic-layer/dates). |
 | revenue_type_id | Type of revenue change (links to [Revenue Types](semantic-layer/revenue-types), e.g., New Booking, Upsell). |
 | value_type_id | Type of value measured (links to [Value Types](semantic-layer/value-types), e.g., actuals, budget). |
 | nr_of_customers | Volume variable with number of customers contributing to this revenue change. |
@@ -28,12 +28,12 @@ export const table_name="revenue_changes"
 <TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
 
 <Callout>
-  The primary key is formed by constrainst on periods, revenue types, and value types: <br/>
-  `PRIMARY KEY (period_id, revenue_type_id, value_type_id)`
+  The primary key is formed by constrainst on dates, revenue types, and value types: <br/>
+  `PRIMARY KEY (date, revenue_type_id, value_type_id)`
 </Callout>
 
 ## Dependencies
 
-- **[Periods](./periods)**
-- **[Revenue Types](./revenue-types)**
-- **[Value Types](./value-types)**
+- **[Dates](/semantic-layers//dates)**
+- **[Revenue Types](/semantic-layers//revenue-types)**
+- **[Value Types](/semantic-layers//value-types)**

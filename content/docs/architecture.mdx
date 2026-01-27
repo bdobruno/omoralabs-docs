@@ -10,7 +10,7 @@ Omora Labs inverts the traditional analytics stack: business meaning is defined 
 ### 1. Semantic Layers
 **Business meaning → Contract definitions**
 
-The semantic layer defines the core business concepts of the organization before any data is ingested. [Semantic Layers](/semantic-layers) such as Periods, GL Accounts, Business Units, Revenue Types, Revenue Changes, and Value Types encode financial meaning, hierarchies, and classification rules once, in code.
+The semantic layer defines the core business concepts of the organization before any data is ingested. [Semantic Layers](/semantic-layers) such as Dates, GL Accounts, Business Units, Revenue Types, Revenue Changes, and Value Types encode financial meaning, hierarchies, and classification rules once, in code.
 
 These definitions are authoritative. They act as a contract: all incoming data, downstream transformations, and reports must conform to them. The semantic layer determines what concepts exist, how they relate, and how business logic is interpreted, independent of any specific dataset. These contracts are expressed in SQL.
 
@@ -25,7 +25,7 @@ Facts store what actually happened, expressed using the semantic contracts. They
 
 Facts do not define meaning or logic. They are structured observations that conform to predefined semantic layers and are typically produced by workers or transformations.
 
-**Example**: Revenue changes per period, split into price and volume, classified by revenue type and value type.
+**Example**: Revenue changes per date, split into price and volume, classified by revenue type and value type.
 
 **Stack**: [DuckDB](https://duckdb.org/)
 
@@ -45,7 +45,7 @@ This layer builds analytical models and derived datasets by consuming dimension-
 
 Typical outputs include fact tables, aggregates, and reusable analytical models (e.g. monthly revenue, budget vs actuals inputs, cash flow building blocks). No dimension logic is redefined: **transformations strictly rely on the semantic layer**.
 
-**Example:** Building a monthly Budget vs Actuals model by aggregating transactions along Periods, GL Accounts, and Value Types, without redefining fiscal calendars or account groupings.
+**Example:** Building a monthly Budget vs Actuals model by aggregating transactions along Dates, GL Accounts, and Value Types, without redefining fiscal calendars or account groupings.
 
 **Stack**: [dbt](https://www.getdbt.com/)
 
@@ -54,7 +54,7 @@ Typical outputs include fact tables, aggregates, and reusable analytical models 
 
 This layer is responsible for consumption and presentation only. All business logic has already been applied upstream, so reports and dashboards simply query precomputed analytical views and render results for automated and repeatable decision-making. No business logic or classification exists at this stage.
 
-**Example**: A Budget vs Actuals dashboard visualizes precomputed monthly figures by Period and GL Account, inheriting all definitions from upstream layers.
+**Example**: A Budget vs Actuals dashboard visualizes precomputed monthly figures by Date and GL Account, inheriting all definitions from upstream layers.
 
 **Stack**: [Hex](https://hex.tech/) | [Looker](https://lookerstudio.google.com)
 

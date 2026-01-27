@@ -39,14 +39,14 @@ def test_json_to_sql_generates_valid_sql():
     registry = get_json(str(MODULE_DIR / "database/registry.json"))
 
     # Test with one semantic layer
-    config = registry["semantic_layers"]["periods"]
+    config = registry["semantic_layers"]["dates"]
     schema_path = MODULE_DIR / config["schema"]
     sql = json_to_sql(str(schema_path))
 
     assert sql.startswith("CREATE TABLE IF NOT EXISTS"), (
         "SQL should start with CREATE TABLE"
     )
-    assert "periods" in sql.lower(), "SQL should reference the table name"
+    assert "dates" in sql.lower(), "SQL should reference the table name"
 
 
 def test_sql_files_generated():

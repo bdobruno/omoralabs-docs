@@ -1,10 +1,10 @@
 {
   "table_name": "revenue_changes",
-  "primary_key": ["period_id", "revenue_type_id", "value_type_id"],
+  "primary_key": ["date", "revenue_type_id", "value_type_id"],
   "fields": {
-    "period_id": {
+    "date": {
       "type": "INTEGER NOT NULL",
-      "description": "Foreign key to periods(id)"
+      "description": "Foreign key to dates(date)"
     },
     "revenue_type_id": {
       "type": "INTEGER NOT NULL",
@@ -25,8 +25,8 @@
   },
   "foreign_keys": [
     {
-      "field": "period_id",
-      "references": "periods(id)"
+      "field": "date",
+      "references": "dates(date)"
     },
     {
       "field": "revenue_type_id",

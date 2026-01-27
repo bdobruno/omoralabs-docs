@@ -1,7 +1,7 @@
 {
   "semantic_layers": {
-    "periods": {
-      "schema": "semantic_layers/periods.json",
+    "dates": {
+      "schema": "semantic_layers/dates.json",
       "dependencies": []
     },
     "asset_types": {
@@ -24,8 +24,11 @@
   "facts": {
     "assets": {
       "schema": "facts/assets.json",
-      "dependencies": ["periods", "assets_providers"]
+      "dependencies": ["dates", "assets_providers"]
     }
   },
-  "transformations": {}
+  "transformations": {},
+  "workers": {
+    "ex_rates": "registry/workers/ex_rates.py"
+  }
 }
