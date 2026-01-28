@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS revenue_changes (
-    date INTEGER NOT NULL,
+    date DATE NOT NULL,
     revenue_type_id INTEGER NOT NULL,
     value_type_id INTEGER NOT NULL,
     nr_of_customers INTEGER NOT NULL,

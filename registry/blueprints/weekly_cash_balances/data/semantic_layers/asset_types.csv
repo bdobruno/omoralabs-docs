@@ -1,4 +1,4 @@
-id,type,
+id,name
 1,payment_processor
 2,receivables
 3,merchant_cash_advance

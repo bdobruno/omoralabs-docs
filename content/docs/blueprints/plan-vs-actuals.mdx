@@ -33,8 +33,13 @@ This blueprint demonstrates a production-grade Plan vs Actuals variance analysis
 
 ## How to Use
 
-1. Clone or fork the <a href="https://github.com/omoralabs/plan-vs-actuals" target="_blank">GitHub</a> repository
-2. Replace the CSVs with your own data following the provided [semantic contracts](/semantic-layers)
+1. Run the following command from your terminal or clone or fork the <a href="https://github.com/omoralabs/plan-vs-actuals" target="_blank">GitHub</a> repository.
+
+```bash
+npx omoralabs@latest add plan_vs_actuals
+```
+
+2. Replace the CSVs with your own data.
 3. Create a local or remote database and load sample data:
 
 <Callout>
@@ -43,10 +48,10 @@ The remote database service is provided by [Motherduck](https://motherduck.com/)
 
 ```bash lineNumbers
 # Create a local database and load sample data
-  uv run plan-db-local
+  uv run omora-local
 
   # Create a remote database and load sample data
-  uv run plan-db-remote
+  uv run omora-remote
 ```
 4. Run dbt to materialize the analytics models:
 ```bash lineNumbers

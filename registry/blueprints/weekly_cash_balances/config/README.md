@@ -19,7 +19,7 @@ uv run omora-local
 uv run omora-remote
 
 # Run dbt transformations
-cd src/plan_vs_actuals/plan_vs_actuals_dbt
+cd src/weekly_cash_balances/weekly_cash_balances_dbt
 uv run dbt run
 ```
 

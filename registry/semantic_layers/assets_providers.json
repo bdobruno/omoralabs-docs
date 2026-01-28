@@ -1,8 +1,8 @@
 {
-  "table_name": "assets",
+  "table_name": "assets_providers",
   "fields": {
     "id": {
-      "type": "INTEGER PRIMARY KEY"
+      "type": "UUID PRIMARY KEY"
     },
     "name": {
       "type": "VARCHAR NOT NULL"

@@ -1,0 +1,47 @@
+---
+title: Reporting Rates
+description: Provides a reporting-ready view of exchange rates with normalized currency pairs.
+---
+
+export const table_name = "reporting_rates"
+export const caption = "Exchange rates expanded for reporting and currency conversion."
+
+## Purpose
+
+Provide a **reporting-friendly view of exchange rates**, exposing both direct and inverse currency pairs in a single, consumable dataset.
+
+This model standardizes exchange rate data so downstream models and reports can convert between currencies without needing to handle pair directionality or rate inversion logic.
+
+## Business Logic
+
+- Start from the [Exchange Rates](/facts/exchange-rates) fact table
+- Resolve currency pairs into base and quote currencies
+- Translate internal currency identifiers into [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html)
+- Derive ISO week number from the rate date
+- Generate inverse rates automatically:
+  - Swap base and quote currencies
+  - Invert the exchange rate value
+- Combine direct and inverse rates into a single result set
+
+## Output Contract
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| date | Date of the exchange rate (`YYYY-MM-DD`). Links to [Dates](/semantic-layers/dates) |
+| weeknum | ISO year-week in `YYYYWW` format, derived from `date` |
+| base_currency | [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) being converted from |
+| quote_currency | [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) being converted to |
+| value | Exchange rate value from `base_currency` to `quote_currency` |
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/intermediate/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/intermediate/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Facts: [Exchange Rates](/facts/exchange-rates)
+- Semantic Layers: [Currency Pairs](/semantic-layers/currency-pairs) and [Currencies](/semantic-layers/currencies)

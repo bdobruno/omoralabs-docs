@@ -1,16 +1,18 @@
 {
   "name": "omoralabs",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Building blocks for composable, modern finance analytics",
   "bin": {
     "omoralabs": "cli.js"
   },
   "files": [
     "cli.js",
+    "database/**/*",
     "blueprints/**/*",
     "facts/**/*",
     "semantic_layers/**/*",
-    "transformations/**/*"
+    "transformations/**/*",
+    "workers/**/*"
   ],
   "dependencies": {
     "commander": "^12.0.0",

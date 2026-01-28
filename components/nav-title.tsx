@@ -7,9 +7,9 @@ import Link from "next/link";
 const navItems = [
   { name: "Docs", href: "/" },
   { name: "Architecture", href: "/architecture" },
+  { name: "Blueprints", href: "/blueprints" },
   { name: "Semantic Layers", href: "/semantic-layers" },
   { name: "Transformations", href: "/transformations" },
-  { name: "Blueprints", href: "/blueprints" },
 ];
 
 export function NavTitle() {

@@ -1,8 +1,10 @@
 [project]
 name = "omoralabs-registry"
 version = "0.1.0"
+requires-python = ">=3.13"
 dependencies = [
-"duckdb",
-"polars",
-"pytest"
+    "duckdb",
+    "numpy>=2.4.1",
+    "polars",
+    "pytest",
 ]

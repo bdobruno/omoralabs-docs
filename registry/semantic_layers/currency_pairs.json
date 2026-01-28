@@ -1,13 +1,15 @@
 {
   "table_name": "currency_pairs",
-  "primary_key": ["base_currency_id", "quote_currency_id"],
   "fields": {
+    "id": {
+      "type": "INTEGER PRIMARY KEY"
+    },
     "base_currency_id": {
-      "type": "INTEGER",
+      "type": "INTEGER NOT NULL",
       "description": "Foreign key to currencies(id)"
     },
     "quote_currency_id": {
-      "type": "INTEGER",
+      "type": "INTEGER NOT NULL",
       "description": "Foreign key to currencies(id)"
     }
   },

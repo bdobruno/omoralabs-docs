@@ -3,7 +3,7 @@
   "primary_key": ["date", "revenue_type_id", "value_type_id"],
   "fields": {
     "date": {
-      "type": "INTEGER NOT NULL",
+      "type": "DATE NOT NULL",
       "description": "Foreign key to dates(date)"
     },
     "revenue_type_id": {

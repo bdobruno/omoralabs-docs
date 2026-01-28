@@ -10,14 +10,14 @@ const program = new Command();
 program
   .name('omoralabs')
   .description('Building blocks for composable, modern finance analytics')
-  .version('0.1.0');
+  .version(require('./package.json').version);
 
 program
   .command('add <blueprint>')
   .description('Add a blueprint to your project')
   .action(async (blueprint) => {
     try {
-      const blueprintName = blueprint.replace(/_/g, '-');
+      const blueprintName = blueprint;
       const blueprintPath = path.join(__dirname, 'blueprints', blueprint);
       const registryPath = path.join(blueprintPath, 'registry.json');
 
@@ -85,6 +85,22 @@ program
         }
       }
 
+      // Copy workers
+      if (registry.workers) {
+        const workersDir = path.join(srcDir, 'workers');
+        await fs.ensureDir(workersDir);
+
+        for (const name of registry.workers) {
+          const sourcePath = path.join(__dirname, 'workers', name);
+          const targetPath = path.join(workersDir, name);
+
+          if (fs.existsSync(sourcePath)) {
+            await fs.copy(sourcePath, targetPath);
+            console.log(chalk.green(`✓ Added workers/${name}/`));
+          }
+        }
+      }
+
       // Copy transformations (dbt models)
       if (registry.transformations) {
         const modelsDir = path.join(dbtDir, 'models');
@@ -126,18 +142,28 @@ program
       // Copy blueprint models
       const blueprintModelsDir = path.join(blueprintPath, 'models');
       if (fs.existsSync(blueprintModelsDir)) {
-        const files = await fs.readdir(blueprintModelsDir);
         const modelsDir = path.join(dbtDir, 'models');
 
-        for (const file of files) {
-          if (file.endsWith('.sql')) {
-            await fs.copy(
-              path.join(blueprintModelsDir, file),
-              path.join(modelsDir, file)
-            );
-            console.log(chalk.green(`✓ Added models/${file}`));
+        // Recursively copy all .sql files and subdirectories
+        const copyModelsRecursively = async (sourceDir, targetDir) => {
+          const entries = await fs.readdir(sourceDir, { withFileTypes: true });
+
+          for (const entry of entries) {
+            const sourcePath = path.join(sourceDir, entry.name);
+            const targetPath = path.join(targetDir, entry.name);
+
+            if (entry.isDirectory()) {
+              await fs.ensureDir(targetPath);
+              await copyModelsRecursively(sourcePath, targetPath);
+            } else if (entry.name.endsWith('.sql')) {
+              await fs.copy(sourcePath, targetPath);
+              const relativePath = path.relative(blueprintModelsDir, sourcePath);
+              console.log(chalk.green(`✓ Added models/${relativePath}`));
+            }
           }
-        }
+        };
+
+        await copyModelsRecursively(blueprintModelsDir, modelsDir);
       }
 
       // Copy config files to project root

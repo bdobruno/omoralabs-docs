@@ -1,0 +1,42 @@
+---
+title: Assets Metadata
+description: Provides a simplified view of asset metadata, including asset providers and operating currencies.
+---
+
+export const table_name = "assets_metadata"
+export const caption = "Asset providers mapped to their operating currency."
+
+## Purpose
+
+Provides a simplified view of asset metadata.
+
+This model exists to translate internal currency identifiers into standardized ISO currency codes, so downstream models can work with currencies without re-implementing joins or lookup logic.
+
+It is intentionally minimal and acts as a **currency resolution layer** for asset providers.
+
+## Business Logic
+
+- Start from the [Asset Providers](/semantic-layers/assets-providers) source table
+- Join each asset provider to its configured currency
+- Translate internal currency IDs into [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html) using the [Currencies](/semantic-layers/currencies) semantic contract.
+- Expose a stable, reusable contract for downstream facts
+
+## Output Contract
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| asset_provider | Name of the asset provider (e.g. Stripe, HSBC, Coinbase) |
+| account_id | Asset provider identifier |
+| currency | [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) associated with the provider |
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/intermediate/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/intermediate/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Semantic Layers: [Assets Providers](/semantic-layers/assets-providers) and [Currencies](/semantic-layers/currencies)

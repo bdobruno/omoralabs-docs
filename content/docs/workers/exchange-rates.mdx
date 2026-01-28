@@ -1,0 +1,103 @@
+---
+title: Exchange Rates
+description: Fetches and records daily foreign exchange rates per currency pair, enabling consistent monetary conversion across assets and time.
+---
+
+export const table_name = "ex_rates"
+
+## Purpose
+
+This worker populates the [Exchange Rates](/facts/exchange-rates) fact table with exchange rates for each defined currency pair. The data is used to consistently convert monetary amounts across assets and dates.
+
+## Inputs
+
+The worker consumes a dataframe of currency pairs and dates sourced from the following Omora Labs components:
+
+- [Assets](/facts/assets)
+- [Assets Providers](/semantic-layers/assets-providers)
+- [Currency Pairs](/semantic-layers/currency-pairs)
+- [Currencies](/semantic-layers/currencies)
+
+Each row represents a single currency pair to be resolved for a specific date.
+
+**Required columns**:
+
+| Column | Description |
+|--------|-------------|
+| date | Date represented as `YYYY-MM-DD`. Links to [Dates](semantic-layers/dates) semantic contract |
+| currency_pair_id | Currency Pair identifier. Links to [Currency Pairs](semantic-layers/currency-pairs) semantic contract |
+| base_currency | Base Currency as per [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html), e.g. "EUR", "USD"|
+| quote_currency | Quote Currency as per [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html), e.g. "EUR", "USD" |
+
+<Callout>
+    If you are using our worker in combination with the semantic layers, you can get this output using the database method `get_currency_pairs_df`:
+    ```python lineNumbers
+    def get_currency_pairs_df(self) -> pl.DataFrame:
+        return self.conn.execute(
+            """
+            WITH unique_dates AS (
+                SELECT DISTINCT date
+                FROM assets
+            ),
+            unique_currencies AS (
+                SELECT DISTINCT ap.currency_id
+                FROM assets_providers ap
+                JOIN assets a ON a.asset_id = ap.id
+            ),
+            required_pairs as (
+                SELECT DISTINCT
+                    c1.currency_id as base_currency,
+                    c2.currency_id as quote_currency
+                FROM unique_currencies c1
+                CROSS JOIN unique_currencies c2
+                WHERE c1.currency_id != c2.currency_id
+            )
+            SELECT
+                d.date,
+                cp.id as currency_pair_id,
+                base.currency_code as base_currency,
+                quote.currency_code as quote_currency
+            FROM unique_dates d
+            CROSS JOIN currency_pairs cp
+            JOIN currencies base ON cp.base_currency_id = base.id
+            JOIN currencies quote ON cp.quote_currency_id = quote.id
+            WHERE EXISTS (
+                SELECT 1 from required_pairs rp
+                WHERE rp.base_currency = cp.base_currency_id
+                AND rp.quote_currency = cp.quote_currency_id
+            )
+            """
+        ).pl()
+    ```
+</Callout>
+
+## External Data Source
+
+Exchange rates are fetched from the public open-source currency API provided by [@fawazahmed0/currency-api](https://github.com/fawazahmed0/exchange-api).
+
+The API exposes historical daily snapshots and returns exchange rates indexed by base currency.
+
+## Work
+
+For each (`date, currency_pair`) combination:
+
+1. Extract the base and quote currencies.
+2. Request the historical exchange rates for the base currency on the given date.
+3. Select the quote currency rate from the response.
+4. Normalize the result into the internal fact structure.
+
+Each exchange rate is materialized as a single factual observation per date and currency pair.
+
+<ReadComponents filePath={`registry/workers/${table_name}/worker.py`}/>
+
+## Orchestrator
+
+A simple orchestrator suffices for handling the inputs and the worker:
+
+<ReadComponents filePath={`registry/workers/${table_name}/orchestrator.py`}/>
+
+## Output
+
+The worker produces a dataframe compatible with the [Exchange Rates](/facts/exchange-rates) fact table.
+
+Each record represents the exchange rate for a given currency pair on a specific date, uniquely identified by (date, currency_pair_id).

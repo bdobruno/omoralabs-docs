@@ -1,11 +1,11 @@
 {{config(materialized='view')}}
 
 WITH RECURSIVE pnl as (
-    select * from {{ref('pnl_source')}}
+    select * from {{ref('pnl')}}
 ),
 
 gl_accounts as (
-    select * from {{ref('gl_accounts_source')}}
+    select * from {{ref('gl_accounts')}}
 ),
 
 pnl_rollup as (

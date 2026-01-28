@@ -49,3 +49,40 @@ class DBConnect:
             INSERT INTO {table} SELECT * FROM '{file}'
             """
         )
+
+    def get_currency_pairs_df(self) -> pl.DataFrame:
+        return self.conn.execute(
+            """
+            WITH unique_dates AS (
+                SELECT DISTINCT date
+                FROM assets
+            ),
+            unique_currencies AS (
+                SELECT DISTINCT ap.currency_id
+                FROM assets_providers ap
+                JOIN assets a ON a.asset_id = ap.id
+            ),
+            required_pairs as (
+                SELECT DISTINCT
+                    c1.currency_id as base_currency,
+                    c2.currency_id as quote_currency
+                FROM unique_currencies c1
+                CROSS JOIN unique_currencies c2
+                WHERE c1.currency_id != c2.currency_id
+            )
+            SELECT
+                d.date,
+                cp.id as currency_pair_id,
+                base.currency_code as base_currency,
+                quote.currency_code as quote_currency
+            FROM unique_dates d
+            CROSS JOIN currency_pairs cp
+            JOIN currencies base ON cp.base_currency_id = base.id
+            JOIN currencies quote ON cp.quote_currency_id = quote.id
+            WHERE EXISTS (
+                SELECT 1 from required_pairs rp
+                WHERE rp.base_currency = cp.base_currency_id
+                AND rp.quote_currency = cp.quote_currency_id
+            )
+            """
+        ).pl()

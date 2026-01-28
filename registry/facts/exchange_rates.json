@@ -1,0 +1,28 @@
+{
+  "table_name": "exchange_rates",
+  "primary_key": ["date", "currency_pair_id"],
+  "fields": {
+    "date": {
+      "type": "DATE NOT NULL",
+      "description": "Foreign key to dates(date)"
+    },
+    "currency_pair_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to currency_pairs(id)"
+    },
+    "value": {
+      "type": "DOUBLE NOT NULL",
+      "description": "Fact registered"
+    }
+  },
+  "foreign_keys": [
+    {
+      "field": "date",
+      "references": "dates(date)"
+    },
+    {
+      "field": "currency_pair_id",
+      "references": "currency_pairs(id)"
+    }
+  ]
+}

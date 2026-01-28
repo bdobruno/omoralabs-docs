@@ -10,3 +10,4 @@ sources:
       - name: currencies
       - name: currency_pairs
       - name: dates
+      - name: exchange_rates

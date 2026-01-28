@@ -57,6 +57,10 @@
     "assets": {
       "schema": "facts/assets.json",
       "dependencies": ["dates", "assets_providers"]
+    },
+    "exchange_rates": {
+      "schema": "facts/exchange_rates.json",
+      "dependencies": ["dates", "currency_pairs"]
     }
   }
 }

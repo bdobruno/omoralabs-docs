@@ -1,0 +1,36 @@
+---
+title: Exchange Rates
+description: Exchange rates per currency pair, used to convert monetary amounts consistently across assets and time.
+---
+
+export const caption = "A list of Exchange Rates"
+export const table_name="exchange_rates"
+
+## Facts
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| date | Factual reference to the date (links to [Dates](semantic-layer/dates)). |
+| currency_pair_id | Currency pair (links to [Currency Pairs](semantic-layer/currency-pairs), e.g. EURUSD, GBPUSD, EURCHF). |
+| value | Fact registered. |
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/facts/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/facts/sqls/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
+
+<Callout>
+  The primary key is formed by constrainst on Dates and Currency Pairs: <br/>
+  `PRIMARY KEY (date, currency_pair_id)`
+</Callout>
+
+## Dependencies
+
+- **[Dates](/semantic-layers/dates)**
+- **[Currency Pairs](/semantic-layers/currency-pairs)**

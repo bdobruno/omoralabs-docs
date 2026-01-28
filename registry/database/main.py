@@ -1,3 +1,4 @@
+import importlib
 import json
 from pathlib import Path
 
@@ -6,9 +7,14 @@ from .methods import DBConnect
 from .schema_manager import get_schemas
 
 
-def setup_db(remote: bool = False):
-    print("Initiating DB...")
+def running_workers(registry_data, db) -> None:
+    for worker_name in registry_data.get("workers", []):
+        worker_module = f"..workers.{worker_name}.orchestrator"
+        orchestrator = importlib.import_module(worker_module, package=__package__)
+        orchestrator.orchestrator(db)
 
+
+def get_registry_data() -> tuple[Path, dict]:
     # Load db_name from registry.json
     registry = Path(__file__).parent
     registry_file = registry / "registry.json"
@@ -18,6 +24,13 @@ def setup_db(remote: bool = False):
 
     with open(registry_file) as f:
         registry_data = json.load(f)
+    return registry, registry_data
+
+
+def setup_db(remote: bool = False):
+    print("Initiating DB...")
+
+    registry_path, registry_data = get_registry_data()
 
     db_name = registry_data.get("db_name")
     if not db_name:
@@ -28,15 +41,21 @@ def setup_db(remote: bool = False):
     print("Getting components...")
 
     print("Getting SQL schema...")
-    schema = get_schemas(registry)
+    schema = get_schemas(registry_path)
     print("✓ SQL Schema Package in hands")
 
     print("Implementing SQL schema...")
     db.implement_tables(schema)
     print("✓ SQL Schema Package implemented in DB")
 
-    print("Loading sample data...")
-    load_sample_data(db, registry)
+    print("Loading data...")
+    load_sample_data(db, registry_path)
+    print("✓ Data loaded")
+
+    print("Running workers...")
+    running_workers(registry_data, db)
+    print("✓ Workers completed")
+
     print("✓ Process completed")
 
 

@@ -1,6 +1,7 @@
 import { CodeBlock, Pre } from "components/codeblock";
 import GLAccountsSelector from "components/gl_accounts_segmented";
 import RenderTable from "components/render-table";
+import { TransformationsList, FactsList, SemanticsList, BlueprintsList, WorkersList } from "components/index-lists";
 import { TypeTable } from "components/type-table";
 import { TypeTableFromFile } from "components/type-table-from-file";
 import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
@@ -212,6 +213,11 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Shuffle,
     Cpu,
     ClipboardList,
+    TransformationsList,
+    FactsList,
+    SemanticsList,
+    BlueprintsList,
+    WorkersList,
     LinkedCard: ({
       className,
       ...props

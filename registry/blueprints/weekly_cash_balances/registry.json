@@ -1,4 +1,5 @@
 {
+  "db_name": "weekly_cash_balances",
   "semantic_layers": {
     "dates": {
       "schema": "semantic_layers/dates.json",
@@ -25,10 +26,19 @@
     "assets": {
       "schema": "facts/assets.json",
       "dependencies": ["dates", "assets_providers"]
+    },
+    "exchange_rates": {
+      "schema": "facts/exchange_rates.json",
+      "dependencies": ["dates", "currency_pairs"]
     }
   },
-  "transformations": {},
-  "workers": {
-    "ex_rates": "registry/workers/ex_rates.py"
-  }
+  "transformations": {
+    "assets_metadata": "registry/transformations/models/intermediate/assets_metadata.sql",
+    "assets_values": "registry/transformations/models/intermediate/assets_values.sql",
+    "reporting_rates": "registry/transformations/models/intermediate/reporting_rates.sql",
+    "assets_by_currency": "registry/transformations/models/assets_by_currency.sql",
+    "assets_converted": "registry/transformations/models/assets_converted.sql",
+    "cash_balances_byrc": "registry/transformations/models/cash_balances_byrc.sql"
+  },
+  "workers": ["ex_rates"]
 }

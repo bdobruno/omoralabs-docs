@@ -9,7 +9,8 @@ dependencies = [
     "dbt-duckdb>=1.10.0",
     "dotenv>=0.9.9",
     "duckdb == 1.4.3",
-    "polars"
+    "polars",
+    "pyarrow"
 ]
 
 [tool.uv]

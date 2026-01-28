@@ -2,19 +2,20 @@ import polars as pl
 import requests
 
 
-def get_exchange_rates_per_date(ex_rates_df: pl.DataFrame) -> pl.DataFrame:
+def get_exchange_rates_per_date(currency_pairs_df: pl.DataFrame) -> pl.DataFrame:
     """
     Fetch exchange rates for given dates and currency pairs.
 
     Args:
-        ex_rates_df: DataFrame with columns: date, base_currency, quote_currency
+        currency_pairs_df: DataFrame with columns: date, currency_pair_id, base_currency, quote_currency
 
     Returns:
         DataFrame with exchange rates
     """
     exchange_rates = []
-    for row in ex_rates_df.iter_rows(named=True):
+    for row in currency_pairs_df.iter_rows(named=True):
         date = row["date"]
+        currency_pair_id = row["currency_pair_id"]
         base = row["base_currency"]
         quote = row["quote_currency"]
 
@@ -27,9 +28,8 @@ def get_exchange_rates_per_date(ex_rates_df: pl.DataFrame) -> pl.DataFrame:
         exchange_rates.append(
             {
                 "date": date,
-                "base_currency": base,
-                "quote_currency": quote,
-                "rate": rates[quote.lower()],
+                "currency_pair_id": currency_pair_id,
+                "value": rates[quote.lower()],
             }
         )
 
