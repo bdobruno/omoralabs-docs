@@ -8,10 +8,18 @@ from .schema_manager import get_schemas
 
 
 def running_workers(registry_data, db) -> None:
-    for worker_name in registry_data.get("workers", []):
-        worker_module = f"..workers.{worker_name}.orchestrator"
-        orchestrator = importlib.import_module(worker_module, package=__package__)
-        orchestrator.orchestrator(db)
+    workers = registry_data.get("workers", [])
+
+    if not workers:
+        print("✓ No workers found to run")
+        return
+
+    else:
+        for worker_name in workers:
+            worker_module = f"..workers.{worker_name}.orchestrator"
+            orchestrator = importlib.import_module(worker_module, package=__package__)
+            orchestrator.orchestrator(db)
+        print("✓ Workers completed")
 
 
 def get_registry_data() -> tuple[Path, dict]:
@@ -52,9 +60,8 @@ def setup_db(remote: bool = False):
     load_sample_data(db, registry_path)
     print("✓ Data loaded")
 
-    print("Running workers...")
+    print("Checking if workers needs running...")
     running_workers(registry_data, db)
-    print("✓ Workers completed")
 
     print("✓ Process completed")
 

@@ -86,3 +86,17 @@ class DBConnect:
             )
             """
         ).pl()
+
+    def get_revenue_changes_df(self) -> pl.DataFrame:
+        return self.conn.execute(
+            """
+            SELECT
+                date,
+                revenue_type_id,
+                value_type_id,
+                nr_of_customers,
+                value_per_customer
+            FROM revenue_changes
+            ORDER BY date
+            """
+        ).pl()

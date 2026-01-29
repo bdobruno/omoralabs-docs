@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: saas_metrics
+    schema: main
+    tables:
+      - name: dates
+      - name: revenue_changes
+      - name: revenue_starting_balance
+      - name: revenue_types
+      - name: value_types

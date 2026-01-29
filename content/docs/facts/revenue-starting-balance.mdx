@@ -1,10 +1,10 @@
 ---
-title: Revenue Changes
-description: Revenue facts on changes, defining price and volume per date, value type, and revenue type.
+title: Rev Starting Balance
+description: Revenue facts defining the initial customer volume and price level at a given date and value type, used as the baseline for revenue evolution.
 ---
 
-export const caption = "A list of Revenue Changes"
-export const table_name="revenue_changes"
+export const caption = "Revenue Starting Balance"
+export const table_name="revenue_starting_balance"
 
 ## Facts
 ### Definitions
@@ -12,7 +12,6 @@ export const table_name="revenue_changes"
 | Column | Description |
 |--------|-------------|
 | date | Date in YYYY-MM-DD format, reference to [Dates](/semantic-layers/dates). |
-| revenue_type_id | Type of revenue change (links to [Revenue Types](/semantic-layers/revenue-types), e.g., New Booking, Upsell). |
 | value_type_id | Type of value measured (links to [Value Types](/semantic-layers/value-types), e.g., actuals, budget). |
 | nr_of_customers | Volume variable with number of customers contributing to this revenue change. |
 | value_per_customer | Pricing variable, with revenue per customer for this change. |
@@ -29,11 +28,10 @@ export const table_name="revenue_changes"
 
 <Callout>
   The primary key is formed by constrainst on dates, revenue types, and value types: <br/>
-  `PRIMARY KEY (date, revenue_type_id, value_type_id)`
+  `PRIMARY KEY (date, value_type_id)`
 </Callout>
 
 ## Dependencies
 
 - **[Dates](/semantic-layers/dates)**
-- **[Revenue Types](/semantic-layers/revenue-types)**
 - **[Value Types](/semantic-layers/value-types)**

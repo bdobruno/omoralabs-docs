@@ -1,0 +1,33 @@
+{
+  "db_name": "saas_metrics",
+  "semantic_layers": {
+    "dates": {
+      "schema": "semantic_layers/dates.json",
+      "dependencies": []
+    },
+    "value_types": {
+      "schema": "semantic_layers/value_types.json",
+      "dependencies": []
+    },
+    "revenue_types": {
+      "schema": "semantic_layers/revenue_types.json",
+      "dependencies": []
+    }
+  },
+  "facts": {
+    "revenue_changes": {
+      "schema": "facts/revenue_changes.json",
+      "dependencies": ["dates", "value_types", "revenue_types"]
+    },
+    "revenue_starting_balance": {
+      "schema": "facts/revenue_starting_balance.json",
+      "dependencies": ["dates", "value_types"]
+    },
+    "customer_count": {
+      "schema": "facts/customer_count.json",
+      "dependencies": ["dates", "value_types"]
+    }
+  },
+  "transformations": {},
+  "workers": ["customer_count"]
+}

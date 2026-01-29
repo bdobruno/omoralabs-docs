@@ -61,6 +61,14 @@
     "exchange_rates": {
       "schema": "facts/exchange_rates.json",
       "dependencies": ["dates", "currency_pairs"]
+    },
+    "revenue_starting_balance": {
+      "schema": "facts/revenue_starting_balance.json",
+      "dependencies": ["dates", "value_types"]
+    },
+    "customer_count": {
+      "schema": "facts/customer_count.json",
+      "dependencies": ["dates", "value_types"]
     }
   }
 }

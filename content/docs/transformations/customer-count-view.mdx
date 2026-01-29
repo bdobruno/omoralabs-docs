@@ -1,0 +1,56 @@
+---
+title: Customer Count View
+description: Computes standardized customer base metrics (starting base, movements, net new, and ending balance) over time and by value type.
+---
+
+export const table_name = "customer_count_view"
+export const caption = "Customer base metrics derived from customer counts and revenue changes."
+
+## Purpose
+
+Produce a customer count base view evolution over time.
+
+This model consolidates starting balances, customer movements (new, upsell, downsell, churn), and cumulative effects into a single, standardized dataset that can be reused consistently across reports, dashboards, and analyses.
+
+## Business Logic
+
+- Start from cumulative customer counts provided by `customer_count`
+- Join a static starting balance per value type from `revenue_starting_balance`
+- Derive the customer base per period:
+  - **Current base** = previous period ending balance
+  - **Ending balance** = starting balance + cumulative net new
+- Decompose customer movements using `revenue_changes`:
+  - New customers
+  - Upsell
+  - Downsell
+  - Churn
+- All calculations are partitioned by `value_type_id` and ordered by date
+- Output provides both:
+  - Point-in-time customer base
+  - Period movements explaining the change
+
+## Output Contract
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| date | Date represented as `YYYY-MM-DD`. |
+| value_type_id | Value Type identifier. |
+| current_base | Customer base at the **start** of the period. |
+| new_customers | Number of new customers acquired in the period. |
+| upsell | Number of customers contributing to upsell movements in the period. |
+| downsell | Number of customers contributing to downsell movements in the period. |
+| churn | Number of customers lost in the period. |
+| net_new | Net customer change in the period (new − churn). |
+| ending_balance | Customer base at the **end** of the period. |
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Facts: [Customer Count](/facts/customer-count), [Revenue Changes](/facts/revenue-changes) and [Revenue Starting Balance](/facts/revenue-starting-balance)
