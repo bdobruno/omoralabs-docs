@@ -1,0 +1,56 @@
+---
+title: Customer Value Drivers
+description: Decomposes changes in average customer value into base, acquisition, and churn-driven effects.
+---
+
+export const table_name = "customer_value_drivers"
+export const caption = "Drivers of period-over-period changes in average customer value."
+
+## Purpose
+
+Provide a driver-based view of customer value evolution, attributing period-over-period changes in average customer value to underlying customer dynamics.
+
+This model is designed as an explanatory reporting layer, enabling:
+
+- Attribution of ARPA changes to customer mix effects
+- Separation of acquisition, retention, and churn impacts
+- Clear reconciliation between customer value levels and movements
+
+It shifts the analysis from what changed to what caused the change.
+
+## Business Logic
+
+- Start from [Customer Value](/transformations/customer-value)
+- Join with [Customer Count View](/transformations/customer-count-view)
+- Compute period-over-period deltas using `LAG`
+- Attribute customer value changes proportionally based on customer mix:
+  - Existing customer base
+  - New customers
+  - Churned customers
+- Ensure driver components reconcile to total customer value change
+- Exclude the first period where lagged values are unavailable
+
+## Output Contract
+### Definitions
+
+| Column                | Description                                                      |
+| --------------------- | ---------------------------------------------------------------- |
+| date                  | Date of the snapshot (`YYYY-MM-DD`)                              |
+| value_type            | Indicator such as `actual`, `budget`              |
+| current_base          | Customer value change driven by existing customers               |
+| new_customers         | Customer value change driven by newly acquired customers         |
+| churn                 | Customer value change driven by churn dynamics (negative impact) |
+| customer_value_delta | Total change in average customer value vs prior period           |
+
+
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Transformations: [Customer Value](/transformations/customer-value) and [Customer Count View](/transformations/customer-count-view)

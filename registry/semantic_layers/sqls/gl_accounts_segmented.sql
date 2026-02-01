@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS gl_accounts (
     id INTEGER PRIMARY KEY,
-    name VARCHAR NOT NULL,
+    name VARCHAR NOT NULL UNIQUE,
     parent_gl INTEGER,
     gl_account_type_id INTEGER,
     business_unit_id INTEGER,

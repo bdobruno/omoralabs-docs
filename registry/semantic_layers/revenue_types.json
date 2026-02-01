@@ -5,7 +5,7 @@
       "type": "INTEGER PRIMARY KEY"
     },
     "name": {
-      "type": "VARCHAR NOT NULL CHECK (name IN ('new_booking', 'upsell', 'downsell', 'churn'))"
+      "type": "VARCHAR NOT NULL UNIQUE CHECK (name IN ('new_booking', 'upsell', 'downsell', 'churn'))"
     }
   },
   "foreign_keys": []

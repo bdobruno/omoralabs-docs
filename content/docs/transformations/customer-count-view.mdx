@@ -1,10 +1,10 @@
 ---
 title: Customer Count View
-description: Computes standardized customer base metrics (starting base, movements, net new, and ending balance) over time and by value type.
+description: Computes standardized customer quantity metrics (starting base, movements, net new, and ending balance) over time and by value type.
 ---
 
 export const table_name = "customer_count_view"
-export const caption = "Customer base metrics derived from customer counts and revenue changes."
+export const caption = "Customer quantity metrics derived from customer counts and revenue changes."
 
 ## Purpose
 
@@ -15,7 +15,6 @@ This model consolidates starting balances, customer movements (new, upsell, down
 ## Business Logic
 
 - Start from cumulative customer counts provided by `customer_count`
-- Join a static starting balance per value type from `revenue_starting_balance`
 - Derive the customer base per period:
   - **Current base** = previous period ending balance
   - **Ending balance** = starting balance + cumulative net new
@@ -53,4 +52,5 @@ This model consolidates starting balances, customer movements (new, upsell, down
 
 ## Dependencies
 
-- Facts: [Customer Count](/facts/customer-count), [Revenue Changes](/facts/revenue-changes) and [Revenue Starting Balance](/facts/revenue-starting-balance)
+- Facts: [Customer Count](/facts/customer-count) and [Revenue Changes](/facts/revenue-changes)
+- Semantic Layers: [Value Types](/semantic-layers/value-types)

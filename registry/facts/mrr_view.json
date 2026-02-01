@@ -1,0 +1,40 @@
+{
+  "table_name": "mrr_view",
+  "primary_key": ["date", "value_type_id"],
+  "fields": {
+    "date": {
+      "type": "DATE NOT NULL",
+      "description": "Foreign key to dates(date)"
+    },
+    "value_type_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to value_types(id)"
+    },
+    "net_new_mrr": {
+      "type": "INTEGER NOT NULL",
+      "description": "Net new MRR for the periods, defined by New Customers plus Upsell minus Downsell minus Churn"
+    },
+    "cum_net_new_mrr": {
+      "type": "INTEGER NOT NULL",
+      "description": "Cumulative sum of net new MRR"
+    },
+    "current_base": {
+      "type": "INTEGER NOT NULL",
+      "description": "MRR Value at the beginning of the period"
+    },
+    "ending_balance": {
+      "type": "INTEGER NOT NULL",
+      "description": "MRR Value at the end of the period"
+    }
+  },
+  "foreign_keys": [
+    {
+      "field": "date",
+      "references": "dates(date)"
+    },
+    {
+      "field": "value_type_id",
+      "references": "value_types(id)"
+    }
+  ]
+}

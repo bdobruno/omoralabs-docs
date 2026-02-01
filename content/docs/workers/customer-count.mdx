@@ -1,0 +1,44 @@
+---
+title: Customer Count
+description: Computes net new customers, cumulative growth, and customer base evolution over time from revenue events and starting balances.
+---
+
+export const table_name = "customer_count"
+
+## Purpose
+
+This worker populates the [Customer Count](/facts/customer-count) fact table with customer growth metrics derived from revenue events and starting balances.
+
+It provides a consistent, auditable view of customer acquisition, churn, and total customer base evolution across time and value types.
+
+## Inputs
+
+The worker consumes two dataframes provided by Omora Labs database interfaces:
+
+- [Revenue Changes](/facts/revenue-changes)
+- [Revenue Starting Balance](/facts/revenue-starting-balance)
+
+## External Data Source
+
+None.
+
+## Work
+
+The worker executes the following steps:
+
+1. Calculates net new customers as `New Bookings - Churn`
+2. Computes the cumulative net new customers over time per value type.
+3. Sets the customers starting balance for each period
+4. Computes the ending balance as cumulative net new customers + starting balance
+
+<ReadComponents filePath={`registry/workers/${table_name}/worker.py`}/>
+
+## Orchestrator
+
+A simple orchestrator suffices for handling the inputs and the worker:
+
+<ReadComponents filePath={`registry/workers/${table_name}/orchestrator.py`}/>
+
+## Output
+
+The worker produces a dataframe compatible with the [Customer Count](/facts/customer-count) fact table.

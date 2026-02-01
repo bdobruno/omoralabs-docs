@@ -15,6 +15,8 @@ export const table_name="customer_count"
 | value_type_id | Type of value measured (links to [Value Types](/semantic-layers/value-types), e.g., actuals, budget). |
 | net_new | Net new customers calculated as new customers minus churn, per date and value type. |
 | cum_net_new | Cumulative sum of `net_new`. |
+| current_base | Nr of customers balance at the beginning of the period. |
+| ending_balance | Nr of customers balance at the end of the period. |
 
 ### Sample & Implementation
 
@@ -27,7 +29,7 @@ export const table_name="customer_count"
 <TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
 
 <Callout>
-  The primary key is formed by constrainst on dates, revenue types, and value types: <br/>
+  The primary key is formed by constrainst on dates and value types: <br/>
   `PRIMARY KEY (date, value_type)`
 </Callout>
 

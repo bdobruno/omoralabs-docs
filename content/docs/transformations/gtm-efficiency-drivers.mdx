@@ -1,0 +1,57 @@
+---
+title: GTM Efficiency Drivers
+description: Decomposes period-over-period changes in CAC into cost and customer volume drivers.
+---
+
+export const table_name = "gtm_efficiency_drivers"
+export const caption = "Drivers of changes in blended sales & marketing CAC over time."
+
+## Purpose
+
+Provide a driver-based view of go-to-market efficiency, attributing changes in customer acquisition cost to underlying sales spend, marketing spend, and customer volume dynamics.
+
+This model is designed as an explanatory analytics layer, enabling:
+- Attribution of CAC inflation or deflation
+- Separation of spend-driven vs growth-driven efficiency changes
+- Clear reconciliation between CAC levels and CAC movements
+
+It shifts the analysis from metric tracking to cause analysis.
+
+## Business Logic
+
+- Start from [GTM Efficiency](/transformations/gtm-efficiency)
+- Join with [Customer Count View](/transformations/customer-count-view)
+- Compute period-over-period deltas using `LAG`
+- Attribute CAC change into:
+  - Sales cost changes
+  - Marketing cost changes
+  - New customer volume effects
+- Ensure driver components reconcile to total CAC change
+- Exclude the first period where lagged values are unavailable
+
+## Output Contract
+### Definitions
+
+| Column        | Description                                         |
+| ------------- | --------------------------------------------------- |
+| date          | Date of the snapshot (`YYYY-MM-DD`)                 |
+| value_type    | Indicator such as `actual`, `budget` |
+| sales_cost    | CAC change driven by sales spend variation          |
+| mkt_cost      | CAC change driven by marketing spend variation      |
+| new_customers | CAC change driven by customer volume changes        |
+| cac_delta     | Total period-over-period change in blended CAC      |
+
+
+
+
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Transformations: [GTM Efficiency](/transformations/gtm-efficiency) and [Customer Count View](/transformations/customer-count-view)

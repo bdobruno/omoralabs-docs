@@ -1,0 +1,52 @@
+---
+title: Retention
+description: Calculates gross and net revenue retention, churn, and logo retention from aggregated MRR and customer counts.
+---
+
+export const table_name = "retention"
+export const caption = "Revenue and logo retention metrics derived from MRR and customer counts."
+
+## Purpose
+
+Provide a standardized retention metrics view, translating MRR movements and customer churn into commonly used SaaS retention KPIs.
+
+This model is designed as a diagnostic reporting layer, enabling:
+- Gross Revenue Retention and Net Revenue Retention analysis
+- Separation of revenue churn vs logo churn
+- Comparable retention metrics across periods and scenarios
+
+It aligns revenue-based and quantity-based retention perspectives in a single table.
+
+## Business Logic
+
+- Start from [MRR Aggregated](/transformations/mrr-aggregated)
+- Join with [Customer Count View](/transformations/customer-count-view)
+- Calculate retention metrics using current-period MRR as the baseline
+- Express all outputs as ratios (percent-ready)
+- Produce one row per date and value type
+
+## Output Contract
+### Definitions
+
+| Column                  | Description                                         |
+| ----------------------- | --------------------------------------------------- |
+| date                    | Date of the snapshot (`YYYY-MM-DD`)                 |
+| value_type              | Indicator such as `actual`, `budget` |
+| gross_revenue_retention | Revenue retained excluding upsell                   |
+| net_revenue_retention   | Revenue retained including upsell                   |
+| churn_value             | Revenue churn rate                                  |
+| churn_qty               | Customer churn rate                                 |
+| logo_retention          | Logo retention rate                      |
+
+
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Transformations: [MRR Aggregated](/transformations/mrr-aggregated) and [Customer Count View](/transformations/customer-count-view)

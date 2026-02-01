@@ -14,9 +14,13 @@
       "type": "INTEGER NOT NULL",
       "description": "Number of customers related to the revenue change"
     },
-    "value_per_customer": {
+    "mrr_per_customer": {
       "type": "DOUBLE NOT NULL",
       "description": "Value per customer related to the revenue change"
+    },
+    "total_mrr": {
+      "type": "DOUBLE",
+      "description": "Total Monthly Recurring Revenue as defined as volume (nr_of_customers) x price (value_per_customer)"
     }
   },
   "foreign_keys": [

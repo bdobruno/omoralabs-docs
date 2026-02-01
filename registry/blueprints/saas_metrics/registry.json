@@ -12,6 +12,14 @@
     "revenue_types": {
       "schema": "semantic_layers/revenue_types.json",
       "dependencies": []
+    },
+    "gl_accounts_simple": {
+      "schema": "semantic_layers/gl_accounts_simple.json",
+      "dependencies": ["gl_accounts_types"]
+    },
+    "gl_accounts_types": {
+      "schema": "semantic_layers/gl_accounts_types.json",
+      "dependencies": []
     }
   },
   "facts": {
@@ -26,8 +34,30 @@
     "customer_count": {
       "schema": "facts/customer_count.json",
       "dependencies": ["dates", "value_types"]
+    },
+    "mrr_view": {
+      "schema": "facts/mrr_view.json",
+      "dependencies": ["dates", "value_types"]
+    },
+    "pnl": {
+      "schema": "facts/pnl.json",
+      "dependencies": ["dates", "value_types", "gl_accounts"]
     }
   },
-  "transformations": {},
-  "workers": ["customer_count"]
+  "transformations": {
+    "arr_aggregated": "registry/transformations/models/arr_aggregated.sql",
+    "customer_count_view": "registry/transformations/models/customer_count_view.sql",
+    "customer_value": "registry/transformations/models/customer_value.sql",
+    "customer_value_drivers": "registry/transformations/models/customer_value_drivers.sql",
+    "mrr_aggregated": "registry/transformations/models/mrr_aggregated.sql",
+    "retention": "registry/transformations/models/retention.sql",
+    "pnl_metrics": "registry/transformations/models/intermediate/pnl_metrics.sql",
+    "pnl_rollup": "registry/transformations/models/intermediate/pnl_rollup.sql",
+    "cost_to_serve": "registry/transformations/models/cost_to_serve.sql",
+    "gtm_efficiency": "registry/transformations/models/gtm_efficiency.sql",
+    "gtm_efficiency_drivers": "registry/transformations/models/gtm_efficiency_drivers.sql",
+    "ltv": "registry/transformations/models/ltv.sql",
+    "ltv_drivers": "registry/transformations/models/ltv_drivers.sql"
+  },
+  "workers": ["customer_count", "mrr_view"]
 }

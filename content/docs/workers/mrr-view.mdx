@@ -1,0 +1,55 @@
+---
+title: MRR View
+description: Computes monthly recurring revenue balances and movements from revenue changes and starting customer balances.
+---
+
+export const table_name = "mrr_view"
+
+## Purpose
+
+This worker populates the [MRR View](/facts/mrr-view) facts table with derived MRR balances and movement metrics.
+
+It translates customer-level revenue changes into MRR-level metrics, producing a consistent monthly view of:
+- Net New MRR
+- Cumulative MRR movements
+- Starting MRR balance
+- Ending MRR balance
+
+The output serves as the foundational revenue fact used by downstream transformations such as [ARR](/transformations/arr-aggregated), [Retention](/transformations/retention), [GTM Efficiency](/transformations/gtm-efficiency), or [LTV](/transformations/ltv).
+
+## Inputs
+
+The worker consumes two dataframes provided by Omora Labs database interfaces:
+
+- [Revenue Changes](/facts/revenue-changes)
+- [Revenue Starting Balance](/facts/revenue-starting-balance)
+
+## External Data Source
+
+None.
+
+## Work
+
+The worker executes the following steps:
+
+1. Convert customers to MRR
+2. Compute net new MRR per period
+3. Accumulate MRR movements
+4. Derive balances
+5. Materialize outputs
+
+<ReadComponents filePath={`registry/workers/${table_name}/worker.py`}/>
+
+## Orchestrator
+
+A simple orchestrator suffices for handling the inputs and the worker:
+
+<ReadComponents filePath={`registry/workers/${table_name}/orchestrator.py`}/>
+
+## Output
+
+The worker produces three datasets:
+
+- It populates [MRR View](/facts/mrr-view) facts table
+- It enriches field `total_mrr` on [Revenue Changes](/facts/revenue-changes) facts table
+- It enriches field `total_mrr` on [Revenue Starting Balance](/facts/revenue-starting-balance) facts table

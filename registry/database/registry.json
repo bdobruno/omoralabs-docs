@@ -69,6 +69,10 @@
     "customer_count": {
       "schema": "facts/customer_count.json",
       "dependencies": ["dates", "value_types"]
+    },
+    "mrr_view": {
+      "schema": "facts/mrr_view.json",
+      "dependencies": ["dates", "value_types"]
     }
   }
 }

@@ -17,6 +17,14 @@
     "cum_net_new": {
       "type": "INTEGER NOT NULL",
       "description": "Cumulative sum of net new customers"
+    },
+    "current_base": {
+      "type": "INTEGER NOT NULL",
+      "description": "Nr of customers balance at the beginning of the period"
+    },
+    "ending_balance": {
+      "type": "INTEGER NOT NULL",
+      "description": "Nr of customers balance at the end of the period"
     }
   },
   "foreign_keys": [

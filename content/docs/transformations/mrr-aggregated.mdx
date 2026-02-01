@@ -1,0 +1,57 @@
+---
+title: MRR Aggregated
+description: Consolidated monthly recurring revenue view enriched with revenue change decomposition by driver.
+---
+
+export const table_name = "mrr_aggregated"
+export const caption = "Monthly recurring revenue metrics decomposed by revenue driver and value type."
+
+## Purpose
+
+Provide a single, analysis-ready MRR table, combining balance-style MRR metrics with flow-based revenue change drivers.
+
+This model is designed as the MRR reporting layer, enabling:
+- MRR bridges and waterfalls
+- Plan vs actual vs forecast comparison
+- Consistent revenue movement analysis across periods
+
+It centralizes MRR logic and removes the need to join multiple revenue tables downstream.
+
+## Business Logic
+
+- Start from [MRR View](/facts/mrr-view)
+- Join with [Revenue Changes](/facts/revenue-changes)
+- Map revenue change types to business drivers:
+    - New customers
+    - Upsell
+    - Downsell
+    - Churn
+- Produce one row per date and value type
+
+## Output Contract
+### Definitions
+
+| Column         | Description                                         |
+| -------------- | --------------------------------------------------- |
+| date           | Date of the MRR snapshot (`YYYY-MM-DD`)             |
+| value_type     | Indicator such as `actual`, `budget` |
+| current_base   | MRR from existing customers at period start         |
+| new_customers  | MRR added from new customer acquisition             |
+| upsell         | MRR added from expansions                           |
+| downsell       | MRR lost from contractions                          |
+| churn          | MRR lost from customer churn                        |
+| net_new_mrr    | Net change in MRR over the period                   |
+| ending_balance | Total MRR at period end                             |
+
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Facts: [MRR View](/facts/mrr-view) and [Revenue Changes](/facts/revenue-changes)
+- Semantic Layers: [Value Types](/semantic-layers/value-types)

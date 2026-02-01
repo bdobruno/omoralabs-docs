@@ -15,6 +15,7 @@ def running_workers(registry_data, db) -> None:
         return
 
     else:
+        print("Starting workers engine...")
         for worker_name in workers:
             worker_module = f"..workers.{worker_name}.orchestrator"
             orchestrator = importlib.import_module(worker_module, package=__package__)

@@ -9,3 +9,8 @@ sources:
       - name: revenue_starting_balance
       - name: revenue_types
       - name: value_types
+      - name: customer_count
+      - name: mrr_view
+      - name: pnl
+      - name: gl_accounts
+      - name: gl_accounts_types

@@ -1,0 +1,64 @@
+---
+title: LTV
+description: Calculates customer lifetime value and unit economics ratios using gross margin, retention, and CAC metrics.
+---
+
+export const table_name = "ltv"
+export const caption = "Customer lifetime value, payback, and LTV/CAC efficiency metrics."
+
+## Purpose
+
+Provide a unit-economics view, combining revenue quality, customer lifetime, and go-to-market efficiency into a single, decision-ready table.
+
+This model is designed as the top-layer KPI model, enabling:
+- LTV and LTV/CAC benchmarking
+- Payback period analysis
+- Validation of GTM scalability and business sustainability
+
+It consolidates previously derived metrics into one coherent economic picture.
+
+## Business Logic
+
+- Start from [PnL Metrics](/transformations/pnl-metrics)
+- Isolate gross margin `gl_id = 3000`
+- Join with [Customer Count View](/transformations/customer-count-view) to derive ARPU
+- Join with [GTM Efficiency](/transformations/gtm-efficiency) for CAC and [Retention](/transformations/retention) for churn and lifetime
+- Compute:
+  - ARPU = Gross Margin / Active Customers
+  - ARPU / CAC ratio
+  - Payback period = 1 / (ARPU / CAC)
+  - Customer lifetime = 1 / churn rate
+  - LTV = ARPU × Customer lifetime
+  - LTV / CAC ratio
+- Default undefined divisions to 0
+- Produce one row per date and value type
+
+## Output Contract
+### Definitions
+
+| Column            | Description                                         |
+| ----------------- | --------------------------------------------------- |
+| date              | Date of the snapshot (`YYYY-MM-DD`)                 |
+| value_type        | Indicator such as `actual`, `budget` |
+| arpu              | Average gross margin per customer                   |
+| arpu_cac_ratio    | Ratio of ARPU to blended CAC                        |
+| payback           | CAC payback period (in periods)                     |
+| customer_lifetime | Expected customer lifetime (in periods)             |
+| ltv               | Estimated customer lifetime value                   |
+| ltv_to_cac_ratio  | Ratio of LTV to CAC                                 |
+
+
+
+
+
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Transformations: [GTM Efficiency](/transformations/gtm-efficiency), [Customer Count View](/transformations/customer-count-view), [Retention](/transformations/retention), and [PnL Metrics](/transformations/pnl-metrics)

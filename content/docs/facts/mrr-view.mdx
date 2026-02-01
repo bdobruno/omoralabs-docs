@@ -1,0 +1,39 @@
+---
+title: MRR View
+description: Monthly Recurring Revenue (MRR) at a given date and value type.
+---
+
+export const caption = "MRR View"
+export const table_name="mrr_view"
+
+## Facts
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| date | Date in `YYYY-MM-DD` format, reference to [Dates](/semantic-layers/dates). |
+| value_type_id | Type of value measured (links to [Value Types](/semantic-layers/value-types), e.g., actuals, budget). |
+| net_new_mrr | Net new MRR calculated as new customers plus upsell minus downsell minus churn, per date and value type. |
+| cum_net_new_mrr | Cumulative sum of `net_new_mrr`. |
+| current_base | MRR at the beginning of the period. |
+| ending_balance | MRR at the end of the period. |
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/facts/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/facts/sqls/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
+
+<Callout>
+  The primary key is formed by constrainst on dates and value types: <br/>
+  `PRIMARY KEY (date, value_type)`
+</Callout>
+
+## Dependencies
+
+- **[Dates](/semantic-layers/dates)**
+- **[Value Types](/semantic-layers/value-types)**
