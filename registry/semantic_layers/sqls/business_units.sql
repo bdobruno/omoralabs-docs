@@ -1,4 +1,4 @@
 CREATE TABLE IF NOT EXISTS business_units (
     id INTEGER PRIMARY KEY,
-    name VARCHAR NOT NULL
+    name VARCHAR NOT NULL UNIQUE
 )

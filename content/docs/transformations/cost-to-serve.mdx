@@ -1,0 +1,51 @@
+---
+title: Cost to Serve
+description: Calculates average customer support cost per customer using P&L data and customer counts.
+---
+
+export const table_name = "cost_to_serve"
+export const caption = "Customer support cost per customer by period and value type."
+
+## Purpose
+
+Provide a cost-to-serve view at the customer level, translating customer support expenses into an average cost to serve per customer.
+
+This model is designed as an efficiency and unit-economics reporting layer, enabling:
+- Monitoring customer support cost scalability
+- Comparison of cost-to-serve across periods
+
+It connects operational cost data with customer scale.
+
+## Business Logic
+
+- Start from [PnL Rollup](/transformations/pnl-rollup)
+- Filter to customer support–related costs (gl_id = 4030)
+- Join with [Customer Count View](/transformations/customer-count-view)
+- Divide total support cost by ending customer count
+- Default missing or zero-customer cases to 0
+- Produce one row per date and value type
+
+## Output Contract
+### Definitions
+
+| Column                | Description                                         |
+| --------------------- | --------------------------------------------------- |
+| date                  | Date of the cost snapshot (`YYYY-MM-DD`)            |
+| value_type            | Value type such as `actual`, `budget` |
+| customer_support_cost | Total customer support cost for the period          |
+| nr_of_customers       | Number of active customers at period end            |
+| cost_to_serve         | Average customer support cost per customer          |
+
+
+
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Transformations: [PnL Rollup](/transformations/pnl-rollup) and [Customer Count View](/transformations/customer-count-view)

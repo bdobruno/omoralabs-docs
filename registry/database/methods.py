@@ -50,6 +50,29 @@ class DBConnect:
             """
         )
 
+    def update_mrr_rev_changes(self, df: pl.DataFrame) -> None:
+        self.conn.execute(
+            """
+            UPDATE revenue_changes rc
+            SET total_mrr = df.total_mrr
+            FROM df
+            WHERE rc.date = df.date
+                AND rc.revenue_type_id = df.revenue_type_id
+                AND rc.value_type_id = df.value_type_id
+            """
+        )
+
+    def update_mrr_starting_balance(self, df: pl.DataFrame) -> None:
+        self.conn.execute(
+            """
+            UPDATE revenue_starting_balance rsb
+            SET total_mrr = df.total_mrr
+            FROM df
+            WHERE rsb.date = df.date
+                AND rsb.value_type_id = df.value_type_id
+            """
+        )
+
     def get_currency_pairs_df(self) -> pl.DataFrame:
         return self.conn.execute(
             """
@@ -84,5 +107,26 @@ class DBConnect:
                 WHERE rp.base_currency = cp.base_currency_id
                 AND rp.quote_currency = cp.quote_currency_id
             )
+            """
+        ).pl()
+
+    def get_revenue_changes_df(self) -> pl.DataFrame:
+        return self.conn.execute(
+            """
+            SELECT
+                date,
+                revenue_type_id,
+                value_type_id,
+                nr_of_customers,
+                mrr_per_customer
+            FROM revenue_changes
+            ORDER BY date
+            """
+        ).pl()
+
+    def get_starting_balance_df(self) -> pl.DataFrame:
+        return self.conn.execute(
+            """
+            SELECT * FROM revenue_starting_balance
             """
         ).pl()

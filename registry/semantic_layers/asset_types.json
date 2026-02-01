@@ -5,7 +5,7 @@
       "type": "INTEGER PRIMARY KEY"
     },
     "name": {
-      "type": "VARCHAR NOT NULL"
+      "type": "VARCHAR NOT NULL UNIQUE"
     }
   },
   "foreign_keys": []

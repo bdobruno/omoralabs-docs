@@ -1,0 +1,38 @@
+---
+title: Rev Starting Balance
+description: Revenue facts defining the initial customer volume and price level at a given date and value type, used as the baseline for revenue evolution.
+---
+
+export const caption = "Revenue Starting Balance"
+export const table_name="revenue_starting_balance"
+
+## Facts
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| date | Date in YYYY-MM-DD format, reference to [Dates](/semantic-layers/dates). |
+| value_type_id | Type of value measured (links to [Value Types](/semantic-layers/value-types), e.g., actuals, budget). |
+| nr_of_customers | Volume variable with number of customers contributing to this revenue change. |
+| mrr_per_customer | Pricing variable, monthly recurring revenue. |
+| total_mrr | Total Monthly Recurring Revenue as defined as volume (nr_of_customers) x price (value_per_customer) |
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/facts/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/facts/sqls/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
+
+<Callout>
+  The primary key is formed by constrainst on dates, revenue types, and value types: <br/>
+  `PRIMARY KEY (date, value_type_id)`
+</Callout>
+
+## Dependencies
+
+- **[Dates](/semantic-layers/dates)**
+- **[Value Types](/semantic-layers/value-types)**

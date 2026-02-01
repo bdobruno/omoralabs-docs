@@ -2,7 +2,7 @@ import polars as pl
 import requests
 
 
-def get_exchange_rates_per_date(currency_pairs_df: pl.DataFrame) -> pl.DataFrame:
+def run_worker(currency_pairs_df: pl.DataFrame) -> pl.DataFrame:
     """
     Fetch exchange rates for given dates and currency pairs.
 

@@ -1,0 +1,67 @@
+---
+title: SaaS Metrics
+description: A production-ready financial blueprint demonstrating SaaS Metrics analysis using Omora Labs components.
+---
+
+export const blueprint_name="saas_metrics"
+
+## Overview
+
+A production-grade SaaS Metrics analysis blueprint built on Omora Labs components. This system demonstrates how semantic layers, facts, transformations, and reporting work together to deliver automated SaaS Metrics.
+
+## Assets
+
+- Source code: <a href="https://github.com/omoralabs/saas_metrics" target="_blank">GitHub</a>
+- Live report: <a href="https://app.hex.tech/019b6514-4a4f-7002-9c8d-dff74ca45f74/app/SaaS-Metrics-by-Omora-Labs-032JPu7hU3PLoO3nj9yvbq/latest?&tab=reports" target="_blank">Hex</a>
+
+## Live Report
+
+<link rel="stylesheet" href="https://static.hex.site/embed/embedStyles.css" />
+<div className="responsive-embed">
+  <iframe
+    className="w-full aspect-video"
+    style={{ border: 'none' }}
+    src="https://app.hex.tech/019b6514-4a4f-7002-9c8d-dff74ca45f74/app/032JPu7hU3PLoO3nj9yvbq/latest?embedded=true&tab=reports"
+  />
+</div>
+
+## Dependencies
+
+- Semantic Layers: [Dates](/semantic-layers/dates), [Value Types](/semantic-layers/value-types), [Revenue Types](/semantic-layers/revenue-types), [GL Accounts](/semantic-layers/gl-accounts), and [GL Accounts Types](/semantic-layers/gl-accounts-types)
+- Facts: [Revenue Changes](/facts/revenue-changes), [Revenue Starting Balance](/facts/revenue-strating-balance), [Customer Count](/facts/customer-count), [MRR View](/facts/mrr-view), [PnL](/facts/pnl)
+- Workers: [Customer Count](/workers/customer-count), and [MRR View](/workers/mrr-view)
+- Transformations: [ARR Aggregated](/transformations/arr-aggregated), [Customer Count View](/transformations/customer-count-view), [Customer Value](/transformations/customer-value), [Customer Value Drivers](/transformations/customer-value-drivers), [MRR Aggregated](/transformations/mrr-aggregated), [Retention](/transformations/retention), [PnL Metrics](/transformations/pnl-metrics), [PnL Rollup](/transformations/pnl-rollup), [Cost to Serve](/transformations/cost-to-serve), [GTM Efficiency](/transformations/gtm-efficiency), [GTM Efficiency Drivers](/transformations/gtm-efficiency-drivers), [LTV](/transformations/ltv), and [LTV Drivers](/transformations/ltv-drivers)
+
+## How to Use
+
+1. Run the following command from your terminal or clone or fork the <a href="https://github.com/omoralabs/saas_metrics" target="_blank">GitHub</a> repository.
+
+```bash
+npx omoralabs@latest add saas_metrics
+```
+
+2. Replace the CSVs with your own data.
+3. Create a local or remote database and load sample data:
+
+<Callout>
+The remote database service is provided by [Motherduck](https://motherduck.com/), a remote service for [DuckDB](https://duckdb.org/) databases. You must have an account to complete the remote setup. Motherduck provides a generours free tier.
+</Callout>
+
+```bash lineNumbers
+# Create a local database and load sample data
+  uv run omora-local
+
+  # Create a remote database and load sample data
+  uv run omora-remote
+```
+4. Run dbt to materialize the analytics models:
+```bash lineNumbers
+cd src/saas_metrics/saas_metrics_dbt
+uv run dbt run
+```
+5. Connect to your favorite BI tool directly to the analytics layer. Example consumption on BI Tool:
+
+```sql lineNumbers
+select * from analytics.arr_aggregated
+select * from analytics.ltv
+```

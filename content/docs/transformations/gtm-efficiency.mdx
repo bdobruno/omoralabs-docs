@@ -1,0 +1,55 @@
+---
+title: GTM Efficiency
+description: Measures go-to-market efficiency by calculating customer acquisition cost from sales and marketing expenses.
+---
+
+export const table_name = "gtm_efficiency"
+export const caption = "Sales, marketing, and blended CAC by period and value type."
+
+## Purpose
+
+Provide a go-to-market efficiency view, translating sales and marketing spend into customer acquisition cost (CAC) metrics.
+
+This model is designed as a unit-economics reporting layer, enabling:
+- Tracking sales and marketing efficiency over time
+- Comparing pure sales CAC vs blended sales & marketing CAC
+- Supporting LTV/CAC and payback analyses
+
+It connects GTM spending with customer growth outcomes.
+
+## Business Logic
+
+- Start from [PnL Rollup](/transformations/pnl-rollup)
+- Isolate GTM cost categories:
+  - Sales costs `gl_id = 4010`
+  - Marketing costs `gl_id = 4020`
+- Join with [Customer Count View](/transformations/customer-count-view)
+- Normalize costs by number of new customers acquired
+- Produce one row per date and value type
+
+## Output Contract
+### Definitions
+
+| Column        | Description                                         |
+| ------------- | --------------------------------------------------- |
+| date          | Date of the snapshot (`YYYY-MM-DD`)                 |
+| value_type    | Value type such as `actual`, `budget` |
+| sales_cost    | Total sales expense for the period                  |
+| mkt_cost      | Total marketing expense for the period              |
+| new_customers | Number of newly acquired customers                  |
+| sales_cac     | Sales cost per new customer                         |
+| sales_mkt_cac | Blended sales & marketing CAC                       |
+
+
+
+
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/transformations/models/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/transformations/models/${table_name}.sql`}/>
+  </RenderTable>
+
+## Dependencies
+
+- Transformations: [PnL Rollup](/transformations/pnl-rollup) and [Customer Count View](/transformations/customer-count-view)

@@ -11,11 +11,12 @@ export const table_name="revenue_changes"
 
 | Column | Description |
 |--------|-------------|
-| date | Date in YYYY-MM-DD format, reference to [Dates](semantic-layer/dates). |
-| revenue_type_id | Type of revenue change (links to [Revenue Types](semantic-layer/revenue-types), e.g., New Booking, Upsell). |
-| value_type_id | Type of value measured (links to [Value Types](semantic-layer/value-types), e.g., actuals, budget). |
+| date | Date in YYYY-MM-DD format, reference to [Dates](/semantic-layers/dates). |
+| revenue_type_id | Type of revenue change (links to [Revenue Types](/semantic-layers/revenue-types), e.g., New Booking, Upsell). |
+| value_type_id | Type of value measured (links to [Value Types](/semantic-layers/value-types), e.g., actuals, budget). |
 | nr_of_customers | Volume variable with number of customers contributing to this revenue change. |
-| value_per_customer | Pricing variable, with revenue per customer for this change. |
+| mrr_per_customer | Pricing variable, monthly recurring revenue. |
+| total_mrr | Total Monthly Recurring Revenue as defined as volume (nr_of_customers) x price (value_per_customer) |
 
 ### Sample & Implementation
 
@@ -34,6 +35,6 @@ export const table_name="revenue_changes"
 
 ## Dependencies
 
-- **[Dates](/semantic-layers//dates)**
-- **[Revenue Types](/semantic-layers//revenue-types)**
-- **[Value Types](/semantic-layers//value-types)**
+- **[Dates](/semantic-layers/dates)**
+- **[Revenue Types](/semantic-layers/revenue-types)**
+- **[Value Types](/semantic-layers/value-types)**

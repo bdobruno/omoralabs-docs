@@ -1,0 +1,39 @@
+---
+title: Customer Count
+description: Facts defining customer counts at a given date and value type, used as the baseline for customer evolution.
+---
+
+export const caption = "Customer Count"
+export const table_name="customer_count"
+
+## Facts
+### Definitions
+
+| Column | Description |
+|--------|-------------|
+| date | Date in `YYYY-MM-DD` format, reference to [Dates](/semantic-layers/dates). |
+| value_type_id | Type of value measured (links to [Value Types](/semantic-layers/value-types), e.g., actuals, budget). |
+| net_new | Net new customers calculated as new customers minus churn, per date and value type. |
+| cum_net_new | Cumulative sum of `net_new`. |
+| current_base | Nr of customers balance at the beginning of the period. |
+| ending_balance | Nr of customers balance at the end of the period. |
+
+### Sample & Implementation
+
+  <RenderTable csvPath={`registry/facts/${table_name}.csv`} caption={caption}>
+      <ReadComponents filePath={`registry/facts/sqls/${table_name}.sql`}/>
+  </RenderTable>
+
+## Data Format
+
+<TypeTableFromFile filePath={`registry/facts/${table_name}.json`} />
+
+<Callout>
+  The primary key is formed by constrainst on dates and value types: <br/>
+  `PRIMARY KEY (date, value_type)`
+</Callout>
+
+## Dependencies
+
+- **[Dates](/semantic-layers/dates)**
+- **[Value Types](/semantic-layers/value-types)**

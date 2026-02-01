@@ -11,3 +11,4 @@ sources:
       - name: currency_pairs
       - name: dates
       - name: exchange_rates
+      - name: customer_count

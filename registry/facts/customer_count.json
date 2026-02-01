@@ -1,0 +1,40 @@
+{
+  "table_name": "customer_count",
+  "primary_key": ["date", "value_type_id"],
+  "fields": {
+    "date": {
+      "type": "DATE NOT NULL",
+      "description": "Foreign key to dates(date)"
+    },
+    "value_type_id": {
+      "type": "INTEGER NOT NULL",
+      "description": "Foreign key to value_types(id)"
+    },
+    "net_new": {
+      "type": "INTEGER NOT NULL",
+      "description": "Net new customers for the periods defined by New Customers minus Churn"
+    },
+    "cum_net_new": {
+      "type": "INTEGER NOT NULL",
+      "description": "Cumulative sum of net new customers"
+    },
+    "current_base": {
+      "type": "INTEGER NOT NULL",
+      "description": "Nr of customers balance at the beginning of the period"
+    },
+    "ending_balance": {
+      "type": "INTEGER NOT NULL",
+      "description": "Nr of customers balance at the end of the period"
+    }
+  },
+  "foreign_keys": [
+    {
+      "field": "date",
+      "references": "dates(date)"
+    },
+    {
+      "field": "value_type_id",
+      "references": "value_types(id)"
+    }
+  ]
+}

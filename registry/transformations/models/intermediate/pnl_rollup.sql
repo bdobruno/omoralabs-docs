@@ -36,8 +36,8 @@ select
     ga.id as gl_id,
     ga.name as gl_account,
     pnlr.value_type_id,
-    vt.name as type,
-    SUM(pnlr.amount) as amount
+    vt.name as value_type,
+    SUM(pnlr.amount)::double as amount
 from pnl_rollup pnlr
 join dates p ON p.date = pnlr.date
 join gl_accounts ga ON ga.id = pnlr.gl_account_id
