@@ -1,8 +1,13 @@
-import type { ComponentProps, ReactNode } from 'react';
-import { cn } from '../../../../lib/cn';
-import { buttonVariants } from '../../../ui/button';
-import { Edit, Text } from 'lucide-react';
-import { I18nLabel } from 'fumadocs-ui/contexts/i18n';
+import { CardSmall } from "components/card";
+import type { AnchorProviderProps, TOCItemType } from "fumadocs-core/toc";
+import { I18nLabel } from "fumadocs-ui/contexts/i18n";
+import { Edit, Text } from "lucide-react";
+import type { ComponentProps, ReactNode } from "react";
+import { cn } from "../../../../lib/cn";
+import { TOCProvider, TOCScrollArea } from "../../../toc";
+import * as TocClerk from "../../../toc/clerk";
+import * as TocDefault from "../../../toc/default";
+import { buttonVariants } from "../../../ui/button";
 import {
   type BreadcrumbProps,
   type FooterProps,
@@ -11,11 +16,7 @@ import {
   PageTOCPopover,
   PageTOCPopoverContent,
   PageTOCPopoverTrigger,
-} from './client';
-import type { AnchorProviderProps, TOCItemType } from 'fumadocs-core/toc';
-import * as TocDefault from '../../../toc/default';
-import * as TocClerk from '../../../toc/clerk';
-import { TOCProvider, TOCScrollArea } from '../../../toc';
+} from "./client";
 
 interface BreadcrumbOptions extends BreadcrumbProps {
   enabled: boolean;
@@ -59,7 +60,7 @@ export interface DocsPageProps {
   className?: string;
 }
 
-type TableOfContentOptions = Pick<AnchorProviderProps, 'single'> & {
+type TableOfContentOptions = Pick<AnchorProviderProps, "single"> & {
   /**
    * Custom content in TOC container, before the main TOC
    */
@@ -76,28 +77,43 @@ type TableOfContentOptions = Pick<AnchorProviderProps, 'single'> & {
   /**
    * @defaultValue 'normal'
    */
-  style?: 'normal' | 'clerk';
+  style?: "normal" | "clerk";
 };
 
-type TableOfContentPopoverOptions = Omit<TableOfContentOptions, 'single'>;
+type TableOfContentPopoverOptions = Omit<TableOfContentOptions, "single">;
 
 export function DocsPage({
-  breadcrumb: { enabled: breadcrumbEnabled = true, component: breadcrumb, ...breadcrumbProps } = {},
-  footer: { enabled: footerEnabled, component: footerReplace, ...footerProps } = {},
+  breadcrumb: {
+    enabled: breadcrumbEnabled = true,
+    component: breadcrumb,
+    ...breadcrumbProps
+  } = {},
+  footer: {
+    enabled: footerEnabled,
+    component: footerReplace,
+    ...footerProps
+  } = {},
   full = false,
   tableOfContentPopover: {
     enabled: tocPopoverEnabled,
     component: tocPopover,
     ...tocPopoverOptions
   } = {},
-  tableOfContent: { enabled: tocEnabled, component: tocReplace, ...tocOptions } = {},
+  tableOfContent: {
+    enabled: tocEnabled,
+    component: tocReplace,
+    ...tocOptions
+  } = {},
   toc = [],
   children,
   className,
 }: DocsPageProps) {
   // disable TOC on full mode, you can still enable it with `enabled` option.
   tocEnabled ??=
-    !full && (toc.length > 0 || tocOptions.footer !== undefined || tocOptions.header !== undefined);
+    !full &&
+    (toc.length > 0 ||
+      tocOptions.footer !== undefined ||
+      tocOptions.header !== undefined);
 
   tocPopoverEnabled ??=
     toc.length > 0 ||
@@ -123,7 +139,7 @@ export function DocsPage({
             <PageTOCPopoverContent>
               {tocPopoverOptions.header}
               <TOCScrollArea>
-                {tocPopoverOptions.style === 'clerk' ? (
+                {tocPopoverOptions.style === "clerk" ? (
                   <TocClerk.TOCItems />
                 ) : (
                   <TocDefault.TOCItems />
@@ -137,14 +153,16 @@ export function DocsPage({
         id="nd-page"
         data-full={full}
         className={cn(
-          'flex flex-col [grid-area:main] pt-14 pb-6 gap-4 w-full',
-          '*:max-w-full *:px-8 *:mx-auto sm:*:max-w-xl md:*:max-w-2xl lg:*:max-w-3xl xl:*:max-w-4xl',
+          "flex flex-col [grid-area:main] pt-14 pb-6 gap-4 w-full",
+          "*:max-w-full *:px-8 *:mx-auto sm:*:max-w-xl md:*:max-w-2xl lg:*:max-w-3xl xl:*:max-w-4xl",
           className,
         )}
       >
-        {breadcrumbEnabled && (breadcrumb ?? <PageBreadcrumb {...breadcrumbProps} />)}
+        {breadcrumbEnabled &&
+          (breadcrumb ?? <PageBreadcrumb {...breadcrumbProps} />)}
         {children}
-        {footerEnabled !== false && (footerReplace ?? <PageFooter {...footerProps} />)}
+        {footerEnabled !== false &&
+          (footerReplace ?? <PageFooter {...footerProps} />)}
       </article>
       {tocEnabled &&
         (tocReplace ?? (
@@ -161,16 +179,26 @@ export function DocsPage({
               <I18nLabel label="toc" />
             </h3>
             <TOCScrollArea>
-              {tocOptions.style === 'clerk' ? <TocClerk.TOCItems /> : <TocDefault.TOCItems />}
+              {tocOptions.style === "clerk" ? (
+                <TocClerk.TOCItems />
+              ) : (
+                <TocDefault.TOCItems />
+              )}
             </TOCScrollArea>
             {tocOptions.footer}
+            <CardSmall
+              cardTitle="Star us on GitHub"
+            cardText="If you enjoy this content and find it useful, give us a star on GitHub to show your support and stay updated with our latest improvements."
+            buttonText="Star Us"
+              className="mt-8"
+            />
           </div>
         ))}
     </>,
   );
 }
 
-export function EditOnGitHub(props: ComponentProps<'a'>) {
+export function EditOnGitHub(props: ComponentProps<"a">) {
   return (
     <a
       target="_blank"
@@ -178,9 +206,9 @@ export function EditOnGitHub(props: ComponentProps<'a'>) {
       {...props}
       className={cn(
         buttonVariants({
-          color: 'secondary',
-          size: 'sm',
-          className: 'gap-1.5 not-prose',
+          color: "secondary",
+          size: "sm",
+          className: "gap-1.5 not-prose",
         }),
         props.className,
       )}
@@ -198,31 +226,46 @@ export function EditOnGitHub(props: ComponentProps<'a'>) {
 /**
  * Add typography styles
  */
-export function DocsBody({ children, className, ...props }: ComponentProps<'div'>) {
+export function DocsBody({
+  children,
+  className,
+  ...props
+}: ComponentProps<"div">) {
   return (
-    <div {...props} className={cn('prose flex-1', className)}>
+    <div {...props} className={cn("prose flex-1", className)}>
       {children}
     </div>
   );
 }
 
-export function DocsDescription({ children, className, ...props }: ComponentProps<'p'>) {
+export function DocsDescription({
+  children,
+  className,
+  ...props
+}: ComponentProps<"p">) {
   // Don't render if no description provided
   if (children === undefined) return null;
 
   return (
-    <p {...props} className={cn('mb-8 text-lg text-fd-muted-foreground', className)}>
+    <p
+      {...props}
+      className={cn("mb-8 text-lg text-fd-muted-foreground", className)}
+    >
       {children}
     </p>
   );
 }
 
-export function DocsTitle({ children, className, ...props }: ComponentProps<'h1'>) {
+export function DocsTitle({
+  children,
+  className,
+  ...props
+}: ComponentProps<"h1">) {
   return (
-    <h1 {...props} className={cn('text-[1.75em] font-semibold', className)}>
+    <h1 {...props} className={cn("text-[1.75em] font-semibold", className)}>
       {children}
     </h1>
   );
 }
 
-export { PageLastUpdate, PageBreadcrumb } from './client';
+export { PageBreadcrumb, PageLastUpdate } from "./client";
