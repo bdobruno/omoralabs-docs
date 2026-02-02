@@ -1,6 +1,6 @@
 {
   "name": "omoralabs",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Building blocks for composable, production-grade finance analytics",
   "bin": {
     "omoralabs": "cli.js"
