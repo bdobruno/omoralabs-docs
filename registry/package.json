@@ -24,6 +24,7 @@
     "transformations/**/*",
     "workers/**/*"
   ],
+  "homepage": "https://docs.omoralabs.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/bdobruno/omoralabs-docs"

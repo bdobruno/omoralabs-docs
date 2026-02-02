@@ -4,9 +4,7 @@
 
 # Omora Labs Documentation
 
-Official Omora Labs documentation.
-
-Omora Labs provides reusable finance data components - transformations, semantic dimensions, and reporting blocks — for building production-grade analytics pipelines. Code-first, version-controlled, no vendor lock-in.
+Omora Labs provides reusable finance data components. Transformations, semantic dimensions, and reporting blocks for building production-grade analytics pipelines. Code-first, version-controlled, no vendor lock-in.
 
 ## Installation
 
@@ -16,7 +14,7 @@ Install the package in your project directory with:
 
 ## Documentation
 
-Visit docs.omoralabs.com to view the full documentation.
+Visit [docs.omoralabs.com](https://docs.omoralabs.com) to view the full documentation.
 
 ## License
 
