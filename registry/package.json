@@ -1,10 +1,20 @@
 {
   "name": "omoralabs",
   "version": "0.1.4",
-  "description": "Building blocks for composable, modern finance analytics",
+  "description": "Building blocks for composable, production-grade finance analytics",
   "bin": {
     "omoralabs": "cli.js"
   },
+  "keywords": [
+    "saas-metrics",
+    "financial-analytics",
+    "semantic-layer",
+    "metrics",
+    "sql-generator",
+    "dbt",
+    "data-modeling",
+    "financial-reporting"
+  ],
   "files": [
     "cli.js",
     "database/**/*",
