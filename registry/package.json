@@ -11,9 +11,9 @@
     "semantic-layer",
     "metrics",
     "sql-generator",
-    "dbt",
     "data-modeling",
-    "financial-reporting"
+    "financial-reporting",
+    "dbt"
   ],
   "files": [
     "cli.js",
