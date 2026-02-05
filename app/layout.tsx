@@ -7,8 +7,8 @@ import "./global.css";
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <GoogleAnalytics gaId="G-VLP6SYCF0D" />
       <body className="flex flex-col min-h-screen">
-        <GoogleAnalytics gaId="G-VLP6SYCF0D" />
         <RootProvider>{children}</RootProvider>
         <Analytics />
         <Toaster />
