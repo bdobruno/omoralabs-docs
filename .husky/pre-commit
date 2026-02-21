@@ -1,0 +1,3 @@
+pnpm knip --reporter compact || true
+pnpm jscpd || true
+pnpm run build
