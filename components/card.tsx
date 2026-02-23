@@ -29,9 +29,9 @@ export function CardSmall({
       rel="noopener noreferrer"
     >
       <div>
-    <Card className={cn("mx-auto w-full max-w-sm border-none cursor-pointer", className)}>
+    <Card className={cn("mx-auto w-full max-w-sm border border-zinc-200 dark:border-zinc-700 cursor-pointer", className)}>
       <CardHeader className="gap-0">
-        <CardTitle className=" text-zinc-300 w-full">
+        <CardTitle className="text-zinc-900 dark:text-zinc-300 w-full">
           {cardTitle}
         </CardTitle>
       </CardHeader>

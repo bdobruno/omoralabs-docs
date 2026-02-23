@@ -1,6 +1,6 @@
 import type * as PageTree from "fumadocs-core/page-tree";
 import { TreeContextProvider } from "fumadocs-ui/contexts/tree";
-import { GitHubLogo } from "icons/general";
+import { GitHubLogo, NPMLogo } from "icons/general";
 import { Languages, Sidebar as SidebarIcon, X } from "lucide-react";
 import Link from "next/link";
 import {
@@ -45,7 +45,6 @@ import {
   SidebarTrigger,
   SidebarViewport,
 } from "./sidebar";
-
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
 
@@ -430,6 +429,21 @@ function DocsNavbar({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
+                  href={"https://www.npmjs.com/package/omoralabs"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="size-8 rounded-md p-2 dark:text-white hover:bg-fd-accent transition-opacity inline-flex items-center justify-center"
+                >
+                  <NPMLogo />
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
+                <p>NPM</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
                   href={"https://github.com/omoralabs/omoralabs-docs"}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -439,7 +453,7 @@ function DocsNavbar({
                 </Link>
               </TooltipTrigger>
               <TooltipContent className="dark:bg-black dark:text-gray-200 border bg-white text-gray-700 select-none">
-                <p>GitHub repo</p>
+                <p>GitHub</p>
               </TooltipContent>
             </Tooltip>
 

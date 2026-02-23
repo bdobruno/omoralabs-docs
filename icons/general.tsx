@@ -19,6 +19,25 @@ export const GitHubLogo = () => (
   </>
 );
 
+export const NPMLogo = () => (
+  <>
+    <Image
+      src="/npm.svg"
+      alt="NPM"
+      width={32}
+      height={32}
+      className="h-4 w-auto dark:hidden"
+    />
+    <Image
+      src="/npm-white.svg"
+      alt="NPM"
+      width={32}
+      height={32}
+      className="h-4 w-auto hidden dark:block"
+    />
+  </>
+);
+
 export const DagsterLogo = () => (
   <>
     <Image
